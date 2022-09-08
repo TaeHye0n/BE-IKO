@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+logging:
+  file:
+    path: logs
+
+spring:
+
+  output:
+    ansi:
+      enabled: always
+
+  jackson:
+    default-property-inclusion: non_null
+
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource:
+    url: jdbc:mysql://43.200.50.49:3306/ikoDB?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&allowPublicKeyRetrieval=true
+    username: iko
+    password: ikoiko!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+jwt:
+  secret: asdasd
