@@ -38,7 +38,7 @@ public class Member extends BaseEntity{
 
     private String birthDay;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String password;
 
     private String recommendCode;
