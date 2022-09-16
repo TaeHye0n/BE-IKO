@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "member")
+@Table(name = "tb_member")
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -18,32 +18,29 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id", unique = true, nullable = false)
+    @Column(name = "member_id_pk", unique = true, nullable = false)
     private Integer memberId;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String readName;
+    private String readname;
 
     private Integer postCode;
 
     private String phone;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String email;
 
-    private String birthDay;
+    private String birthday;
 
-    @Column(nullable = false)
     private String password;
 
-    private String recommendCode;
+    private Integer point;
 
-    private Float point;
-
+    private Integer auth;
 
 }
