@@ -29,7 +29,7 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String readName;
 
-    private String postCode;
+    private Integer postCode;
 
     private String phone;
 
