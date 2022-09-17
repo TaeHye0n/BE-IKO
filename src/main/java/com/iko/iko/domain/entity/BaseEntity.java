@@ -19,7 +19,7 @@ public class BaseEntity {
 
     private String createdBy;
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false)
+    @Column(columnDefinition = "DATETIME", nullable = false)
     private Date updatedAt;
 
     private String updatedBy;
