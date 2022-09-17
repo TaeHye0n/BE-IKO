@@ -7,6 +7,11 @@ logging:
 
 spring:
 
+  mvc:
+
+    pathmatch:
+
+      matching-strategy: ant_path_matcher
   output:
     ansi:
       enabled: always
