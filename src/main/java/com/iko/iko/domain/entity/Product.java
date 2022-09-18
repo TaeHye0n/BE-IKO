@@ -29,7 +29,7 @@ public class Product extends BaseEntity {
 
     @Column(name = "image_id_fk")
     @NotEmpty
-    private Image image_id;
+    private Integer image_id;
 
     @Column(name ="product_name", nullable = false)
     @NotEmpty
@@ -42,7 +42,7 @@ public class Product extends BaseEntity {
 
     @Column(name ="total_recommend", nullable = true)
     @NotEmpty
-    private boolean recommend;
+    private Integer recommend;
 
     @Column(name="series", nullable = false)
     @NotEmpty

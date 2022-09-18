@@ -33,14 +33,13 @@ public class ProductDetails extends BaseEntity {
     @NotEmpty
     private String name;
 
-
     @Column(name ="period", nullable = false)
     @NotEmpty
     private Integer period;
 
     @Column(name ="product_details_price", nullable = true)
     @NotEmpty
-    private Integer product_details_price;
+    private Integer detailsPrice;
 
     @Column(name="material", nullable = false)
     @NotEmpty
@@ -48,7 +47,7 @@ public class ProductDetails extends BaseEntity {
 
     @Column(name="color_code", nullable = false)
     @NotEmpty
-    private Integer color_code;
+    private Integer colorCode;
 
     @Column(name="degree",nullable = true)
     @NotEmpty
@@ -56,7 +55,7 @@ public class ProductDetails extends BaseEntity {
 
     @Column(name="is_sale",nullable = false)
     @NotEmpty
-    private Integer is_sale;
+    private Integer isSale;
 
     @Column(name="moisture")
     @NotEmpty
