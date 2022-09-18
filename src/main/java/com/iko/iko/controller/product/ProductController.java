@@ -1,4 +1,4 @@
-package com.iko.iko.domain.controller;
+package com.iko.iko.controller.product;
 
 import java.util.List;
 
