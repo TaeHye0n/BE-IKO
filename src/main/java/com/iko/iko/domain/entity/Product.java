@@ -3,6 +3,10 @@ package com.iko.iko.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +15,10 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Builder
+@DynamicUpdate
+@DynamicInsert
 @Table(name = "tb_product")
 public class Product extends BaseEntity {
 
@@ -19,13 +27,11 @@ public class Product extends BaseEntity {
     @Column(name ="product_id_pk",unique = true,nullable = false)
     private Integer product_id;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "image_id_fk")
-    })
+    @Column(name = "image_id_fk")
+    @NotEmpty
     private Image image_id;
 
-    @Column(name ="name", nullable = false)
+    @Column(name ="product_name", nullable = false)
     @NotEmpty
     private String name;
 
@@ -34,7 +40,7 @@ public class Product extends BaseEntity {
     @NotEmpty
     private String manufacturer;
 
-    @Column(name ="recommend", nullable = true)
+    @Column(name ="total_recommend", nullable = true)
     @NotEmpty
     private boolean recommend;
 
@@ -49,6 +55,18 @@ public class Product extends BaseEntity {
     @Column(name="discount",nullable = true)
     @NotEmpty
     private Integer discount;
+
+    @Column(name="product_stock",nullable = false)
+    @NotEmpty
+    private Integer stock;
+
+    @Column(name="price")
+    @NotEmpty
+    private Integer price;
+
+    @Column(name="graphic_diameter")
+    @NotEmpty
+    private float graphic_diameter;
 
 
 }
