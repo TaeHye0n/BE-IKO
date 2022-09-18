@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import com.iko.iko.domain.entity.Product;
+import static com.iko.iko.domain.entity.QProduct.product;
 
 @Repository
 @RequiredArgsConstructor
@@ -14,13 +15,13 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-   // @Override
-    //public List<Product> findAllInnerFetchJoin(){
+    @Override
+    public List<Product> findAllInnerFetchJoin(){
 
-       // return jpaQueryFactory
-           //     .selectFrom(product)
-             //   .fetch();
+        return jpaQueryFactory
+                .selectFrom(product)
+                .fetch();
 
-   // }
+   }
 
 }

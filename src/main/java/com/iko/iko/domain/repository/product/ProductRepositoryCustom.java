@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface ProductRepositoryCustom{
 
-  //  List<Product> findAllInnerFetchJoin();
+   List<Product> findAllInnerFetchJoin();
 
 }

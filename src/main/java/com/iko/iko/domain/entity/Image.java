@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Table(name="tb_image")
 public class Image extends BaseEntity {
     @Id

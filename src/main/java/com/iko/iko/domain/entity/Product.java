@@ -25,7 +25,7 @@ public class Product extends BaseEntity {
     })
     private Image image_id;
 
-    @Column(name ="product_name", nullable = false)
+    @Column(name ="name", nullable = false)
     @NotEmpty
     private String name;
 
@@ -34,7 +34,7 @@ public class Product extends BaseEntity {
     @NotEmpty
     private String manufacturer;
 
-    @Column(name ="total_recommend", nullable = true)
+    @Column(name ="recommend", nullable = true)
     @NotEmpty
     private boolean recommend;
 
@@ -48,11 +48,7 @@ public class Product extends BaseEntity {
 
     @Column(name="discount",nullable = true)
     @NotEmpty
-    private float discount;
-
-    @Column(name="product_stock",nullable = false)
-    @NotEmpty
-    private Integer stock;
+    private Integer discount;
 
 
 }
