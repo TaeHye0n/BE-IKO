@@ -24,14 +24,14 @@ public class Board extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id_pk", unique = true, nullable = false)
-    private Integer memberId;
+    private Integer boardId;
 
     @Column(name = "board_title")
-    private String board_title;
+    private String boardTitle;
 
     @Column(name = "board_type")
-    private Integer board_type;
+    private Integer boardType;
 
-    @Column(name = "board_exception")
-    private String board_exception;
+    @Column(name = "board_description")
+    private String boardDescription;
 }

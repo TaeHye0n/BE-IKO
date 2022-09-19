@@ -23,7 +23,7 @@ import javax.persistence.*;
 public class CartFavor extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_favor_id_fk", unique = true, nullable = false)
+    @Column(name = "cart_favor_id_pk", unique = true, nullable = false)
     private Integer cartFavorId;
 
     @Column(name = "member_id_fk")

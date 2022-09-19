@@ -22,7 +22,7 @@ import javax.persistence.*;
 public class ReplyImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reply_id_image_pk", unique = true, nullable = false)
+    @Column(name = "reply_image_id_pk", unique = true, nullable = false)
     private Integer replyImageId;
 
     @Column(name = "image_id_fk")
