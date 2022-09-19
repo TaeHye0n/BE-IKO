@@ -36,7 +36,7 @@ public class MemberSignUpRequestDto {
     @NotBlank(message = "비밀번호를 입력해주세요")
     private String password;
 
-    private String checkedPassWord;
+    private String passwordConfirm;
 
 
     @Builder

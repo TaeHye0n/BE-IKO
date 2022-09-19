@@ -23,7 +23,7 @@ public class SignupService {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
 
-        if (!requestDto.getPassword().equals(requestDto.getCheckedPassWord())){
+        if (!requestDto.getPassword().equals(requestDto.getPasswordConfirm())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
