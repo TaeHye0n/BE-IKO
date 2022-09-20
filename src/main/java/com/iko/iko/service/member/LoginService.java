@@ -18,7 +18,6 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     @Transactional
     public TokenResponseDto login(MemberSignInRequestDto requestDto) {
         Member member = memberRepository.findByEmail(requestDto.getEmail())
@@ -36,6 +35,8 @@ public class LoginService {
         return TokenResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .accessTokenValidTime(18000L)
+                .refreshTokenValidTime(604800L)
                 .build();
     }
 

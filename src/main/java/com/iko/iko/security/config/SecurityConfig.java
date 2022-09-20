@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
@@ -28,8 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin().disable()
                 .httpBasic().disable()
-                .cors().configurationSource(corsConfigurationSource())
-                .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -37,8 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/member/signup", "member/login").permitAll()
                 .antMatchers("/member").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 //.anyRequest().authenticated()
                 .anyRequest().permitAll()
+                .and()
+                .cors()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
@@ -78,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
