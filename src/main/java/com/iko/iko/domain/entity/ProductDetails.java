@@ -24,7 +24,7 @@ public class ProductDetails extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="product_details_id_pk",unique = true,nullable = false)
-    private Integer product_details_id;
+    private Integer productDetailsId;
 
     @Column(name="diameter")
     private float diameter;

@@ -25,16 +25,15 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="product_id_pk",unique = true,nullable = false)
-    private Integer product_id;
+    private Integer productId;
 
     @Column(name = "image_id_fk")
     @NotEmpty
-    private Integer image_id;
+    private Integer imageId;
 
     @Column(name ="product_name", nullable = false)
     @NotEmpty
     private String name;
-
 
     @Column(name ="manufacturer", nullable = false)
     @NotEmpty
@@ -66,7 +65,7 @@ public class Product extends BaseEntity {
 
     @Column(name="graphic_diameter")
     @NotEmpty
-    private float graphic_diameter;
+    private float graphicDiameter;
 
 
 }
