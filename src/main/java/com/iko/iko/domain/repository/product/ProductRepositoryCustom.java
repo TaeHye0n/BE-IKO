@@ -15,5 +15,6 @@ import java.util.List;
 public interface ProductRepositoryCustom{
 
    List<ProductResponse.ProductMainResponse> getMainProduct(Pageable pageable);
+  // Product findByGraphicDiameter(float graphicDiameter);
 
 }

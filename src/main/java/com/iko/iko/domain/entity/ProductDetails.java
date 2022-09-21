@@ -26,6 +26,9 @@ public class ProductDetails extends BaseEntity {
     @Column(name ="product_details_id_pk",unique = true,nullable = false)
     private Integer productDetailsId;
 
+    @Column(name="product_id_fk")
+    private Integer productIdFk;
+
     @Column(name="diameter")
     private float diameter;
 
@@ -68,6 +71,9 @@ public class ProductDetails extends BaseEntity {
     @Column(name="recommend")
     @NotEmpty
     private Integer recommend;
+
+    @Column(name="product_details_stock")
+    private Integer productDetailsStock;
 
 
 }
