@@ -16,7 +16,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.iko.iko.security.jwt.JwtTokenProvider.HEADER_ACCESS_TOKEN;
 
 @Configuration
 public class SwaggerConfig {
@@ -44,7 +43,7 @@ public class SwaggerConfig {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("JWT", HEADER_ACCESS_TOKEN, "header");
+        return new ApiKey("JWT", "X-ACCESS-TOKEN", "header");
     }
 
     private SecurityContext securityContext() {

@@ -12,40 +12,40 @@ import java.sql.Date;
 @Getter
 public class MemberResponseDto {
 
- //   private Integer memberId;
+    private Integer memberId;
 
-  //  private String name;
+    private String name;
 
- //   private String readname;
+    private String readname;
 
-  //  private Integer postCode;
+    private Integer postCode;
 
- //   private String address;
+    private String address;
 
-  //  private String phone;
+    private String phone;
 
     private String email;
 
-  //  private String birthday;
+    private String birthday;
 
-  //  private Integer point;
+    private Integer point;
 
- //   private Date createdAt;
+    private Date createdAt;
 
-  //  private Date updatedAt;
+    private Date updatedAt;
 
     @Builder
     public MemberResponseDto(Member member) {
-     //   this.memberId = member.getMemberId();
-     //   this.name = member.getName();
-    //    this.readname = member.getReadname();
-   //     this.postCode = member.getPostCode();
-   //     this.address = member.getAddress();
-     //   this.phone = member.getPhone();
-      //  this.birthday = member.getBirthday();
-      //  this.point = member.getPoint();
+        this.memberId = member.getMemberId();
+        this.name = member.getName();
+        this.readname = member.getReadname();
+        this.postCode = member.getPostCode();
+        this.address = member.getAddress();
+        this.phone = member.getPhone();
+        this.birthday = member.getBirthday();
+        this.point = member.getPoint();
         this.email = member.getEmail();
-    //    this.createdAt = member.getCreatedAt();
-     //   this.updatedAt = member.getUpdatedAt();
+        this.createdAt = member.getCreatedAt();
+        this.updatedAt = member.getUpdatedAt();
     }
 }

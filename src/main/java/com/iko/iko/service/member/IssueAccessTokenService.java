@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 
 @RequiredArgsConstructor
 @Service
@@ -26,10 +27,10 @@ public class IssueAccessTokenService {
         String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
 
         //TODO : accessToken 이 만료되었으면
-        if(jwtTokenProvider.validateAccessToken(accessToken)) {
+        if(jwtTokenProvider.validateToken(accessToken)) {
             log.info("access 토큰 만료됨");
             //TODO : 만약 refreshToken 이 유효하다면
-            if(jwtTokenProvider.validateRefreshToken(refreshToken)) {
+            if(jwtTokenProvider.validateToken(refreshToken)) {
                 log.info("refresh Token 은 유효합니다.");
 
                 //TODO : DB에 저장해두었던 refreshToken 을 불러오고 새로운 Access Token 을 생성하기 위함
@@ -43,12 +44,16 @@ public class IssueAccessTokenService {
                 }
                 else {
                     log.info("토큰이 변조되었습니다.");
+
                 }
             }
             else {
                 log.info("Refresh Token 이 유효하지 않습니다.");
             }
+
+
         }
+
         return TokenResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

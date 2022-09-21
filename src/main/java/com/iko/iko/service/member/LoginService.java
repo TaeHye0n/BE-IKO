@@ -26,7 +26,7 @@ public class LoginService {
 
         //TODO : Access Token 과 Refresh Token 을 생성합니다.
         String accessToken = jwtTokenProvider.createAccessToken(member.getUsername(), member.getRole().name());
-        String refreshToken = jwtTokenProvider.createRefreshToken();
+        String refreshToken = jwtTokenProvider.createRefreshToken(member.getUsername(), member.getRole().name());
 
         //TODO : Refresh Token 을 DB에 저장합니다.
         member.updateRefreshToken(refreshToken);
