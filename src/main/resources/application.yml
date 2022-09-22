@@ -6,11 +6,8 @@ logging:
     path: logs
 
 spring:
-
   mvc:
-
     pathmatch:
-
       matching-strategy: ant_path_matcher
   output:
     ansi:

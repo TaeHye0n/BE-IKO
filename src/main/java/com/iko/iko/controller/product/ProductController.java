@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Product;
+import com.iko.iko.service.member.facade.MemberFacade;
 import com.iko.iko.service.product.facade.ProductFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.web.PageableDefault;
@@ -15,10 +16,13 @@ import org.springframework.data.domain.Pageable;
 import com.iko.iko.common.response.Response;
 @RestController
 @RequestMapping("/product")
-@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductFacade productFacade;
+
+    public ProductController(ProductFacade productFacade) {
+        this.productFacade = productFacade;
+    }
 
 /*
     @GetMapping("/productMain")

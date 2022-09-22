@@ -21,7 +21,7 @@ public class JwtTokenProvider {
     private String secretKey;
 
     // 토큰 유효시간 168 시간(7일)
-    private long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 30 ; //30분
+    private long ACCESS_TOKEN_VALID_TIME = 1000L* 10 * 3 ; //30분
 
     private long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 7; //일주일
     private final CustomUserDetailsService customUserDetailsService;
@@ -49,9 +49,16 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(String email, String role) {
+//    public String createRefreshToken() {
+//        Date now = new Date();
+//        return Jwts.builder()
+//                .setIssuedAt(now)
+//                .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_VALID_TIME))
+//                .signWith(SignatureAlgorithm.HS256, secretKey)
+//                .compact();
+//    }
+    public String createRefreshToken(String email) {
         Claims claims = Jwts.claims().setSubject(email);
-        claims.put("role", role);
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims)
@@ -63,13 +70,13 @@ public class JwtTokenProvider {
 
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUserEmail(token));
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(getUserEmail(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     // 토큰에서 회원 정보 추출
     public String getUserEmail(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+           return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
 
@@ -86,6 +93,19 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // jwt 토큰의 유효성 + 로그아웃 확인 + 만료일자만 초과한 토큰이면 return true;
+    public boolean validateTokenExceptExpiration(String jwtToken) {
+        try {
+//            if (isLoggedOut(jwtToken)) return false;
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            return claims.getBody().getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
             return true;
         } catch (Exception e) {

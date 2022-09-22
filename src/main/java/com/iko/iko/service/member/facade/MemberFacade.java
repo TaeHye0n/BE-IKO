@@ -3,6 +3,7 @@ package com.iko.iko.service.member.facade;
 import com.iko.iko.controller.member.dto.request.MemberSignInRequestDto;
 import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 import com.iko.iko.controller.member.dto.response.MemberResponseDto;
+import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.controller.member.dto.response.TokenResponseDto;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.service.member.*;
@@ -32,8 +33,8 @@ public class MemberFacade {
     }
 
     @Transactional
-    public TokenResponseDto issueAccessToken(HttpServletRequest request){
-        return issueAccessTokenService.issueAccessToken(request);
+    public ReissueResponseDto issueAccessToken(String token, String refreshToken){
+        return issueAccessTokenService.issueAccessToken(token, refreshToken);
     }
 
     @Transactional

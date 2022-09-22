@@ -5,6 +5,7 @@ import com.iko.iko.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +25,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -33,12 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/member/signup", "member/login").permitAll()
+                .antMatchers("/member/signup", "/member/login", "/member/reissue").permitAll()
                 .antMatchers("/member").hasRole("USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin").permitAll() // 임시로 permitAll로 해둠
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                //.anyRequest().authenticated()
-                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
+                .anyRequest().permitAll() // 임시로 permitAll로 해둠
                 .and()
                 .cors()
                 .and()
@@ -59,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/image/**",
             "/swagger/**",
             "/swagger-ui/**",
-            "/h2/**"
+            "/h2/**",
     };
 
     // 정적인 파일 요청에 대해 무시
