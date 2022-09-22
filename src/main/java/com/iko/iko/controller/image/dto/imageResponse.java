@@ -16,11 +16,12 @@ public class imageResponse {
     @Builder
     @AllArgsConstructor
 
-    public static class ImageUrl{
+    public static class ImageUrl {
         private String ImageUrl;
 
-    public static class ImageUrlFromProductId{
-        private String imageUrl;
+        public static class ImageUrlFromProductId {
+            private String imageUrl;
 
+        }
     }
 }

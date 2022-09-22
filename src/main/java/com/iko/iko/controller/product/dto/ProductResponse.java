@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.iko.iko.controller.image.dto.imageResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.iko.iko.controller.product.dto.ProductResponseMapper.INSTANCE;
@@ -17,25 +18,17 @@ public class ProductResponse {
     @Getter
     @Builder
     @AllArgsConstructor
-
-    public static  class ProductMainResponse{
-
-        private  String productName;
-        private List<imageResponse.ImageUrl> imageUrl;
-
     public static class ProductForResponse{
         private Integer productId;
         private Integer imageId;
         private String name;
         private String manufacturer;
         private Integer recommend;
-
         private String series;
         private String feature;
         private Integer stock;
         private Integer price;
-        private List<ProductDetailsResponse.colorCodeMainProduct> colorCode;
-
+        private float graphicDiameter;
     }
 
     @Getter
