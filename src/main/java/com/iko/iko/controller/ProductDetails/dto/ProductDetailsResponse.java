@@ -14,4 +14,5 @@ public class ProductDetailsResponse {
     public static class colorCodeMainProduct{
         private Integer colorCode;
     }
+
 }

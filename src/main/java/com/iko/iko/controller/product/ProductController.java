@@ -42,5 +42,16 @@ public class ProductController {
                         "메인상품 불러오기 완료"
                 )
         );
+
+    }
+    @GetMapping("/allProduct")
+    public ResponseEntity<Response<List<ProductResponse.AllProduct>>>
+    getProduct(){
+        return ResponseEntity.ok(
+                Response.of(
+                        productFacade.getAllProduct(),
+                "모든상품 불러오기 완료"
+                )
+        );
     }
 }

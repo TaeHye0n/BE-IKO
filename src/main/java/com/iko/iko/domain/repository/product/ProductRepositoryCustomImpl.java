@@ -1,7 +1,9 @@
 package com.iko.iko.domain.repository.product;
 
 import com.iko.iko.controller.product.dto.ProductResponse;
+import com.iko.iko.controller.image.dto.imageResponse;
 import  com.iko.iko.domain.entity.Product;
+import com.iko.iko.domain.entity.QImage;
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
@@ -53,4 +55,18 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     }
 
+    @Override
+    public List<ProductResponse.AllProduct> getProduct(){
+
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductResponse.AllProduct.class,
+                        product.name, product.price,product.discount,
+                        image.image_url
+                        ))
+                .from(product)
+                .innerJoin(image)
+                .on(product.imageId.eq(image.image_id))
+                .orderBy(product.price.asc())
+                .fetch();
+    }
 }
