@@ -31,45 +31,45 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     public List<ProductResponse.ProductMainResponse> getMainProduct(
             Pageable pageable
     ){
-        return jpaQueryFactory
-        .select(Projections.constructor(ProductResponse.ProductMainResponse.class,
-                product.name, ExpressionUtils.as(
-                        JPAExpressions
-                                .select(image.image_url)
-                                .from(image)
-                                .where(image.image_id.eq(product.imageId)),
-                        "imageUrl")
-                ,product.series,product.feature,product.discount,product.price,
-                ExpressionUtils.as(
-                        JPAExpressions
-                                .select(productDetails.colorCode)
-                                .from(productDetails)
-                                .where(productDetails.productIdFk.eq(product.productId)),
-                        "colorCode"
-                )))
-                .from(product)
-                .orderBy(product.createdAt.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
+//        return jpaQueryFactory
+//        .select(Projections.constructor(ProductResponse.ProductMainResponse.class,
+//                product.name, ExpressionUtils.as(
+//                        JPAExpressions
+//                                .select(image.image_url)
+//                                .from(image)
+//                                .where(image.image_id.eq(product.imageId)),
+//                        "imageUrl")
+//                ,product.series,product.feature,product.discount,product.price,
+//                ExpressionUtils.as(
+//                        JPAExpressions
+//                                .select(productDetails.colorCode)
+//                                .from(productDetails)
+//                                .where(productDetails.productIdFk.eq(product.productId)),
+//                        "colorCode"
+//                )))
+//                .from(product)
+//                .orderBy(product.createdAt.desc())
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .fetch();
+  return null;
 
     }
 
     @Override
     public List<ProductResponse.AllProduct> getProduct(){
 
-        return jpaQueryFactory
-                .select(Projections.constructor(ProductResponse.AllProduct.class,
-                        product.name, product.price,product.discount,
-                        image.image_url
-                        ))
-                .from(product)
-                .innerJoin(image)
-                .on(product.imageId.eq(image.image_id))
-                .orderBy(product.price.asc())
-                .fetch();
+//        return jpaQueryFactory
+//                .select(Projections.constructor(ProductResponse.AllProduct.class,
+//                        product.name, product.price,product.discount,
+//                        image.image_url
+//                        ))
+//                .from(product)
+//                .innerJoin(image)
+//                .on(product.imageId.eq(image.image_id))
+//                .orderBy(product.price.asc())
+//                .fetch();
 
-
+       return null;
     }
 }

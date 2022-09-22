@@ -29,18 +29,18 @@ public class ProductDetails extends BaseEntity {
     @Column(name="product_id_fk")
     private Integer productIdFk;
 
-    @Column(name="diameter")
-    private float diameter;
+    @Column(name="product_details_stock")
+    private Integer productDetailsStock;
 
     @Column(name ="color", nullable = false)
     @NotEmpty
-    private String name;
+    private String color;
 
     @Column(name ="period", nullable = false)
     @NotEmpty
     private Integer period;
 
-    @Column(name ="product_details_price", nullable = true)
+    @Column(name ="details_price", nullable = false)
     @NotEmpty
     private Integer detailsPrice;
 
@@ -50,30 +50,34 @@ public class ProductDetails extends BaseEntity {
 
     @Column(name="color_code", nullable = false)
     @NotEmpty
-    private Integer colorCode;
+    private String colorCode;
 
-    @Column(name="degree",nullable = true)
+    @Column(name="degree", nullable = false)
     @NotEmpty
     private float degree;
+
+    @Column(name="graphic_diameter" , nullable = false)
+    @NotEmpty
+    private float graphicDiameter;
 
     @Column(name="is_sale",nullable = false)
     @NotEmpty
     private Integer isSale;
 
-    @Column(name="moisture")
+    @Column(name="moisture" , nullable = false)
     @NotEmpty
-    private float moisture;
+    private Integer moisture;
 
-    @Column(name="basecurve")
+    @Column(name="basecurve" , nullable = false)
     @NotEmpty
     private float basecurve;
 
-    @Column(name="recommend")
+    @Column(name="sold_out" , nullable = false)
     @NotEmpty
-    private Integer recommend;
+    private Integer soldOut;
 
-    @Column(name="product_details_stock")
-    private Integer productDetailsStock;
-
+    @Column(name="details_exposure" , nullable = false)
+    @NotEmpty
+    private Integer detailsExposure;
 
 }

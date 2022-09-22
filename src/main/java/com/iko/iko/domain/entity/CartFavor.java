@@ -19,20 +19,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-
 public class CartFavor extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_favor_id_pk", unique = true, nullable = false)
     private Integer cartFavorId;
 
-    @Column(name = "member_id_fk")
+    @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
-    @Column(name = "product_details_id_fk")
-    private Integer productDetailsId;
+    @Column(name = "cart_favor_list")
+    private String cartFavorList;
 
-    @Column(name = "cart_favor_type")
+    @Column(name = "cart_favor_type" , nullable = false)
     private Integer cartFavorType;
 
 }

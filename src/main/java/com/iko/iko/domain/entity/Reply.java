@@ -25,21 +25,19 @@ public class Reply {
     @Column(name = "reply_id_pk", unique = true, nullable = false)
     private Integer replyId;
 
-    @Column(name = "member_id_fk")
+    @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
-    @Column(name = "product_details_id_fk")
+    @Column(name = "product_details_id_fk" , nullable = false)
     private Integer productDetailsId;
 
-    @Column(name = "content")
+    @Column(name = "content" , nullable = false)
     private Integer content;
 
-    @Column(name = "reply_title")
+    @Column(name = "reply_title" , nullable = false)
     private String replyTitle;
 
-    @Column(name = "rating")
+    @Column(name = "rating" , nullable = false)
     private Float rating;
 
-    @Column(name = "like")
-    private Integer like;
 }

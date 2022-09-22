@@ -24,21 +24,9 @@ public class Product extends BaseEntity {
     @Column(name ="product_id_pk",unique = true,nullable = false)
     private Integer productId;
 
-    @Column(name = "image_id_fk")
-    @NotEmpty
-    private Integer imageId;
-
-    @Column(name ="product_name", nullable = false)
-    @NotEmpty
-    private String name;
-
     @Column(name ="manufacturer", nullable = false)
     @NotEmpty
     private String manufacturer;
-
-    @Column(name ="total_recommend", nullable = true)
-    @NotEmpty
-    private Integer recommend;
 
     @Column(name="series", nullable = false)
     @NotEmpty
@@ -48,7 +36,7 @@ public class Product extends BaseEntity {
     @NotEmpty
     private String feature;
 
-    @Column(name="discount",nullable = true)
+    @Column(name="discount", nullable = false)
     @NotEmpty
     private Integer discount;
 
@@ -56,13 +44,24 @@ public class Product extends BaseEntity {
     @NotEmpty
     private Integer stock;
 
-    @Column(name="price")
+    @Column(name ="product_name", nullable = false)
+    @NotEmpty
+    private String name;
+
+    @Column(name="price", nullable = false)
     @NotEmpty
     private Integer price;
 
-    @Column(name="graphic_diameter")
+    @Column(name ="recommend",nullable = false)
     @NotEmpty
-    private float graphicDiameter;
+    private Integer recommend;
 
+    @Column(name ="exposure" , nullable = false)
+    @NotEmpty
+    private Integer exposure;
+
+    @Column(name="diameter" , nullable = false)
+    @NotEmpty
+    private Float diameter;
 
 }

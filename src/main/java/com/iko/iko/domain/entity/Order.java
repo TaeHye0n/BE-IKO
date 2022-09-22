@@ -25,19 +25,26 @@ public class Order {
     @Column(name = "order_id_pk", unique = true, nullable = false)
     private Integer orderId;
 
-    @Column(name = "member_id_fk")
+    @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
-    @Column(name = "product_details_id_fk")
-    private Integer productDetailsId;
+    @Column(name = "status" , nullable = false)
+    private Integer status;
 
-    @Column(name = "order_status")
-    private Integer orderStatus;
-
-    @Column(name = "destination")
+    @Column(name = "destination" , nullable = false)
     private String destination;
 
-    @Column(name = "order_price")
-    private Integer orderPrice;
+    @Column(name = "total_price" , nullable = false)
+    private Integer totalPrice;
+
+    @Column(name = "receiver_name" , nullable = false)
+    private String receiverName;
+
+    @Column(name = "receiver_phone" , nullable = false)
+    private String receiverPhone;
+
+    @Column(name = "details_id_list" , nullable = false)
+    private String detailsIdList;
+
 
 }
