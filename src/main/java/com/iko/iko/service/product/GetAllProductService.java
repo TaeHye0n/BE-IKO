@@ -10,13 +10,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetProductByGraphicService {
+public class GetAllProductService {
     private  final ProductRepository productRepository;
-/*
-    public List<Product> getProductByGraphic(float graphicDiameter){
-        return productRepository
-                .findByGraphicDiameter(graphicDiameter);
+
+    public List<ProductResponse.AllProduct> GetAllProduct(){
+        return productRepository.getProduct();
 
     }
-    */
 }
