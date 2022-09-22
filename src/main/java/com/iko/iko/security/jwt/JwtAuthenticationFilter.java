@@ -36,9 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (servletPath.equals("/member/login") || servletPath.equals("/member/newAccess") || servletPath.equals("/member/signup")) {
             filterChain.doFilter(request, response);
         }
-       else if (token != null & jwtTokenProvider.validateToken(token)) {
+        else if (token != null & jwtTokenProvider.validateToken(token)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
+        }
+       else{
             filterChain.doFilter(request, response);
         }
     }
