@@ -1,5 +1,7 @@
 package com.iko.iko.service.member;
 
+import com.iko.iko.common.exception.BaseException;
+import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.repository.member.MemberRepository;
@@ -20,11 +22,11 @@ public class SignupService {
     public Integer signUp(MemberSignUpRequestDto requestDto)  {
 
         if (memberRepository.findByEmail(requestDto.getEmail()).isPresent()){
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+            throw new BaseException(ErrorCode.EMAIL_DUPLICATED_ERROR);
         }
 
         if (!requestDto.getPassword().equals(requestDto.getPasswordConfirm())){
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new BaseException(ErrorCode.WRONG_PASSWORD);
         }
 
         Member member = memberRepository.save(requestDto.toEntity());

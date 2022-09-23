@@ -36,7 +36,9 @@ public class SwaggerConfig {
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder()
                 .title("iko v1 API Documentation")
-                .description("iko v1 API 의 API문서 입니다." + System.lineSeparator() + "Authorize 누르시고 엑세스 토큰을 입력하시면 됩니다.")
+                .description("iko v1 API 의 API문서 입니다." + System.lineSeparator() +
+                        "Authorize 누르시고 엑세스 토큰을 입력하시면 됩니다." + System.lineSeparator() +
+                        "newAccess는 Authorize 로그아웃을 하고 테스트 해주세요.")
                 .license("github").licenseUrl("https://github.com/IKO-FinalProject/BE-IKO")
                 .version("1.0.0")
                 .build();

@@ -2,6 +2,7 @@ package com.iko.iko.security.jwt;
 
 import com.iko.iko.service.member.CustomUserDetailsService;
 import io.jsonwebtoken.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,9 +14,14 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
+
+
 @RequiredArgsConstructor
 @Component
+@Getter
 public class JwtTokenProvider {
+
+
 
     @Value("spring.jwt.secret")
     private String secretKey;
@@ -93,8 +99,8 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (ExpiredJwtException e) {
-            return true;
+//        } catch (ExpiredJwtException e) {
+//            return true;
         } catch (Exception e) {
             return false;
         }
@@ -111,5 +117,11 @@ public class JwtTokenProvider {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // 토큰의 만료 시점을 반환 하는 메소드
+    public Date getExpiredDate(String token){
+        Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+        return claims.getBody().getExpiration();
     }
 }

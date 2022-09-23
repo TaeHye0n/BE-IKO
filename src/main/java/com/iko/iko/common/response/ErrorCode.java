@@ -2,6 +2,7 @@ package com.iko.iko.common.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
@@ -10,7 +11,10 @@ public enum ErrorCode {
     STORE_NOT_FOUND(404, "STORE-404-1", "해당 Id의 스토어를 찾을 수 없습니다"),
 
     // User Error
+    EMAIL_DUPLICATED_ERROR(400, "USER-400-1", "이메일 중복입니다."),
+    WRONG_PASSWORD(400, "USER-400-2", "비밀번호가 일치하지 않습니다."),
     USER_NOT_FOUND(401, "USER-401-1", "해당 Id를 가진 유저를 찾을 수 없습니다"),
+
 
     // 일반적인 에러
     COMMON_BAD_REQUEST(400, "COMMON-400-1", "요청한 값이 올바르지 않습니다"),
@@ -20,6 +24,7 @@ public enum ErrorCode {
 
     // REST ERROR
     REST_SERVER_ERROR(500, "REST-500-1", "통신 서버 오류입니다");
+
 
     private final int status;
     private final String code;

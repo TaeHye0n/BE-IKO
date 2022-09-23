@@ -1,5 +1,7 @@
 package com.iko.iko.service.member;
 
+import com.iko.iko.common.exception.BaseException;
+import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +18,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
     }
 }

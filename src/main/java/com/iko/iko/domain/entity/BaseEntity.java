@@ -19,13 +19,11 @@ import java.sql.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
-    @CreatedDate
     @Column(columnDefinition = "DATETIME", updatable = false, nullable = false)
     private Date createdAt;
 
     private String createdBy;
 
-    @LastModifiedDate
     @Column(columnDefinition = "TIMESTAMP", nullable = false)
     private Date updatedAt;
 

@@ -4,10 +4,9 @@ package com.iko.iko.controller.member.dto.response;
 import com.iko.iko.domain.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Getter
 public class MemberResponseDto {

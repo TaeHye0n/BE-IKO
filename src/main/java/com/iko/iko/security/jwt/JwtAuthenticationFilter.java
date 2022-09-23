@@ -33,14 +33,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = jwtTokenProvider.resolveAccessToken(request);
         String servletPath = request.getServletPath();
 
+        // Member api중 authentication을 받지 못하는 api는 바로 다음 filter들로 넘김
         if (servletPath.equals("/member/login") || servletPath.equals("/member/newAccess") || servletPath.equals("/member/signup")) {
             filterChain.doFilter(request, response);
         }
+        // accessToken이 유효하면 Authentication을 생성 할 수 있어 Authentication을 받고 다음 filter들로 넘김
         else if (token != null & jwtTokenProvider.validateToken(token)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
         }
+        // 이 외의 모든 Client의 api 요청은 바로 다음 filter들로 넘김
        else{
             filterChain.doFilter(request, response);
         }

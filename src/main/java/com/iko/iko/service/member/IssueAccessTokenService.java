@@ -1,6 +1,8 @@
 package com.iko.iko.service.member;
 
 
+import com.iko.iko.common.exception.BaseException;
+import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.repository.member.MemberRepository;
@@ -13,53 +15,60 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.file.AccessDeniedException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RequiredArgsConstructor
 @Service
 @Slf4j
 public class IssueAccessTokenService {
+
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
 //    @Transactional
-//    public ReissueResponseDto issueAccessToken(String token, String refreshToken) {
-//        if (jwtTokenProvider.validateTokenExceptExpiration(token))
-//            throw new IllegalArgumentException("엑세스 토큰이 만료되지 않았습니다.");
+//    public ReissueResponseDto issueAccessToken(String token, String refreshToken){
+//        if(!jwtTokenProvider.validateToken(token)){
+//            if(jwtTokenProvider.validateToken(refreshToken)){
+//                Member member = memberRepository.findByEmail(String.valueOf(jwtTokenProvider.getUserEmail(refreshToken)))
+//                        .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+//                if(refreshToken.equals(member.getRefreshToken()))
+//                    token = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRole().name());
+//                else throw new IllegalArgumentException("리프레시 토큰이 일치하지 않습니다.");
+//            }
+//            else throw new IllegalArgumentException("리프레시 토크이 유효하지 않습니다.");
+//        }
 //
-//        Member member = memberRepository.findByEmail(String.valueOf(jwtTokenProvider.getUserEmail(refreshToken)))
-//                .orElseThrow(() -> new IllegalArgumentException("유저가 없습니다."));
-//
-//        if (!jwtTokenProvider.validateToken(member.getRefreshToken()) || !refreshToken.equals(member.getRefreshToken()))
-//            throw new IllegalArgumentException("리프레시 토큰이 유효하지 않습니다.");
-//
-//        token = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRole().name());
+////        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+////        Date date = jwtTokenProvider.getExpiredDate(token);
 //
 //        return ReissueResponseDto.builder()
 //                .accessToken(token)
-//                .accessTokenValidTime(1800000L)
+//                .accessTokenExpiredDate(jwtTokenProvider.getACCESS_TOKEN_VALID_TIME())
 //                .build();
 //    }
+//}
 
     @Transactional
-    public ReissueResponseDto issueAccessToken(String token, String refreshToken){
-        if(jwtTokenProvider.validateTokenExceptExpiration(token)){
-            Member member = memberRepository.findByEmail(String.valueOf(jwtTokenProvider.getUserEmail(refreshToken)))
-                    .orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+    public ReissueResponseDto issueAccessToken(String token, String refreshToken) {
 
-            if(jwtTokenProvider.validateToken(member.getRefreshToken()) && refreshToken.equals(member.getRefreshToken())){
+        if (jwtTokenProvider.validateToken(refreshToken)) {
+            Member member = memberRepository.findByEmail(String.valueOf(jwtTokenProvider.getUserEmail(refreshToken)))
+                    .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
+            if (refreshToken.equals(member.getRefreshToken()))
                 token = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRole().name());
-            }
-            else throw new IllegalArgumentException("리프레시 토큰이 유효하지 않습니다.");
+            else throw new IllegalArgumentException("리프레시 토큰이 일치하지 않습니다.");
         }
+        else throw new IllegalArgumentException("리프레시 토크이 유효하지 않습니다.");
 
         return ReissueResponseDto.builder()
                 .accessToken(token)
-                .accessTokenValidTime(1800000L)
+                .accessTokenExpiredDate(jwtTokenProvider.getACCESS_TOKEN_VALID_TIME())
+                .refreshToken(refreshToken)
+                .refreshTokenExpiredDate(jwtTokenProvider.getREFRESH_TOKEN_VALID_TIME())
                 .build();
     }
 }
-
-
 
 //    @Transactional
 //    public ReissueResponseDto issueAccessToken(String token, String refreshToken){

@@ -43,7 +43,7 @@ public class MemberController {
 
     // 토큰 재발급
     @ApiOperation(value = "토큰 재발급", notes = "토큰을 재발급한다")
-    @PostMapping("/newAccess")
+    @PutMapping("/newAccess")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-ACCESS-TOKEN", value = "access-token", required = true, dataType = "String", paramType = "header"),
             @ApiImplicitParam(name = "X-REFRESH-TOKEN", value = "refresh-token", required = true, dataType = "String", paramType = "header")
