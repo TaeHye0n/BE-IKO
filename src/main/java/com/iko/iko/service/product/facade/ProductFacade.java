@@ -21,8 +21,8 @@ public class ProductFacade {
         return getMainProductService.getMainProduct(pageable);
     }
     @Transactional(readOnly = true)
-    public List<ProductResponse.AllProduct>getAllProduct(){
-        return getAllProductService.GetAllProduct();
+    public List<ProductResponse.AllProduct>getAllProduct(Pageable pageable){
+        return getAllProductService.GetAllProduct(pageable);
     }
 
    /* @Transactional(readOnly = true)

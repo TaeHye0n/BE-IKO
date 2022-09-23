@@ -1,18 +1,9 @@
 package com.iko.iko.controller.product.dto;
 
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
-import com.iko.iko.domain.entity.Product;
-import io.swagger.models.auth.In;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import com.iko.iko.controller.image.dto.imageResponse;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.iko.iko.controller.product.dto.ProductResponseMapper.INSTANCE;
 public class ProductResponse {
 
     @Getter
@@ -36,10 +27,23 @@ public class ProductResponse {
     @AllArgsConstructor
     public static class AllProduct{
         private String name;
+        private String series;
         private Integer price;
         private Integer discount;
-        private String image;
+        private float diameter;
+        private String feature;
+        //private List<ProductDetailsResponse.ProductDetailsForResponse> productDetailsId;
     }
+
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class productDetailsIdFromProductId{
+        private Integer productId;
+
+    }
+
     public class ProductMainResponse {
     }
 

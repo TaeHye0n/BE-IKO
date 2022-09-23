@@ -1,25 +1,20 @@
 package com.iko.iko.domain.repository.product;
 
 import com.iko.iko.controller.product.dto.ProductResponse;
-import com.iko.iko.controller.image.dto.imageResponse;
-import  com.iko.iko.domain.entity.Product;
-import com.iko.iko.domain.entity.QImage;
-import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+
 import java.util.List;
 
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
-import static com.iko.iko.domain.entity.QImage.image;
 
 @Repository
 @RequiredArgsConstructor
@@ -57,19 +52,16 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<ProductResponse.AllProduct> getProduct(){
+    public List<ProductResponse.AllProduct> getProduct(Pageable pageable){
 
-//        return jpaQueryFactory
-//                .select(Projections.constructor(ProductResponse.AllProduct.class,
-//                        product.name, product.price,product.discount,
-//                        image.image_url
-//                        ))
-//                .from(product)
-//                .innerJoin(image)
-//                .on(product.imageId.eq(image.image_id))
-//                .orderBy(product.price.asc())
-//                .fetch();
-
-       return null;
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductResponse.AllProduct.class,
+                        product.name, product.series,product.price,product.discount,
+                        product.diameter,product.feature))
+                .from(product)
+                .orderBy(product.price.asc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
     }
 }

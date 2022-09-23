@@ -21,4 +21,8 @@ public class Image extends BaseEntity {
     @Column(name = "image_url", nullable = true)
     @NotEmpty
     private String image_url;
+
+    @Column(name = "image_type", nullable = false)
+    @NotEmpty
+    private Integer imageType;
 }

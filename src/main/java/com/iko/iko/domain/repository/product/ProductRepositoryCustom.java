@@ -18,7 +18,7 @@ public interface ProductRepositoryCustom{
   // Product findByGraphicDiameter(float graphicDiameter);
 
 
-   List<ProductResponse.AllProduct> getProduct();
+   List<ProductResponse.AllProduct> getProduct(Pageable pageable);
 
 
 }

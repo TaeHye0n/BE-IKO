@@ -51,10 +51,12 @@ public class ProductController {
     }
     @GetMapping("/allProduct")
     public ResponseEntity<Response<List<ProductResponse.AllProduct>>>
-    getProduct(){
+    getProduct(
+            @PageableDefault(size=9,page=0)Pageable pageable
+    ){
         return ResponseEntity.ok(
                 Response.of(
-                        productFacade.getAllProduct(),
+                        productFacade.getAllProduct(pageable),
                 "모든상품 불러오기 완료"
                 )
         );
