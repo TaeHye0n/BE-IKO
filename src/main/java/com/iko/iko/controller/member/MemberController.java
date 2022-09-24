@@ -2,6 +2,7 @@ package com.iko.iko.controller.member;
 
 import com.iko.iko.controller.member.dto.request.MemberSignInRequestDto;
 import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
+import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
 import com.iko.iko.controller.member.dto.response.MemberResponseDto;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.controller.member.dto.response.TokenResponseDto;
@@ -9,7 +10,6 @@ import com.iko.iko.service.member.facade.MemberFacade;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,10 +54,21 @@ public class MemberController {
         return memberFacade.issueAccessToken(token, refreshToken);
     }
 
+    // 유저정보 제공
     @GetMapping("/info")
     public MemberResponseDto findMyInfo(){
         return memberFacade.findMyInfo();
     }
 
+    // 유저정보 수정
+//    @PutMapping("/updateInfo")
+//    public Integer updateInfo(UpdateInfoRequestDto requestDto){
+//        return memberFacade.updateInfo(requestDto);
+//    }
 
+    // 비밃번호 수정
+    @PutMapping("/updatePassword")
+    public Integer updatePassword(@RequestBody @Valid UpdatePasswordRequestDto requestDto){
+        return memberFacade.updatePassword(requestDto);
+    }
 }

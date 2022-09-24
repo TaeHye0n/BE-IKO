@@ -54,7 +54,7 @@ public class IssueAccessTokenService {
 
         if (jwtTokenProvider.validateToken(refreshToken)) {
             Member member = memberRepository.findByEmail(String.valueOf(jwtTokenProvider.getUserEmail(refreshToken)))
-                    .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
+                    .orElseThrow(() -> new BaseException(ErrorCode.NEED_LOGIN));
             if (refreshToken.equals(member.getRefreshToken()))
                 token = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRole().name());
             else throw new IllegalArgumentException("리프레시 토큰이 일치하지 않습니다.");

@@ -53,7 +53,7 @@ public class LoginService {
 
     private void validateMatchedPassword(String validPassword, String memberPassword) {
         if(!passwordEncoder.matches(validPassword,memberPassword)){
-            throw new IllegalArgumentException("잘못된 비밀번호입니다,");
+            throw new BaseException(ErrorCode.WRONG_PASSWORD);
         }
     }
 }
