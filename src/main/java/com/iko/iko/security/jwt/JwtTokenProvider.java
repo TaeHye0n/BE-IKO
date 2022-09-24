@@ -2,6 +2,7 @@ package com.iko.iko.security.jwt;
 
 import com.iko.iko.service.member.CustomUserDetailsService;
 import io.jsonwebtoken.*;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +23,6 @@ import java.util.Date;
 public class JwtTokenProvider {
 
 
-
     @Value("spring.jwt.secret")
     private String secretKey;
 
@@ -30,6 +30,7 @@ public class JwtTokenProvider {
     private long ACCESS_TOKEN_VALID_TIME = 1000L* 60 * 30  ; //30분
 
     private long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 7; //일주일
+
     private final CustomUserDetailsService customUserDetailsService;
 
     public static final String HEADER_ACCESS_TOKEN = "X-ACCESS-TOKEN";

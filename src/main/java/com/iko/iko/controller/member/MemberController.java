@@ -2,6 +2,7 @@ package com.iko.iko.controller.member;
 
 import com.iko.iko.controller.member.dto.request.MemberSignInRequestDto;
 import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
+import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
 import com.iko.iko.controller.member.dto.response.MemberResponseDto;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
@@ -61,10 +62,10 @@ public class MemberController {
     }
 
     // 유저정보 수정
-//    @PutMapping("/updateInfo")
-//    public Integer updateInfo(UpdateInfoRequestDto requestDto){
-//        return memberFacade.updateInfo(requestDto);
-//    }
+    @PutMapping("/updateInfo")
+    public Long updateInfo(@RequestBody @Valid UpdateInfoRequestDto requestDto){
+        return memberFacade.updateInfo(requestDto);
+    }
 
     // 비밃번호 수정
     @PutMapping("/updatePassword")

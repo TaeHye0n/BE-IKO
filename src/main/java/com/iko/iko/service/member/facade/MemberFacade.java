@@ -3,6 +3,7 @@ package com.iko.iko.service.member.facade;
 import com.iko.iko.controller.member.dto.request.MemberSignInRequestDto;
 import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 
+import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
 import com.iko.iko.controller.member.dto.response.MemberResponseDto;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
@@ -46,10 +47,10 @@ public class MemberFacade {
         return infoService.findMyInfo();
     }
 
-//    @Transactional
-//    public Integer updateInfo(UpdateInfoRequestDto requestDto){
-//        return updateInfoService.updateInfo(requestDto);
-//    }
+    @Transactional
+    public Long updateInfo(UpdateInfoRequestDto requestDto){
+        return updateInfoService.updateInfo(requestDto);
+    }
 
     @Transactional
     public Integer updatePassword(UpdatePasswordRequestDto requestDto){
