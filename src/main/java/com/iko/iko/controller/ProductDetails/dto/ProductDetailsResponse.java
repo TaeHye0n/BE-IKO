@@ -16,10 +16,15 @@ public class ProductDetailsResponse {
     @AllArgsConstructor
     @Builder
     public static class ProductDetailsForResponse {
-
-        private Integer productDetailsId;
-
-        private ProductResponse.ProductForResponse product;
-        private ImageResponse.ImageForResponse image;
+        //private Product product;
+        private Integer productId;
+        private String series;
+        private String feature;
+        private float diameter;
+        private String colorCode;
+        private Integer price;
+        private Integer discount;
+        private String imageUrl;
+        private Integer duration;
     }
 }

@@ -35,7 +35,7 @@ public class ProductController {
                 )
         );
     }*/
-
+/*
     @GetMapping("/mainProduct")
     public ResponseEntity<Response<List<ProductResponse.ProductMainResponse>>>
     getMainProduct(
@@ -60,5 +60,5 @@ public class ProductController {
                 "모든상품 불러오기 완료"
                 )
         );
-    }
+    }*/
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ProductDetailsRepositoryCustom {
 
-    List<ProductDetailsResponse.ProductDetailsForResponse> getAllProduct(Pageable pageable, Integer selectedProductId);
+    List<ProductDetailsResponse.ProductDetailsForResponse> getMainProduct(Pageable pageable);
 }

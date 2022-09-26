@@ -12,10 +12,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GetAllProductService {
+    /*
+}
     private  final ProductRepository productRepository;
 
     public List<ProductResponse.AllProduct> GetAllProduct(Pageable pageable){
         return productRepository.getProduct(pageable);
 
-    }
+    }*/
 }

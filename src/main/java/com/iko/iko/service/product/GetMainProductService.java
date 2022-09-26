@@ -9,15 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class GetMainProductService {
 
+public class GetMainProductService {
+/*
     private final ProductRepository productRepository;
 
     @Transactional(readOnly = true)
     public List<ProductResponse.ProductMainResponse> getMainProduct(Pageable pageable){
         return productRepository.getMainProduct(pageable);
     }
-
+    */
 }

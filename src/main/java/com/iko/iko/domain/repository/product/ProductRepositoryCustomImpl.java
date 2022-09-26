@@ -21,11 +21,12 @@ import static com.iko.iko.domain.entity.QProductDetails.productDetails;
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
-
+/*
     @Override
     public List<ProductResponse.ProductMainResponse> getMainProduct(
             Pageable pageable
     ){
+
 //        return jpaQueryFactory
 //        .select(Projections.constructor(ProductResponse.ProductMainResponse.class,
 //                product.name, ExpressionUtils.as(
@@ -63,5 +64,5 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-    }
+    }*/
 }

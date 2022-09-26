@@ -13,12 +13,11 @@ import org.springframework.data.domain.PageImpl;
 import java.util.List;
 
 public interface ProductRepositoryCustom{
-
+/*
    List<ProductResponse.ProductMainResponse> getMainProduct(Pageable pageable);
   // Product findByGraphicDiameter(float graphicDiameter);
 
 
    List<ProductResponse.AllProduct> getProduct(Pageable pageable);
-
-
+*/
 }

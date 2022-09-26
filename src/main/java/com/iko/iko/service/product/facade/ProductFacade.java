@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductFacade {
+    /*
     private final GetMainProductService getMainProductService;
     private final GetAllProductService getAllProductService;
     @Transactional(readOnly = true)
@@ -24,7 +25,7 @@ public class ProductFacade {
     public List<ProductResponse.AllProduct>getAllProduct(Pageable pageable){
         return getAllProductService.GetAllProduct(pageable);
     }
-
+*/
    /* @Transactional(readOnly = true)
     public List<Product> getProductByGraphic(float graphicDiameter){
         return getProductByGraphicService.getProductByGraphic();
