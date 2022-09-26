@@ -7,6 +7,7 @@ import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.security.jwt.JwtTokenProvider;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -59,7 +60,7 @@ public class IssueAccessTokenService {
                 token = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRole().name());
             else throw new IllegalArgumentException("리프레시 토큰이 일치하지 않습니다.");
         }
-        else throw new IllegalArgumentException("리프레시 토크이 유효하지 않습니다.");
+        else throw new JwtException("리프레시 토크이 유효하지 않습니다.");
 
         return ReissueResponseDto.builder()
                 .accessToken(token)
