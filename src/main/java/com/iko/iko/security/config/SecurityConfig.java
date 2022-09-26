@@ -41,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/member/signup", "/member/login", "/member/reissue").permitAll()
-                .antMatchers("/member").hasRole("USER")
+                .antMatchers("/member/signup", "/member/login").permitAll()
+                .antMatchers("/member/**").hasRole("USER")
                 .antMatchers("/admin").permitAll() // 임시로 permitAll로 해둠
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 //                .anyRequest().authenticated()

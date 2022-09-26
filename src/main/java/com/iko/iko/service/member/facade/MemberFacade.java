@@ -6,6 +6,7 @@ import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
 import com.iko.iko.controller.member.dto.response.MemberResponseDto;
+import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.controller.member.dto.response.TokenResponseDto;
 import com.iko.iko.domain.entity.Member;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class MemberFacade {
     private final InfoService infoService;
     private final UpdateInfoService updateInfoService;
     private final UpdatePasswordService updatePasswordService;
+    private final MyOrderListService myOrderListService;
 
     @Transactional
     public Integer signUp(MemberSignUpRequestDto requestDto){
@@ -55,6 +58,11 @@ public class MemberFacade {
     @Transactional
     public Integer updatePassword(UpdatePasswordRequestDto requestDto){
         return updatePasswordService.updatePassword(requestDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MyOrderListResponseDto> MyOrderList(){
+        return myOrderListService.MyOrderList();
     }
 
 }
