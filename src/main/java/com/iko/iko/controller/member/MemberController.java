@@ -5,6 +5,7 @@ import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
 import com.iko.iko.controller.member.dto.response.MemberResponseDto;
+import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.controller.member.dto.response.TokenResponseDto;
 import com.iko.iko.service.member.facade.MemberFacade;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RequestMapping("/member")
@@ -72,4 +74,10 @@ public class MemberController {
     public Integer updatePassword(@RequestBody @Valid UpdatePasswordRequestDto requestDto){
         return memberFacade.updatePassword(requestDto);
     }
+
+    // 마이페이지 주문 내역
+//    @GetMapping("/myOrderList")
+//    public List<MyOrderListResponseDto>(){
+//        return memberFacade.
+//    }
 }

@@ -1,10 +1,19 @@
 package com.iko.iko.domain.repository.member;
 
 import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
+import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+import static com.iko.iko.domain.entity.QMember.member;
+import static com.iko.iko.domain.entity.QProduct.product;
+import static com.iko.iko.domain.entity.QProductDetails.productDetails;
+import static com.iko.iko.domain.entity.QOrder.order;
+import static com.iko.iko.domain.entity.QBaseEntity.baseEntity;
 import static com.iko.iko.domain.entity.QMember.member;
 
 
@@ -27,5 +36,27 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .where(member.memberId.eq(requestDto.getMemberId()))
                 .execute();
     }
+
+
+//    @Override
+//    public List<MyOrderListResponseDto> MyOrderList(
+//            Integer memberId
+//    ){
+//        return jpaQueryFactory
+//                .select(Projections.constructor(MyOrderListResponseDto.class,
+//                        order.orderId,
+//                        order.status,
+//                        product.name,
+//                        productDetails.color,
+//                        productDetails.colorCode,
+//                        productDetails.graphicDiameter,
+//                        productDetails.degree,
+//                        order.totalPrice,
+//                        productDetails.period
+//                ))
+//                .from(order)
+//                .join(productDetails).on(order.detailsIdList.eq(productDetails.productDetailsId)).fetchJoin()
+//
+//    }
 
 }

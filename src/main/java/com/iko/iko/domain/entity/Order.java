@@ -19,7 +19,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public class Order {
+public class Order extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id_pk", unique = true, nullable = false)
@@ -42,9 +42,6 @@ public class Order {
 
     @Column(name = "receiver_phone" , nullable = false)
     private String receiverPhone;
-
-    @Column(name = "details_id_list" , nullable = false)
-    private String detailsIdList;
 
 
 }
