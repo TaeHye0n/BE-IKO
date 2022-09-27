@@ -3,10 +3,7 @@ package com.iko.iko.controller.ProductDetails.dto;
 import com.iko.iko.controller.image.dto.ImageResponse;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 public class ProductDetailsResponse {
@@ -20,7 +17,7 @@ public class ProductDetailsResponse {
         private Integer productId;
         private String series;
         private String feature;
-        private float diameter;
+        private Float diameter;
         private String colorCode;
         private Integer price;
         private Integer discount;
@@ -29,18 +26,33 @@ public class ProductDetailsResponse {
 
     }
 
-    @Setter
+
     @Getter
     @AllArgsConstructor
     @Builder
+    @Setter
     public static class ProductMainByOption{
         private Integer productId;
         private String series;
         private Integer price;
         private Integer discount;
-        private float graphicDiameter;
+        private Float graphicDiameter;
         private String colorCode;
-        private Integer imageUrl;
+        private String imageUrl;
+
+    }
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @Setter
+    public static class ProductMainByOptionResponse{
+        private Integer productId;
+        private String series;
+        private Integer price;
+        private Integer discount;
+        private Float graphicDiameter;
+        private String colorCode;
+        private List<String> imageUrl;
 
     }
 }

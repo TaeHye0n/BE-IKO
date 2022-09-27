@@ -26,7 +26,7 @@ public class ProductDetailsFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.ProductMainByOption>getProductByOption(
+    public List<ProductDetailsResponse.ProductMainByOptionResponse>getProductByOption(
             ProductDetailsRequest.ProductOptionForRequest productByOption){
         return getProductByOptionService.GetProductByOption(productByOption);
     }

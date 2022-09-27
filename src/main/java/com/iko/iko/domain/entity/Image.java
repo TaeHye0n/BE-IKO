@@ -1,14 +1,17 @@
 package com.iko.iko.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
+@DynamicUpdate
+@DynamicInsert
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="tb_image")
@@ -16,13 +19,11 @@ public class Image extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id_pk",unique = true,nullable = false)
-    private Integer image_id;
+    private Integer imageId;
 
-    @Column(name = "image_url", nullable = true)
-    @NotEmpty
-    private String image_url;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "image_type", nullable = false)
-    @NotEmpty
     private Integer imageType;
 }

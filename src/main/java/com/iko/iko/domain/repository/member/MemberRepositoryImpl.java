@@ -55,13 +55,13 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         productDetails.degree,
                         productDetails.detailsPrice,
                         productDetails.period,
-                        image.image_url
+                        image.imageUrl
                 ))
                 .from(order)
                 .join(linkOrderDetails).on(order.orderId.eq(linkOrderDetails.orderId)).fetchJoin()
                 .join(productDetails).on(linkOrderDetails.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
                 .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
-                .join(image).on(linkProductDetailsImage.imageId.eq(image.image_id)
+                .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
                         .and(image.imageType.eq(1))).fetchJoin()
                 .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
                 .where(order.memberId.eq(member.getMemberId()))

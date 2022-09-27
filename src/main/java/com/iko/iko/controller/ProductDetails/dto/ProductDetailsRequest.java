@@ -12,11 +12,18 @@ public class ProductDetailsRequest {
     @AllArgsConstructor
     @Builder
     public static class ProductOptionForRequest{
-        private Integer period;
+        /*private Integer period;
         private float graphicDiameter;
         private String colorCode;
         private String series;
-        private String feature;
+        private String feature;*/
+
+
+        private List<Integer> period;
+        private List<Float> graphicDiameter;
+        private List<String> colorCode;
+        private List<String> series;
+        private List<String> feature;
 
         public List<List<String>> ListDtoToListEntity(List<String> period){
             return Stream

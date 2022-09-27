@@ -54,11 +54,11 @@ public class ProductDetails extends BaseEntity {
 
     @Column(name="degree", nullable = false)
     @NotEmpty
-    private float degree;
+    private Float degree;
 
     @Column(name="graphic_diameter" , nullable = false)
     @NotEmpty
-    private float graphicDiameter;
+    private Float graphicDiameter;
 
     @Column(name="is_sale",nullable = false)
     @NotEmpty
@@ -70,7 +70,7 @@ public class ProductDetails extends BaseEntity {
 
     @Column(name="basecurve" , nullable = false)
     @NotEmpty
-    private float basecurve;
+    private Float basecurve;
 
     @Column(name="sold_out" , nullable = false)
     @NotEmpty

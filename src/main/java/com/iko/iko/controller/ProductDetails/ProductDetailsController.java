@@ -39,8 +39,8 @@ public class ProductDetailsController {
         );
     }
 
-    @GetMapping("/productOption")
-    public ResponseEntity<Response<List<ProductDetailsResponse.ProductMainByOption>>>
+    @PostMapping("/productOption")
+    public ResponseEntity<Response<List<ProductDetailsResponse.ProductMainByOptionResponse>>>
     getProductByOption(
             @RequestBody ProductDetailsRequest.ProductOptionForRequest productOption
     ){
