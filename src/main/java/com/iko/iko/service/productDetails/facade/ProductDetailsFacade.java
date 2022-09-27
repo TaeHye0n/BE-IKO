@@ -1,7 +1,11 @@
 package com.iko.iko.service.productDetails.facade;
 
-import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
+
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.service.productDetails.GetMainProductService;
+import com.iko.iko.service.productDetails.GetProductByOptionService;
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,9 +17,18 @@ public class ProductDetailsFacade {
 
     private final GetMainProductService getMainProductService;
 
+    private final GetProductByOptionService getProductByOptionService;
+
     @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.ProductDetailsForResponse>getMainProduct(Pageable pageable){
+    public List<ProductDetailsResponse.ProductDetailsForResponse>
+    getMainProduct(Pageable pageable){
         return getMainProductService.GetMainProduct(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductDetailsResponse.ProductMainByOption>getProductByOption(
+            ProductDetailsRequest.ProductOptionForRequest productByOption){
+        return getProductByOptionService.GetProductByOption(productByOption);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.iko.iko.domain.repository.productDetails;
 
 
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.domain.entity.LinkProductDetailsImage;
 
@@ -18,6 +19,7 @@ import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDeta
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
 import static com.iko.iko.domain.entity.QImage.image;
+
 
 @Repository
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .limit(pageable.getPageSize())
                 .distinct()
                 .fetch();
+
                 /*
                 .select(Projections.constructor(ProductDetailsResponse.ProductDetailsForResponse.class,
                         productDetails.productDetailsId,
@@ -55,5 +58,29 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .limit(pageable.getPageSize())
                 .fetch();
                 */
+
     }
+    @Override
+    public List<ProductDetailsResponse.ProductMainByOption> getProductByOption(
+            ProductDetailsRequest.ProductOptionForRequest productByOption){
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductDetailsResponse.ProductMainByOption.class,
+                        product.productId,product.series,product.price,
+                        product.price,productDetails.graphicDiameter,
+                        productDetails.colorCode,image.image_url))
+                .from(productDetails)
+                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
+                .join(image).on(image.image_id.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .where(product.productId.eq(productDetails.productDetailsId))
+                .where(productDetails.colorCode.eq(productByOption.getColorCode())
+                        .or(productDetails.graphicDiameter.eq(productByOption.getGraphicDiameter()))
+                        .or(productDetails.period.eq(productByOption.getPeriod()))
+                        .or(product.series.eq(productByOption.getSeries()))
+                        .or(product.feature.eq(productByOption.getFeature())))
+                .distinct()
+                .fetch();
+
+    }
+
 }

@@ -15,10 +15,11 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
-
+/*
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
 import static com.iko.iko.domain.entity.QImage.image;
+*/
 
 @Component
 @RequiredArgsConstructor
