@@ -27,7 +27,6 @@ public class ProductDetailsController {
     private final ProductDetailsFacade productDetailsFacade;
 
     @GetMapping("/product")
-
     public ResponseEntity<Response<List<ProductDetailsResponse.MainProduct>>>
     getMainProduct(
             @RequestParam(value="page") Integer page,

@@ -30,6 +30,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
+    //main product api
     public List<ProductDetailsResponse.MainProduct> getMainProduct(Pageable pageable) {
 
         return jpaQueryFactory

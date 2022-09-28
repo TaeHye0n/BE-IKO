@@ -21,7 +21,7 @@ public class GetMainProductService {
         List<String> colorCodeList = new ArrayList<>();
         List<String> imageUrlList = new ArrayList<>();
         List<Float> graphicDiameterList = new ArrayList<>();
-
+        
         List<ProductDetailsResponse.MainProductForResponse> result = new ArrayList<>();
         return result;*/
         return productDetailsRepository.getMainProduct(pageable);
