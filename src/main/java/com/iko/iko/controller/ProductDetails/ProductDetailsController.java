@@ -26,10 +26,11 @@ import java.util.List;
 public class ProductDetailsController {
     private final ProductDetailsFacade productDetailsFacade;
 
-    @GetMapping("/main")
-    public ResponseEntity<Response<List<ProductDetailsResponse.ProductDetailsForResponse>>>
+    @GetMapping("/product")
+    public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
     getMainProduct(
-            @PageableDefault(size=9,page=0) Pageable pageable
+            @RequestParam(value="page") Integer page,
+            @PageableDefault(size=9,page = 0) Pageable pageable
     ){
         return ResponseEntity.ok(
                 Response.of(

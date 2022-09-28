@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductDetailsRepositoryCustom {
 
-    List<ProductDetailsResponse.ProductDetailsForResponse> getMainProduct(Pageable pageable);
+    List<ProductDetailsResponse.MainProduct> getMainProduct(Pageable pageable);
 
     List<ProductDetailsResponse.ProductMainByOption> getProductByOption
             (ProductDetailsRequest.ProductOptionForRequest productByOption);

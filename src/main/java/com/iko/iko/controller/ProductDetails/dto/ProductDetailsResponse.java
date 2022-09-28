@@ -12,20 +12,28 @@ public class ProductDetailsResponse {
     @Getter
     @AllArgsConstructor
     @Builder
-    public static class ProductDetailsForResponse {
-        //private Product product;
+    public static  class MainProduct{
         private Integer productId;
         private String series;
-        private String feature;
-        private Float diameter;
-        private String colorCode;
+        private Float graphicDiameter;
         private Integer price;
         private Integer discount;
+        private String colorCode;
         private String imageUrl;
-        private Integer duration;
-
     }
-
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static  class MainProductForResponse{
+        private Integer productId;
+        private String series;
+        private List<Float> graphicDiameter;
+        private Integer price;
+        private Integer discount;
+        private List<String> colorCode;
+        private List<String> imageUrl;
+    }
 
     @Getter
     @AllArgsConstructor
@@ -51,7 +59,7 @@ public class ProductDetailsResponse {
         private Integer price;
         private Integer discount;
         private Float graphicDiameter;
-        private String colorCode;
+        private List<String> colorCode;
         private List<String> imageUrl;
 
     }

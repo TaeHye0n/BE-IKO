@@ -30,21 +30,25 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<ProductDetailsResponse.ProductDetailsForResponse> getMainProduct(Pageable pageable) {
+    public List<ProductDetailsResponse.MainProduct> getMainProduct(Pageable pageable) {
 
         return jpaQueryFactory
-                .select(Projections.constructor(ProductDetailsResponse.ProductDetailsForResponse.class,
-                        product.productId, product.series, product.feature, productDetails.graphicDiameter,
-                        productDetails.colorCode, product.price, product.discount,
-                        image.imageUrl, productDetails.period))
+                .select(Projections.constructor(ProductDetailsResponse.MainProduct.class,
+                        product.productId,
+                        product.series,
+                        productDetails.graphicDiameter,
+                        product.price,
+                        product.discount,
+                        productDetails.colorCode,
+                        image.imageUrl))
                 .from(productDetails)
                 .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
                 .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
                 .where(product.productId.eq(productDetails.productIdFk))
+                .distinct()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .distinct()
                 .fetch();
 
                 /*

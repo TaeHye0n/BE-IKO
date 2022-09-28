@@ -9,7 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProductDetailsRepository extends JpaRepository<ProductDetails, Integer>, ProductDetailsRepositoryCustom{
-    List<ProductDetailsResponse.ProductDetailsForResponse> getMainProduct(Pageable pageable);
-
 
 }
