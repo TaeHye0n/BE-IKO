@@ -31,6 +31,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
         return jpaQueryFactory
                 .update(member)
                 .set(member.address, requestDto.getAddress())
+                .set(member.detailAddress, requestDto.getDetailAddress())
                 .set(member.name, requestDto.getName())
                 .set(member.birthday, requestDto.getBirthday())
                 .set(member.phone, requestDto.getPhone())

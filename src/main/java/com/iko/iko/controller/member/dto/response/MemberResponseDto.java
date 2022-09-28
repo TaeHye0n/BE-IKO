@@ -21,6 +21,8 @@ public class MemberResponseDto {
 
     private String address;
 
+    private String detailAddress;
+
     private String phone;
 
     private String email;
@@ -40,6 +42,7 @@ public class MemberResponseDto {
         this.readname = member.getReadname();
         this.postCode = member.getPostCode();
         this.address = member.getAddress();
+        this.detailAddress = member.getDetailAddress();
         this.phone = member.getPhone();
         this.birthday = member.getBirthday();
         this.point = member.getPoint();

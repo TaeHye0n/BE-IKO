@@ -42,6 +42,8 @@ public class Member extends BaseEntity implements UserDetails {
 
     private String address;
 
+    private String detailAddress;
+
     private String phone;
 
     @Column(unique = true)
