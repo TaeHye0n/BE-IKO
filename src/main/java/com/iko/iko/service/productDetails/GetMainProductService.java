@@ -15,15 +15,16 @@ public class GetMainProductService {
 
     private final ProductDetailsRepository productDetailsRepository;
 
-    public List<ProductDetailsResponse.MainProductForResponse> GetMainProduct(Pageable pageable) {
-        List<ProductDetailsResponse.MainProduct> mainProductList=productDetailsRepository.getMainProduct(pageable);
+
+    public List<ProductDetailsResponse.MainProduct> GetMainProduct(Pageable pageable) {
+        /*List<ProductDetailsResponse.MainProduct> mainProductList=productDetailsRepository.getMainProduct(pageable);
         List<String> colorCodeList = new ArrayList<>();
         List<String> imageUrlList = new ArrayList<>();
         List<Float> graphicDiameterList = new ArrayList<>();
 
         List<ProductDetailsResponse.MainProductForResponse> result = new ArrayList<>();
-        return result;
-
+        return result;*/
+        return productDetailsRepository.getMainProduct(pageable);
     }
 
 }
