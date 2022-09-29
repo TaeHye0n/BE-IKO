@@ -15,7 +15,8 @@ public enum ErrorCode {
     EMAIL_DUPLICATED_ERROR(409, "USER-409-1", "이메일 중복입니다."),
     PASSWORD_NOT_MATCHED(403, "USER-403-1", "비밀번호가 일치하지 않습니다."),
     WRONG_PASSWORD(403, "USER-403-2", "잘못된 비밀번호 입니다."),
-
+    INVALID_TOKEN(403, "USER-403-3", "토큰이 유효하지 않습니다."),
+    TOKEN_NOT_MATCHED(403, "USER-403-4", "토큰이 일치하지 않습니다."),
 
 
     // 일반적인 에러

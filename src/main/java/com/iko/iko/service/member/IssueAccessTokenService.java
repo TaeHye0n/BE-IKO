@@ -58,9 +58,9 @@ public class IssueAccessTokenService {
                     .orElseThrow(() -> new BaseException(ErrorCode.NEED_LOGIN));
             if (refreshToken.equals(member.getRefreshToken()))
                 token = jwtTokenProvider.createAccessToken(member.getEmail(), member.getRole().name());
-            else throw new IllegalArgumentException("리프레시 토큰이 일치하지 않습니다.");
+            else throw new BaseException(ErrorCode.TOKEN_NOT_MATCHED);
         }
-        else throw new IllegalArgumentException("리프레시 토크이 유효하지 않습니다.");
+        else throw new BaseException(ErrorCode.INVALID_TOKEN);
 
         return ReissueResponseDto.builder()
                 .accessToken(token)

@@ -66,14 +66,16 @@ public class MemberController {
 
     // 유저정보 수정
     @PutMapping("/updateInfo")
-    public Long updateInfo(@RequestBody @Valid UpdateInfoRequestDto requestDto){
-        return memberFacade.updateInfo(requestDto);
+    public ResponseEntity updateInfo(@RequestBody @Valid UpdateInfoRequestDto requestDto){
+         memberFacade.updateInfo(requestDto);
+        return new ResponseEntity<>("회원정보 변경 완료", HttpStatus.OK);
     }
 
     // 비밃번호 수정
     @PutMapping("/updatePassword")
-    public Integer updatePassword(@RequestBody @Valid UpdatePasswordRequestDto requestDto){
-        return memberFacade.updatePassword(requestDto);
+    public ResponseEntity updatePassword(@RequestBody @Valid UpdatePasswordRequestDto requestDto){
+        memberFacade.updatePassword(requestDto);
+        return new ResponseEntity<>("비밀번호 변경 완료", HttpStatus.OK);
     }
 
     // 마이페이지 주문 내역
@@ -87,7 +89,7 @@ public class MemberController {
     @PostMapping("/logout")
     public ResponseEntity logout (){
         memberFacade.logout();
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
     }
 
     @PostMapping("/myOrderCancel")
