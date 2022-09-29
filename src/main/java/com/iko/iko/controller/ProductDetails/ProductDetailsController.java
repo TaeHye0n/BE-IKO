@@ -53,4 +53,18 @@ public class ProductDetailsController {
         );
     }
 
+    @PostMapping("/productDetails")
+    public ResponseEntity<Response<List<ProductDetailsResponse.ProductDetailsForResponse>>>
+    getProductDetails(
+            @RequestParam(value ="id") Integer selectedProductId
+    ){
+        return ResponseEntity.ok(
+                Response.of(
+                        productDetailsFacade.getProductDetails(selectedProductId),
+                        "상품 상세정보 불러오기 완료"
+                )
+        );
+    }
+
+
 }

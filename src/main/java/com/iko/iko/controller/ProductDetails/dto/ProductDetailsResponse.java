@@ -63,4 +63,43 @@ public class ProductDetailsResponse {
         private List<String> imageUrl;
 
     }
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ProductDetails {
+        private Integer productId;
+        private Integer productDetailsId;
+        private String name;
+        private String series;
+        private Float diameter;
+        private String colorCode;
+        private Integer price;
+        private Integer discount;
+        private String imageUrl;
+        private Integer imageType;
+        private Float degree;
+        private Float graphicDiameter;
+    }
+
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ProductDetailsForResponse {
+        private Integer productId;
+        private Integer productDetailsId;
+        private String name;
+        private String series;
+        private Float diameter;
+        private List<String> colorCode;
+        private Integer price;
+        private Integer discount;
+        private List<String> imageUrlOne;
+        private List<String> imageUrlTwo;
+        private List<String> degree;
+        private List<String> graphicDiameter;
+
+    }
+
 }

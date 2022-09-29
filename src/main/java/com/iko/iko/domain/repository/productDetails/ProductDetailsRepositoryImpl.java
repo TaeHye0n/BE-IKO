@@ -30,7 +30,6 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    //main product api
     public List<ProductDetailsResponse.MainProduct> getMainProduct(Pageable pageable) {
 
         return jpaQueryFactory
@@ -115,4 +114,29 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
         }
         return builder;
     }
+
+    @Override
+    public List<ProductDetailsResponse.ProductDetails> getProductDetails(Integer selectedProductId){
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductDetailsResponse.ProductDetails.class,
+                        product.productId,
+                        productDetails.productDetailsId,
+                        product.name,
+                        product.series,
+                        product.diameter,
+                        productDetails.colorCode,
+                        product.price,
+                        product.discount,
+                        image.imageUrl,
+                        image.imageType,
+                        productDetails.degree,
+                        productDetails.graphicDiameter))
+                .from(productDetails)
+                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
+                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .where(productDetails.productIdFk.eq(selectedProductId))
+                .fetch();
+    }
+
 }

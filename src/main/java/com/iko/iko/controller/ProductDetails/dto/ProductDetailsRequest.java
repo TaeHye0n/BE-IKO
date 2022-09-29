@@ -29,4 +29,12 @@ public class ProductDetailsRequest {
 
 
     }
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ProductDetailsForRequest{
+        private Integer productId;
+    }
+
 }
