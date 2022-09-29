@@ -90,8 +90,10 @@ public class MemberController {
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
-//    @PostMapping("/myOrderCancel")
-//    public ResponseEntity orderCancel (@RequestBody @Valid Integer OrderId){
-//
-//    }
+    @PostMapping("/myOrderCancel")
+    public ResponseEntity orderCancel (@RequestBody @Valid Integer orderId){
+        memberFacade.orderCancel(orderId);
+        return new ResponseEntity<>("취소 완료", HttpStatus.OK);
+    }
+
 }

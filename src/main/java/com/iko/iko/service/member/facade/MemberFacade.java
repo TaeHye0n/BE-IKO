@@ -30,6 +30,8 @@ public class MemberFacade {
     private final UpdatePasswordService updatePasswordService;
     private final MyOrderListService myOrderListService;
     private final LogoutService logoutService;
+    private final OrderCancelService orderCancelService;
+
 
     @Transactional
     public Integer signUp(MemberSignUpRequestDto requestDto){
@@ -69,6 +71,11 @@ public class MemberFacade {
     @Transactional
     public Long logout(){
         return logoutService.logout();
+    }
+
+    @Transactional
+    public Long orderCancel(Integer orderId){
+        return orderCancelService.orderCancel(orderId);
     }
 
 }

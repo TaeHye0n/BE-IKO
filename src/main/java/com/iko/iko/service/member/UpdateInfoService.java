@@ -22,7 +22,7 @@ public class UpdateInfoService {
     public Long updateInfo(UpdateInfoRequestDto requestDto){
         Member member = validateLoginStatus();
         validateMatchedPassword(requestDto.getPassword(), member.getPassword());
-        return memberRepository.updateInfo(requestDto);
+        return memberRepository.updateInfo(requestDto, member);
     }
 
     public Member validateLoginStatus() {

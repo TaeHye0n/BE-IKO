@@ -18,8 +18,6 @@ public class UpdateInfoRequestDto {
 
     private String detailAddress;
 
-    private Integer memberId;
-
     @NotBlank(message = "이름을 입력해주세요.")
     private String name;
 

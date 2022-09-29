@@ -29,18 +29,20 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
     @Override
     public Long updateInfo(
-            UpdateInfoRequestDto requestDto
+            UpdateInfoRequestDto requestDto, Member member
     ){
         return jpaQueryFactory
-                .update(member)
-                .set(member.address, requestDto.getAddress())
-                .set(member.detailAddress, requestDto.getDetailAddress())
-                .set(member.name, requestDto.getName())
-                .set(member.birthday, requestDto.getBirthday())
-                .set(member.phone, requestDto.getPhone())
-                .set(member.readname, requestDto.getReadname())
-                .where(member.memberId.eq(requestDto.getMemberId()))
+                .update(QMember.member)
+                .set(QMember.member.address, requestDto.getAddress())
+                .set(QMember.member.detailAddress, requestDto.getDetailAddress())
+                .set(QMember.member.name, requestDto.getName())
+                .set(QMember.member.birthday, requestDto.getBirthday())
+                .set(QMember.member.phone, requestDto.getPhone())
+                .set(QMember.member.readname, requestDto.getReadname())
+                .where(QMember.member.memberId.eq(member.getMemberId()))
                 .execute();
+
+
     }
 
 
@@ -87,5 +89,22 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     }
 
 
+    @Override
+    public Long orderCancel(
+            Member member, Integer orderId
+    ){
+        long execute =  jpaQueryFactory
+                .delete(linkOrderDetails)
+                .where(linkOrderDetails.orderId.eq(orderId))
+                .execute();
+
+        execute = execute + jpaQueryFactory
+                .delete(order)
+                .where(order.orderId.eq(orderId)
+                        .and(order.memberId.eq(member.getMemberId())))
+                .execute();
+
+        return execute;
+    }
 
 }

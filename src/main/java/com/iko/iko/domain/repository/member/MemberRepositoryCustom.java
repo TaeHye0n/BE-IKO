@@ -8,11 +8,12 @@ import com.iko.iko.domain.entity.Member;
 import java.util.List;
 
 public interface MemberRepositoryCustom {
-   Long updateInfo(UpdateInfoRequestDto requestDto);
+   Long updateInfo(UpdateInfoRequestDto requestDto, Member member);
 
    List<MyOrderListResponseDto> MyOrderList(Member member);
 
    Long logout(Member member);
 
-  // Long orderCancel(Integer orderId);
+   Long orderCancel(Member member, Integer orderId);
+
 }
