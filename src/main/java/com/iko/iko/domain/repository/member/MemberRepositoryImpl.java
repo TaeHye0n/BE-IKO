@@ -4,6 +4,7 @@ import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
 import com.iko.iko.domain.entity.LinkOrderDetails;
 import com.iko.iko.domain.entity.Member;
+import com.iko.iko.domain.entity.QMember;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,9 @@ import static com.iko.iko.domain.entity.QImage.image;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
+
     private final JPAQueryFactory jpaQueryFactory;
+
 
     @Override
     public Long updateInfo(
@@ -47,6 +50,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     ){
         return jpaQueryFactory
                 .select(Projections.constructor(MyOrderListResponseDto.class,
+                        order.createdAt,
                         order.orderId,
                         order.status,
                         product.name,
@@ -69,5 +73,19 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .fetch();
 
     }
+
+
+    @Override
+    public Long logout(
+            Member member
+    ){
+        return jpaQueryFactory
+                .update(QMember.member)
+                .setNull(QMember.member.refreshToken)
+                .where(QMember.member.memberId.eq(member.getMemberId()))
+                .execute();
+    }
+
+
 
 }

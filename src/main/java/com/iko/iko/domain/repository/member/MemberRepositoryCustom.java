@@ -11,4 +11,8 @@ public interface MemberRepositoryCustom {
    Long updateInfo(UpdateInfoRequestDto requestDto);
 
    List<MyOrderListResponseDto> MyOrderList(Member member);
+
+   Long logout(Member member);
+
+  // Long orderCancel(Integer orderId);
 }

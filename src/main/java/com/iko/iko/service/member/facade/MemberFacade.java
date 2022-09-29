@@ -29,6 +29,7 @@ public class MemberFacade {
     private final UpdateInfoService updateInfoService;
     private final UpdatePasswordService updatePasswordService;
     private final MyOrderListService myOrderListService;
+    private final LogoutService logoutService;
 
     @Transactional
     public Integer signUp(MemberSignUpRequestDto requestDto){
@@ -63,6 +64,11 @@ public class MemberFacade {
     @Transactional(readOnly = true)
     public List<MyOrderListResponseDto> MyOrderList(){
         return myOrderListService.MyOrderList();
+    }
+
+    @Transactional
+    public Long logout(){
+        return logoutService.logout();
     }
 
 }

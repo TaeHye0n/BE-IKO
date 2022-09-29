@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 public class MyOrderListResponseDto {
 
+    private Date orderCreatedAt;
     private Integer OrderId;
     private Integer status;
     private String name;
