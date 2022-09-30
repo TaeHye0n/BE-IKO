@@ -5,10 +5,7 @@ import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 
 import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
-import com.iko.iko.controller.member.dto.response.MemberResponseDto;
-import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
-import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
-import com.iko.iko.controller.member.dto.response.TokenResponseDto;
+import com.iko.iko.controller.member.dto.response.*;
 import com.iko.iko.service.member.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +26,7 @@ public class MemberFacade {
     private final MyOrderListService myOrderListService;
     private final LogoutService logoutService;
     private final OrderCancelService orderCancelService;
+    private final MyReplyListService myReplyListService;
 
 
     @Transactional
@@ -74,6 +72,11 @@ public class MemberFacade {
     @Transactional
     public Long orderCancel(Integer orderId){
         return orderCancelService.orderCancel(orderId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MyReplyListResponseDto> myReplyList(){
+        return myReplyListService.myReplyList();
     }
 
 }

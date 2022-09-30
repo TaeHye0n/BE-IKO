@@ -19,11 +19,6 @@ public class MyOrderListService {
 
     private final MemberRepository memberRepository;
 
-//    @Transactional(readOnly = true)
-//    public List<MyOrderListResponseDto> MyOrderList(Integer memberId){
-//        return memberRepository.MyOrderList(memberId);
-//    }
-
     @Transactional(readOnly = true)
     public List<MyOrderListResponseDto> myOrderList() {
         Member member = validateLoginStatus();

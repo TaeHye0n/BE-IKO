@@ -4,10 +4,7 @@ import com.iko.iko.controller.member.dto.request.MemberSignInRequestDto;
 import com.iko.iko.controller.member.dto.request.MemberSignUpRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.request.UpdatePasswordRequestDto;
-import com.iko.iko.controller.member.dto.response.MemberResponseDto;
-import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
-import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
-import com.iko.iko.controller.member.dto.response.TokenResponseDto;
+import com.iko.iko.controller.member.dto.response.*;
 import com.iko.iko.service.member.facade.MemberFacade;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -81,7 +78,7 @@ public class MemberController {
     // 마이페이지 주문 내역
     @ApiOperation(value = "유저 주문내역", notes = "현재 더미 데이터상 member_id_pk 23번만 사용가능")
     @GetMapping("/myOrderList")
-    public List<MyOrderListResponseDto> MyOrderList(){
+    public List<MyOrderListResponseDto> myOrderList(){
         return memberFacade.myOrderList();
     }
 
@@ -92,10 +89,17 @@ public class MemberController {
         return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
     }
 
+    // 주문 취소
     @PutMapping("/myOrderCancel")
     public ResponseEntity orderCancel (@RequestBody @Valid Integer orderId){
         memberFacade.orderCancel(orderId);
-        return new ResponseEntity<>("취소 완료", HttpStatus.OK);
+        return new ResponseEntity<>("주문 취소 완료", HttpStatus.OK);
+    }
+
+    // 내 리뷰 리스트
+    @GetMapping("/myReplyList")
+    public List<MyReplyListResponseDto> myReplyList(){
+        return memberFacade.myReplyList();
     }
 
 }

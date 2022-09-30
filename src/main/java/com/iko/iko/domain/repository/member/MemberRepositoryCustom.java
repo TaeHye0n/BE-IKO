@@ -19,6 +19,6 @@ public interface MemberRepositoryCustom {
 
    Long deleteOrder(Member member, Integer orderId);
 
-//   List<MyReplyListResponseDto> myReplyList(Member member);
+   List<MyReplyListResponseDto> myReplyList(Member member);
 
 }
