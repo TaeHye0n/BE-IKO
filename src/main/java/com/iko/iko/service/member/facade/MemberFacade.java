@@ -9,13 +9,11 @@ import com.iko.iko.controller.member.dto.response.MemberResponseDto;
 import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
 import com.iko.iko.controller.member.dto.response.ReissueResponseDto;
 import com.iko.iko.controller.member.dto.response.TokenResponseDto;
-import com.iko.iko.domain.entity.Member;
 import com.iko.iko.service.member.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -64,8 +62,8 @@ public class MemberFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<MyOrderListResponseDto> MyOrderList(){
-        return myOrderListService.MyOrderList();
+    public List<MyOrderListResponseDto> myOrderList(){
+        return myOrderListService.myOrderList();
     }
 
     @Transactional

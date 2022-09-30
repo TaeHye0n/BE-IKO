@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tb_reply_image")
+@Table(name = "tb_cart")
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -19,15 +19,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public class ReplyImage extends BaseEntity {
+public class Cart extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reply_image_id_pk", unique = true, nullable = false)
-    private Integer replyImageId;
+    @Column(name = "cart_id_pk", unique = true, nullable = false)
+    private Integer cartId;
 
-    @Column(name = "image_id_fk")
-    private Integer imageId;
+    @Column(name = "member_id_fk" , nullable = false)
+    private Integer memberId;
 
-    @Column(name = "reply_id_fk")
-    private Integer replyId;
 }

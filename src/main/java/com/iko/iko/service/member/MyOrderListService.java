@@ -3,7 +3,6 @@ package com.iko.iko.service.member;
 
 import com.iko.iko.common.exception.BaseException;
 import com.iko.iko.common.response.ErrorCode;
-import com.iko.iko.controller.member.dto.response.MemberResponseDto;
 import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.repository.member.MemberRepository;
@@ -26,9 +25,9 @@ public class MyOrderListService {
 //    }
 
     @Transactional(readOnly = true)
-    public List<MyOrderListResponseDto> MyOrderList() {
+    public List<MyOrderListResponseDto> myOrderList() {
         Member member = validateLoginStatus();
-        return memberRepository.MyOrderList(member);
+        return memberRepository.myOrderList(member);
     }
 
     public Member validateLoginStatus() {

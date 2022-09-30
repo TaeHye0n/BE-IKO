@@ -2,7 +2,7 @@ package com.iko.iko.domain.repository.member;
 
 import com.iko.iko.controller.member.dto.request.UpdateInfoRequestDto;
 import com.iko.iko.controller.member.dto.response.MyOrderListResponseDto;
-import com.iko.iko.domain.entity.LinkOrderDetails;
+import com.iko.iko.controller.member.dto.response.MyReplyListResponseDto;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.entity.QMember;
 import com.querydsl.core.types.Projections;
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.iko.iko.domain.entity.QMember.member;
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
 import static com.iko.iko.domain.entity.QOrder.order;
-import static com.iko.iko.domain.entity.QBaseEntity.baseEntity;
 import static com.iko.iko.domain.entity.QLinkOrderDetails.linkOrderDetails;
 import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDetailsImage;
 import static com.iko.iko.domain.entity.QImage.image;
+import static com.iko.iko.domain.entity.QReply.reply;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
@@ -47,7 +47,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
 
     @Override
-    public List<MyOrderListResponseDto> MyOrderList(
+    public List<MyOrderListResponseDto> myOrderList(
             Member member
     ){
         return jpaQueryFactory
@@ -90,21 +90,50 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
 
     @Override
-    public Long orderCancel(
-            Member member, Integer orderId
+    public Long deleteLinkOrder(
+            Integer orderId
     ){
-        long execute =  jpaQueryFactory
+        return jpaQueryFactory
                 .delete(linkOrderDetails)
                 .where(linkOrderDetails.orderId.eq(orderId))
                 .execute();
+    }
 
-        execute = execute + jpaQueryFactory
+
+    @Override
+    public Long deleteOrder(
+            Member member, Integer orderId
+    ){
+        return jpaQueryFactory
                 .delete(order)
                 .where(order.orderId.eq(orderId)
                         .and(order.memberId.eq(member.getMemberId())))
                 .execute();
-
-        return execute;
     }
+//
+//    @Override
+//    public List<MyReplyListResponseDto> myReplyList(
+//            Member member
+//    ){
+//        return jpaQueryFactory
+//                .select(Projections.constructor(MyReplyListResponseDto.class,
+//                        reply.createdAt,
+//                        order.orderId,
+//                        reply.replyId,
+//                        product.name,
+//                        productDetails.color,
+//                        productDetails.colorCode,
+//                        productDetails.graphicDiameter,
+//                        productDetails.degree,
+//                        productDetails.detailsPrice,
+//                        productDetails.period,
+//                        reply.content,
+//                        reply.rating,
+//                        image.imageUrl
+//
+//                ))
+//                .from(reply)
+//
+//    }
 
 }

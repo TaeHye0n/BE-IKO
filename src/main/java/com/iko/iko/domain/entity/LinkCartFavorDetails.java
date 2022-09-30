@@ -24,8 +24,8 @@ public class LinkCartFavorDetails {
     @Column(name="cart_details_id_pk",unique = true, nullable = false)
     private Integer linkId;
 
-    @Column(name="cart_favor_id_fk",nullable = false)
-    private Integer cartFavorId;
+    @Column(name="cart_id_fk",nullable = false)
+    private Integer cartId;
 
     @Column(name="product_details_id_fk",nullable = false)
     private Integer productDetailsId;

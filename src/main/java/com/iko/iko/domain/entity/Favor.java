@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tb_cart_favor")
+@Table(name = "tb_favor")
 @DynamicInsert
 @DynamicUpdate
 @Getter
@@ -19,16 +19,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
-public class CartFavor extends BaseEntity {
+public class Favor extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_favor_id_pk", unique = true, nullable = false)
-    private Integer cartFavorId;
+    @Column(name = "favor_id_pk", unique = true, nullable = false)
+    private Integer favorId;
 
     @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
-    @Column(name = "cart_favor_type" , nullable = false)
-    private Integer cartFavorType;
-
 }
+

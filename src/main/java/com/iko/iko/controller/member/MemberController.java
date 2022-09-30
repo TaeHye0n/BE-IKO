@@ -82,7 +82,7 @@ public class MemberController {
     @ApiOperation(value = "유저 주문내역", notes = "현재 더미 데이터상 member_id_pk 23번만 사용가능")
     @GetMapping("/myOrderList")
     public List<MyOrderListResponseDto> MyOrderList(){
-        return memberFacade.MyOrderList();
+        return memberFacade.myOrderList();
     }
 
     // 로그아웃
@@ -92,7 +92,7 @@ public class MemberController {
         return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
     }
 
-    @PostMapping("/myOrderCancel")
+    @PutMapping("/myOrderCancel")
     public ResponseEntity orderCancel (@RequestBody @Valid Integer orderId){
         memberFacade.orderCancel(orderId);
         return new ResponseEntity<>("취소 완료", HttpStatus.OK);

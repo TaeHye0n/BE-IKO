@@ -16,7 +16,8 @@ public class OrderCancelService {
 
     public Long orderCancel(Integer orderId){
         Member member = validateLoginStatus();
-        return memberRepository.orderCancel(member, orderId);
+        memberRepository.deleteLinkOrder(orderId);
+        return memberRepository.deleteOrder(member, orderId);
     }
 
     public Member validateLoginStatus() {
