@@ -29,4 +29,7 @@ public class Cart extends BaseEntity {
     @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
+    @Column(name="product_details_id_fk",nullable = false)
+    private Integer productDetailsId;
+
 }

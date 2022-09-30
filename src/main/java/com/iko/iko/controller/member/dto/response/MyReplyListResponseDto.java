@@ -21,6 +21,7 @@ public class MyReplyListResponseDto {
     private String colorCode;
     private Float graphicDiameter;
     private Float degree;
+    private Integer set;
     private Integer price;
     private Integer period;
     private String replyContent;

@@ -60,6 +60,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         productDetails.colorCode,
                         productDetails.graphicDiameter,
                         productDetails.degree,
+                        linkOrderDetails.set,
                         productDetails.detailsPrice,
                         productDetails.period,
                         image.imageUrl
@@ -110,7 +111,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         .and(order.memberId.eq(member.getMemberId())))
                 .execute();
     }
-//
+
 //    @Override
 //    public List<MyReplyListResponseDto> myReplyList(
 //            Member member
@@ -125,14 +126,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 //                        productDetails.colorCode,
 //                        productDetails.graphicDiameter,
 //                        productDetails.degree,
+//                        linkOrderDetails.set,
 //                        productDetails.detailsPrice,
 //                        productDetails.period,
 //                        reply.content,
 //                        reply.rating,
-//                        image.imageUrl
-//
+//                        image.imageUrl,
+//                        reply.imageUrl
 //                ))
-//                .from(reply)
+//
 //
 //    }
 
