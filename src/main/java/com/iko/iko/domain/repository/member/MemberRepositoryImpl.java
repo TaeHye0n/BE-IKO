@@ -73,6 +73,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         .and(image.imageType.eq(1))).fetchJoin()
                 .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
                 .where(order.memberId.eq(member.getMemberId()))
+                .orderBy(order.orderId.desc())
                 .fetch();
     }
 
@@ -141,7 +142,9 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .join(linkOrderDetails).on(productDetails.productDetailsId.eq(linkOrderDetails.productDetailsId)).fetchJoin()
                 .join(order).on(linkOrderDetails.orderId.eq(order.orderId)).fetchJoin()
                 .where(reply.memberId.eq(member.getMemberId()))
+                .orderBy(reply.replyId.desc())
                 .fetch();
     }
+
 
 }

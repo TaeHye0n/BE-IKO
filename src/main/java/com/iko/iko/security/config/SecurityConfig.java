@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/member/signup", "/member/login", "/member/newAccess").permitAll()
                 .antMatchers("/member/**").hasRole("USER")
+                .antMatchers("/favor/**").hasRole("USER")
+                .antMatchers("/cart/**").hasRole("USER")
                 .antMatchers("/admin").permitAll() // 임시로 permitAll로 해둠
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 //                .anyRequest().authenticated()

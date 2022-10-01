@@ -1,16 +1,17 @@
 package com.iko.iko.controller.member.dto.request;
 
 
-
 import com.iko.iko.domain.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class MemberSignUpRequestDto {
 
