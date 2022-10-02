@@ -5,7 +5,7 @@ import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.controller.favor.dto.request.AddFavorRequestDto;
 import com.iko.iko.domain.entity.Favor;
 import com.iko.iko.domain.entity.Member;
-import com.iko.iko.domain.repository.Favor.FavorRepository;
+import com.iko.iko.domain.repository.favor.FavorRepository;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;

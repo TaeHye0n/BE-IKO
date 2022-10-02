@@ -26,9 +26,6 @@ public class Event extends BaseEntity{
     @Column(name = "event_id_pk", unique = true, nullable = false)
     private Integer eventId;
 
-    @Column(name = "member_id_fk")
-    private Integer memberId;
-
     @Column(name = "event_title")
     private String eventTitle;
 

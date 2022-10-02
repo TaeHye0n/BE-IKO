@@ -5,7 +5,7 @@ import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.controller.cart.dto.request.AddCartRequestDto;
 import com.iko.iko.domain.entity.Cart;
 import com.iko.iko.domain.entity.Member;
-import com.iko.iko.domain.repository.Cart.CartRepository;
+import com.iko.iko.domain.repository.cart.CartRepository;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;

@@ -28,8 +28,6 @@ public class Coupon extends BaseEntity{
     @Column(name = "coupon_id_pk", unique = true, nullable = false)
     private Integer couponId;
 
-    @Column(name = "product_details_id_fk" , nullable = false)
-    private Integer productDetailsId;
 
     @Column(name = "event_id_fk" , nullable = false)
     private Integer eventId;

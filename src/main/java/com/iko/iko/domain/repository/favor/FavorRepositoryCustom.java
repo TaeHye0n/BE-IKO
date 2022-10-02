@@ -1,4 +1,4 @@
-package com.iko.iko.domain.repository.Favor;
+package com.iko.iko.domain.repository.favor;
 
 public interface FavorRepositoryCustom {
 

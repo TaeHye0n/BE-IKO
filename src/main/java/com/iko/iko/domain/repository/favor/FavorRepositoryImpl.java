@@ -1,13 +1,9 @@
-package com.iko.iko.domain.repository.Favor;
+package com.iko.iko.domain.repository.favor;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import static com.iko.iko.domain.entity.QProduct.product;
-import static com.iko.iko.domain.entity.QProductDetails.productDetails;
-import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDetailsImage;
-import static com.iko.iko.domain.entity.QImage.image;
 import static com.iko.iko.domain.entity.QFavor.favor;
 
 @Repository

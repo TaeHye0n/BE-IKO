@@ -28,11 +28,20 @@ public class Order extends BaseEntity{
     @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
+    @Column(name = "coupon_id_fk" , nullable = false)
+    private Integer couponId;
+
     @Column(name = "status" , nullable = false)
     private Integer status;
 
-    @Column(name = "destination" , nullable = false)
-    private String destination;
+    @Column(name = "name" , nullable = false)
+    private String name;
+
+    @Column(name = "phone" , nullable = false)
+    private String phone;
+
+    @Column(name = "email" , nullable = false)
+    private String email;
 
     @Column(name = "total_price" , nullable = false)
     private Integer totalPrice;
@@ -42,6 +51,21 @@ public class Order extends BaseEntity{
 
     @Column(name = "receiver_phone" , nullable = false)
     private String receiverPhone;
+
+    @Column(name = "destination" , nullable = false)
+    private String destination;
+
+    @Column(name = "detail_destination" , nullable = false)
+    private String detailDestination;
+
+    @Column(name = "method" , nullable = false)
+    private String method;
+
+    @Column(name = "point")
+    private Integer point;
+
+    @Column(name = "message")
+    private String message;
 
 
 }

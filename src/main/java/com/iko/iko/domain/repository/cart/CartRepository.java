@@ -1,4 +1,4 @@
-package com.iko.iko.domain.repository.Cart;
+package com.iko.iko.domain.repository.cart;
 
 import com.iko.iko.domain.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
