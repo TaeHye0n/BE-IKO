@@ -42,7 +42,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .where(QMember.member.memberId.eq(member.getMemberId()))
                 .execute();
 
-
     }
 
 

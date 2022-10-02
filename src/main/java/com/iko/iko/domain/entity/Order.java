@@ -28,7 +28,7 @@ public class Order extends BaseEntity{
     @Column(name = "member_id_fk" , nullable = false)
     private Integer memberId;
 
-    @Column(name = "coupon_id_fk" , nullable = false)
+    @Column(name = "coupon_id_fk")
     private Integer couponId;
 
     @Column(name = "status" , nullable = false)
