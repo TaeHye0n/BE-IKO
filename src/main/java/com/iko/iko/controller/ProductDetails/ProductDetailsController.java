@@ -5,6 +5,7 @@ import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 
 import com.iko.iko.domain.entity.Product;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -54,6 +55,7 @@ public class ProductDetailsController {
     }
 
     @PostMapping("/productDetails")
+    @ApiOperation(value="제품 상세정보",notes="id= ? , productId")
     public ResponseEntity<Response<List<ProductDetailsResponse.ProductDetailsForResponse>>>
     getProductDetails(
             @RequestParam(value ="id") Integer selectedProductId

@@ -24,4 +24,5 @@ public class BoardResponse {
         private String description;
 
     }
+
 }

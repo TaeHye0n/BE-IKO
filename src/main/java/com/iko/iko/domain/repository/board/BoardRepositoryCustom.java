@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 public interface BoardRepositoryCustom {
 
-    List<BoardResponse.BoardMain> getMain(Pageable pageable);
+    List<BoardResponse.BoardMain> getMain(Pageable pageable, Integer bType);
 
     List<BoardResponse.BoardDetails> getDetails(Integer selectedBoardId);
 }

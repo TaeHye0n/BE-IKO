@@ -15,13 +15,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<BoardResponse.BoardMain> getMain(Pageable pageable){
+    public List<BoardResponse.BoardMain> getMain(Pageable pageable, Integer bType){
         return jpaQueryFactory
                 .select(Projections.constructor(BoardResponse.BoardMain.class,
                         board.boardId,
                         board.boardTitle,
                         board.boardType))
                 .from(board)
+                .where(board.boardType.eq(bType))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
