@@ -68,4 +68,13 @@ public class OrderRequestDto {
         }
     }
 
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class DeleteOrder{
+
+        private Integer OrderId;
+    }
+
+
 }

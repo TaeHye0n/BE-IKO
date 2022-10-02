@@ -19,6 +19,7 @@ import static com.iko.iko.domain.entity.QLinkOrderDetails.linkOrderDetails;
 import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDetailsImage;
 import static com.iko.iko.domain.entity.QImage.image;
 import static com.iko.iko.domain.entity.QReply.reply;
+import static com.iko.iko.domain.entity.QMember.member;
 
 @Repository
 @RequiredArgsConstructor
@@ -44,6 +45,27 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
     }
 
+    @Override
+    public Long logout(
+            Member member
+    ){
+        return jpaQueryFactory
+                .update(QMember.member)
+                .setNull(QMember.member.refreshToken)
+                .where(QMember.member.memberId.eq(member.getMemberId()))
+                .execute();
+    }
+
+    @Override
+    public Long addPoint(
+            Integer memberId, Integer point
+    ){
+        return jpaQueryFactory
+                .update(member)
+                .set(member.point, member.point.add(point))
+                .where(member.memberId.eq(memberId))
+                .execute();
+    }
 
     @Override
     public List<MyOrderListResponseDto> myOrderList(
@@ -74,18 +96,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .where(order.memberId.eq(member.getMemberId()))
                 .orderBy(order.orderId.desc())
                 .fetch();
-    }
-
-
-    @Override
-    public Long logout(
-            Member member
-    ){
-        return jpaQueryFactory
-                .update(QMember.member)
-                .setNull(QMember.member.refreshToken)
-                .where(QMember.member.memberId.eq(member.getMemberId()))
-                .execute();
     }
 
 

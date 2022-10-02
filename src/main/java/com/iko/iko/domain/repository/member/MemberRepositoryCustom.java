@@ -21,4 +21,6 @@ public interface MemberRepositoryCustom {
 
    List<MyReplyListResponseDto> myReplyList(Member member);
 
+   Long addPoint(Integer memberId, Integer point);
+
 }
