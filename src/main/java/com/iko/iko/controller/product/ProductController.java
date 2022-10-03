@@ -21,7 +21,7 @@ public class ProductController {
 
     private final ProductFacade productFacade;
 
-    @GetMapping("/product")
+    @GetMapping("/main")
     public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
     getMainProduct(
             @PageableDefault(size=9) Pageable pageable

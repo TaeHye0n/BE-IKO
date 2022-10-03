@@ -33,6 +33,7 @@ public class ProductDetailsResponse {
     @AllArgsConstructor
     @Builder
     public static  class MainProductForResponse{
+        private Long isFavorite;
         private Integer productId;
         private String series;
         private List<Float> graphicDiameter;
