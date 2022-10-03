@@ -27,7 +27,7 @@ public class AddOrderService {
     private final LinkMemberCouponRepository linkMemberCouponRepository;
 
     @Transactional
-    public String addOrder(AddOrderRequest addOrderRequest){
+    public Integer addOrder(AddOrderRequest addOrderRequest){
         Order order = orderRepository.save(addOrderRequest.toEntity());
         if(order.getOrderId() == null){
             throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
@@ -50,6 +50,6 @@ public class AddOrderService {
             }
         }
 
-        return "Ok";
+        return order.getOrderId();
     }
 }

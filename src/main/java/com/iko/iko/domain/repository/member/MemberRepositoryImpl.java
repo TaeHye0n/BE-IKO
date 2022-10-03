@@ -92,7 +92,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         productDetails.colorCode,
                         productDetails.graphicDiameter,
                         productDetails.degree,
-                        linkOrderDetails.set,
+                        linkOrderDetails.pcs,
                         productDetails.detailsPrice,
                         productDetails.period,
                         image.imageUrl
@@ -124,7 +124,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                         productDetails.colorCode,
                         productDetails.graphicDiameter,
                         productDetails.degree,
-                        linkOrderDetails.set,
+                        linkOrderDetails.pcs,
                         productDetails.detailsPrice,
                         productDetails.period,
                         reply.content,

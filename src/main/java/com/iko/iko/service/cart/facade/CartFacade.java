@@ -21,7 +21,7 @@ public class CartFacade {
     private final DeleteCartService deleteCartService;
 
     @Transactional
-    public Long addCart(AddCartRequestDto requestDto){
+    public String addCart(AddCartRequestDto requestDto){
         return addCartService.addCart(requestDto);
     }
 

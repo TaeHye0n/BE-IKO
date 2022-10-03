@@ -37,13 +37,13 @@ public class OrderRequestDto {
         public static class AddOrderDetailsRequest {
 
             private Integer productDetailsId;
-            private Integer set;
+            private Integer pcs;
 
             @Builder
             public LinkOrderDetails toEntity() {
                 return LinkOrderDetails.builder()
                         .productDetailsId(productDetailsId)
-                        .set(set)
+                        .pcs(pcs)
                         .build();
             }
         }

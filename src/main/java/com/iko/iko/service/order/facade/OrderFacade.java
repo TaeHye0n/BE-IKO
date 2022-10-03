@@ -16,7 +16,7 @@ public class OrderFacade {
     private final CancelOrderService cancelOrderService;
 
     @Transactional
-    public String addOrder(AddOrderRequest addOrderRequest){
+    public Integer addOrder(AddOrderRequest addOrderRequest){
         return addOrderService.addOrder(addOrderRequest);
     }
 

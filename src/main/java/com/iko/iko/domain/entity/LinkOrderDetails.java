@@ -29,6 +29,6 @@ public class LinkOrderDetails extends BaseEntity{
     @Column(name="order_id_fk",nullable = false)
     private Integer orderId;
 
-    @Column(name="set", nullable = false)
-    private Integer set;
+    @Column(name="pcs", nullable = false)
+    private Integer pcs;
 }

@@ -23,7 +23,7 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Response<String>> addOrder(
+    public ResponseEntity<Response<Integer>> addOrder(
             @RequestBody @Valid AddOrderRequest addOrderRequest
     ){
         return ResponseEntity.ok(

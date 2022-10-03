@@ -34,27 +34,35 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(name = "member_id_pk", unique = true, nullable = false)
     private Integer memberId;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String readname;
 
+    @Column(nullable = false)
     private Integer postCode;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private String detailAddress;
 
+    @Column(nullable = false)
     private String phone;
 
     @Column(unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String birthday;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private Integer point;
-
 
     private String refreshToken;
 

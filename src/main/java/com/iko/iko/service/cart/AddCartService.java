@@ -20,18 +20,14 @@ public class AddCartService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long addCart(AddCartRequestDto requestDto) {
+    public String addCart(AddCartRequestDto requestDto) {
         Member member = validateLoginStatus();
         Cart cart = cartRepository.save(Cart.builder()
                 .memberId(member.getMemberId())
                 .productDetailsId(requestDto.getProductDetailsId())
                 .build());
 
-        if (cart != null) {
-            return (long)1;
-        } else {
-            return (long) 2;
-        }
+        return "Ok";
     }
 
     public Member validateLoginStatus() {

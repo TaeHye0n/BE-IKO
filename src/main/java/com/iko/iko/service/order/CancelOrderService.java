@@ -27,15 +27,16 @@ public class CancelOrderService {
     public String cancelOrder(CancelOrder cancelOrder) {
         Optional<Order> order = orderRepository.findById(cancelOrder.getOrderId());
         if (order.isPresent()) {
-            if(cancelOrder.getMemberId() != 0) {
-                memberRepository.minusPoint(order.get().getMemberId(), order.get().getPoint());
-                linkMemberCouponRepository.setStatusAvailable(order.get().getMemberId(), order.get().getCouponId());
-            }
-            orderRepository.cancelOrder(order.get().getMemberId(), cancelOrder.getOrderId());
-            linkOrderDetailsRepository.cancelLinkOrder(cancelOrder.getOrderId());
-        }
-        else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
-
+            if (order.get().getMemberId() == cancelOrder.getMemberId()) {
+                // 회원인 경우 포인트 마이너스, 쿠폰 반환
+                if (cancelOrder.getMemberId() != 0) {
+                    memberRepository.minusPoint(order.get().getMemberId(), order.get().getPoint());
+                    linkMemberCouponRepository.setStatusAvailable(order.get().getMemberId(), order.get().getCouponId());
+                }
+                linkOrderDetailsRepository.cancelLinkOrder(cancelOrder.getOrderId());
+                orderRepository.cancelOrder(order.get().getMemberId(), cancelOrder.getOrderId());
+            } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
+        }else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         return "Ok";
     }
 
