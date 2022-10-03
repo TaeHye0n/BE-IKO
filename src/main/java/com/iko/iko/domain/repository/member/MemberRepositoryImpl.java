@@ -68,6 +68,17 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     }
 
     @Override
+    public Long minusPoint(
+            Integer memberId, Integer point
+    ){
+        return jpaQueryFactory
+                .update(member)
+                .set(member.point, member.point.add(-point))
+                .where(member.memberId.eq(memberId))
+                .execute();
+    }
+
+    @Override
     public List<MyOrderListResponseDto> myOrderList(
             Member member
     ){
@@ -98,28 +109,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .fetch();
     }
 
-
-    @Override
-    public Long deleteLinkOrder(
-            Integer orderId
-    ){
-        return jpaQueryFactory
-                .delete(linkOrderDetails)
-                .where(linkOrderDetails.orderId.eq(orderId))
-                .execute();
-    }
-
-
-    @Override
-    public Long deleteOrder(
-            Member member, Integer orderId
-    ){
-        return jpaQueryFactory
-                .delete(order)
-                .where(order.orderId.eq(orderId)
-                        .and(order.memberId.eq(member.getMemberId())))
-                .execute();
-    }
 
     @Override
     public List<MyReplyListResponseDto> myReplyList(

@@ -42,6 +42,7 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                 .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
                 .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
                         .and(image.imageType.eq(1))).fetchJoin()
+                .where(cart.memberId.eq(memberId))
                 .fetch();
     }
 

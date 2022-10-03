@@ -2,6 +2,7 @@ package com.iko.iko.controller.order;
 
 import com.iko.iko.common.response.Response;
 import com.iko.iko.controller.order.dto.request.OrderRequestDto.AddOrderRequest;
+import com.iko.iko.controller.order.dto.request.OrderRequestDto.CancelOrder;
 import com.iko.iko.service.order.facade.OrderFacade;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,15 @@ public class OrderController {
         );
     }
 
-//    @PostMapping("/delete")
-//    public
+    @PostMapping("/cancel")
+    public ResponseEntity<Response<String>> cancelOrder(
+            @RequestBody @Valid CancelOrder cancelOrder
+    ){
+        return ResponseEntity.ok(
+                Response.of(orderFacade.cancelOrder(cancelOrder),
+                        "주문 취소 완료"
+                )
+        );
+    }
 
 }

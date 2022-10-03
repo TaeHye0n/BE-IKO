@@ -4,17 +4,14 @@ import com.iko.iko.common.response.Response;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 
-import com.iko.iko.domain.entity.Product;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.iko.iko.service.productDetails.facade.*;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.iko.iko.service.productDetails.facade.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

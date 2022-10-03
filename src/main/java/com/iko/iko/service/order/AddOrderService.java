@@ -8,7 +8,7 @@ import com.iko.iko.controller.order.dto.request.OrderRequestDto.AddOrderRequest;
 import com.iko.iko.controller.order.dto.request.OrderRequestDto.AddOrderRequest.AddOrderDetailsRequest;
 import com.iko.iko.domain.entity.LinkOrderDetails;
 import com.iko.iko.domain.entity.Order;
-import com.iko.iko.domain.repository.coupon.CouponRepository;
+import com.iko.iko.domain.repository.linkMemberCoupon.LinkMemberCouponRepository;
 import com.iko.iko.domain.repository.linkOrderDetails.LinkOrderDetailsRepository;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.domain.repository.order.OrderRepository;
@@ -24,7 +24,7 @@ public class AddOrderService {
     private final LinkOrderDetailsRepository linkOrderDetailsRepository;
     private final MemberRepository memberRepository;
 
-    private final CouponRepository couponRepository;
+    private final LinkMemberCouponRepository linkMemberCouponRepository;
 
     @Transactional
     public String addOrder(AddOrderRequest addOrderRequest){
@@ -46,7 +46,7 @@ public class AddOrderService {
         if(addOrderRequest.getMemberId() != 0){
             memberRepository.addPoint(addOrderRequest.getMemberId(), addOrderRequest.getPoint());
             if(addOrderRequest.getCouponId() != 0){
-
+                linkMemberCouponRepository.setStatusUsed(addOrderRequest.getMemberId(), addOrderRequest.getCouponId());
             }
         }
 

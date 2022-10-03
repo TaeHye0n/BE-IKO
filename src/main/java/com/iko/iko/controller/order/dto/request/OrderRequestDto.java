@@ -71,9 +71,11 @@ public class OrderRequestDto {
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class DeleteOrder{
+    public static class CancelOrder {
 
-        private Integer OrderId;
+        private Integer orderId;
+        private Integer memberId;
+
     }
 
 

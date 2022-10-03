@@ -25,7 +25,6 @@ public class MemberFacade {
     private final UpdatePasswordService updatePasswordService;
     private final MyOrderListService myOrderListService;
     private final LogoutService logoutService;
-    private final OrderCancelService orderCancelService;
     private final MyReplyListService myReplyListService;
 
 
@@ -69,10 +68,6 @@ public class MemberFacade {
         return logoutService.logout();
     }
 
-    @Transactional
-    public Long orderCancel(Integer orderId){
-        return orderCancelService.orderCancel(orderId);
-    }
 
     @Transactional(readOnly = true)
     public List<MyReplyListResponseDto> myReplyList(){

@@ -1,9 +1,7 @@
 package com.iko.iko.controller.product.dto;
 
-import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import lombok.*;
 
-import java.util.List;
 public class ProductResponse {
 
     @Getter

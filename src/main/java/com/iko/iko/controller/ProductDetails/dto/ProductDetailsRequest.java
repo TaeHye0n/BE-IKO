@@ -1,13 +1,7 @@
 package com.iko.iko.controller.ProductDetails.dto;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.*;
-import net.bytebuddy.asm.Advice;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ProductDetailsRequest {
 

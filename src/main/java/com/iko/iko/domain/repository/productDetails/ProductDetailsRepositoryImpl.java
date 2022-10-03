@@ -3,16 +3,11 @@ package com.iko.iko.domain.repository.productDetails;
 
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
-import com.iko.iko.domain.entity.LinkProductDetailsImage;
 
-import com.iko.iko.controller.product.dto.ProductResponse;
-import com.iko.iko.domain.entity.Product;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 

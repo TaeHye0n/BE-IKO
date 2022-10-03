@@ -31,10 +31,13 @@ public class Reply extends BaseEntity{
     @Column(name = "product_details_id_fk" , nullable = false)
     private Integer productDetailsId;
 
+    @Column(name = "order_id_fk" , nullable = false)
+    private Integer orderId;
+
     @Column(name = "content")
     private String content;
 
-    @Column(name = "rating")
+    @Column(name = "rating" , nullable = false)
     private Float rating;
 
     @Column(name = "image_url")

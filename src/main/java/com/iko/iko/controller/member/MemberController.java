@@ -89,13 +89,6 @@ public class MemberController {
         return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
     }
 
-    // 주문 취소
-    @PutMapping("/myOrderCancel")
-    public ResponseEntity orderCancel (@RequestBody @Valid Integer orderId){
-        memberFacade.orderCancel(orderId);
-        return new ResponseEntity<>("주문 취소 완료", HttpStatus.OK);
-    }
-
     // 내 리뷰 리스트
     @GetMapping("/myReplyList")
     public List<MyReplyListResponseDto> myReplyList(){

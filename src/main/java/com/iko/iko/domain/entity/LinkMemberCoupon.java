@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_member_coupon")
@@ -34,5 +35,8 @@ public class LinkMemberCoupon extends BaseEntity{
 
     @Column(name="status", nullable = false)
     private Integer status;
+
+    @Column(columnDefinition = "DATETIME", name="expired_date")
+    private Date expiredDate;
 
 }
