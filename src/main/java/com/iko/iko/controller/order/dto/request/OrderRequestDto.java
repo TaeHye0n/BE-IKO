@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import java.util.List;
 
 public class OrderRequestDto {
@@ -18,6 +19,7 @@ public class OrderRequestDto {
         private Integer memberId;
         private String orderer;
         private String ordererPhone;
+        @Email(message = "올바른 이메일 주소를 입력해주세요.")
         private String ordererEmail;
         private String receiver;
         private String address;
@@ -26,7 +28,7 @@ public class OrderRequestDto {
         private String shippingMessage;
         private List<AddOrderDetailsRequest> addOrderDetailsRequestList;
         private Integer couponId;
-        private String method;
+        private Integer method;
         private Integer totalPrice;
         private Integer point;
 
@@ -71,10 +73,22 @@ public class OrderRequestDto {
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class CancelOrder {
+    public static class CancelOrderRequest {
 
         private Integer orderId;
         private Integer memberId;
+
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class GetOrderRequest {
+
+        private Integer memberId;
+        private Integer orderId;
+        private String ordererEmail;
+        private String orderer;
 
     }
 

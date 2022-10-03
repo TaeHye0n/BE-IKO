@@ -23,7 +23,6 @@ public class MemberFacade {
     private final InfoService infoService;
     private final UpdateInfoService updateInfoService;
     private final UpdatePasswordService updatePasswordService;
-    private final MyOrderListService myOrderListService;
     private final LogoutService logoutService;
     private final MyReplyListService myReplyListService;
 
@@ -58,16 +57,10 @@ public class MemberFacade {
         return updatePasswordService.updatePassword(requestDto);
     }
 
-    @Transactional(readOnly = true)
-    public List<MyOrderListResponseDto> myOrderList(){
-        return myOrderListService.myOrderList();
-    }
-
     @Transactional
     public Long logout(){
         return logoutService.logout();
     }
-
 
     @Transactional(readOnly = true)
     public List<MyReplyListResponseDto> myReplyList(){

@@ -25,43 +25,33 @@ public class Product extends BaseEntity {
     private Integer productId;
 
     @Column(name ="manufacturer", nullable = false)
-    @NotEmpty
     private String manufacturer;
 
     @Column(name="series", nullable = false)
-    @NotEmpty
     private String series;
 
     @Column(name="feature", nullable = false)
-    @NotEmpty
     private String feature;
 
     @Column(name="discount", nullable = false)
-    @NotEmpty
     private Integer discount;
 
     @Column(name="product_stock",nullable = false)
-    @NotEmpty
     private Integer stock;
 
     @Column(name ="product_name", nullable = false)
-    @NotEmpty
     private String name;
 
     @Column(name="price", nullable = false)
-    @NotEmpty
     private Integer price;
 
     @Column(name ="recommend",nullable = false)
-    @NotEmpty
     private Integer recommend;
 
     @Column(name ="exposure" , nullable = false)
-    @NotEmpty
     private Integer exposure;
 
     @Column(name="diameter" , nullable = false)
-    @NotEmpty
     private Float diameter;
 
 }

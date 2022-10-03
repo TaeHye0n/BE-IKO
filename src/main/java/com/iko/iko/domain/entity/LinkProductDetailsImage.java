@@ -1,9 +1,6 @@
 package com.iko.iko.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -15,6 +12,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class LinkProductDetailsImage extends BaseEntity{

@@ -33,51 +33,39 @@ public class ProductDetails extends BaseEntity {
     private Integer productDetailsStock;
 
     @Column(name ="color", nullable = false)
-    @NotEmpty
     private String color;
 
     @Column(name ="period", nullable = false)
-    @NotEmpty
     private Integer period;
 
     @Column(name ="details_price", nullable = false)
-    @NotEmpty
     private Integer detailsPrice;
 
     @Column(name="material", nullable = false)
-    @NotEmpty
     private String material;
 
     @Column(name="color_code", nullable = false)
-    @NotEmpty
     private String colorCode;
 
     @Column(name="degree", nullable = false)
-    @NotEmpty
     private Float degree;
 
     @Column(name="graphic_diameter" , nullable = false)
-    @NotEmpty
     private Float graphicDiameter;
 
     @Column(name="is_sale",nullable = false)
-    @NotEmpty
     private Integer isSale;
 
     @Column(name="moisture" , nullable = false)
-    @NotEmpty
     private Integer moisture;
 
     @Column(name="basecurve" , nullable = false)
-    @NotEmpty
     private Float basecurve;
 
     @Column(name="sold_out" , nullable = false)
-    @NotEmpty
     private Integer soldOut;
 
     @Column(name="details_exposure" , nullable = false)
-    @NotEmpty
     private Integer detailsExposure;
 
 }

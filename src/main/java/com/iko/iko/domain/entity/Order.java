@@ -59,7 +59,7 @@ public class Order extends BaseEntity{
     private String detailDestination;
 
     @Column(name = "method" , nullable = false)
-    private String method;
+    private Integer method;
 
     @Column(name = "point")
     private Integer point;

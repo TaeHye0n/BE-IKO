@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -75,12 +74,6 @@ public class MemberController {
         return new ResponseEntity<>("비밀번호 변경 완료", HttpStatus.OK);
     }
 
-    // 마이페이지 주문 내역
-    @ApiOperation(value = "유저 주문내역", notes = "현재 더미 데이터상 member_id_pk 23번만 사용가능")
-    @GetMapping("/myOrderList")
-    public List<MyOrderListResponseDto> myOrderList(){
-        return memberFacade.myOrderList();
-    }
 
     // 로그아웃
     @PostMapping("/logout")
