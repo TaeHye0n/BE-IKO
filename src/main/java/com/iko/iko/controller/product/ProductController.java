@@ -2,15 +2,15 @@ package com.iko.iko.controller.product;
 
 import java.util.List;
 
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Product;
 import com.iko.iko.service.product.facade.ProductFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import com.iko.iko.common.response.Response;
 
@@ -21,44 +21,17 @@ public class ProductController {
 
     private final ProductFacade productFacade;
 
-//    public ProductController(ProductFacade productFacade) {
-//        this.productFacade = productFacade;
-//    }
-
-/*
-    @GetMapping("/productMain")
-    public List<Product> getMainProduct(Pageable pageable){
-        return null;ResponseEntity.ok(
-                Response.of(
-                        productFacade.getMainProduct(pageable),
-                        "불러오기 완료"
-                )
-        );
-    }*/
-/*
-    @GetMapping("/mainProduct")
-    public ResponseEntity<Response<List<ProductResponse.ProductMainResponse>>>
+    @GetMapping("/product")
+    public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
     getMainProduct(
-            @PageableDefault(size = 9, page = 0) Pageable pageable
-    ) {
+            @PageableDefault(size=9) Pageable pageable
+    ){
+        //PageRequest pageRequest=PageRequest.of(page,size-1);
         return ResponseEntity.ok(
                 Response.of(
                         productFacade.getMainProduct(pageable),
-                        "메인상품 불러오기 완료"
+                        "모든상품 불러오기 완료"
                 )
         );
-
     }
-    @GetMapping("/allProduct")
-    public ResponseEntity<Response<List<ProductResponse.AllProduct>>>
-    getProduct(
-            @PageableDefault(size=9,page=0)Pageable pageable
-    ){
-        return ResponseEntity.ok(
-                Response.of(
-                        productFacade.getAllProduct(pageable),
-                "모든상품 불러오기 완료"
-                )
-        );
-    }*/
 }

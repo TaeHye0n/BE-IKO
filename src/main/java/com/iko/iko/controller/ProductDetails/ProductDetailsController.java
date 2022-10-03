@@ -24,19 +24,6 @@ import java.util.List;
 public class ProductDetailsController {
     private final ProductDetailsFacade productDetailsFacade;
 
-    @GetMapping("/product")
-    public ResponseEntity<Response<List<ProductDetailsResponse.MainProduct>>>
-    getMainProduct(
-            @RequestParam(value="page") Integer page,
-            @PageableDefault(size=9,page = 0) Pageable pageable
-    ){
-        return ResponseEntity.ok(
-                Response.of(
-                        productDetailsFacade.getMainProduct(pageable),
-                        "모든상품 불러오기 완료"
-                )
-        );
-    }
 
     @PostMapping("/productOption")
     public ResponseEntity<Response<List<ProductDetailsResponse.ProductMainByOptionResponse>>>

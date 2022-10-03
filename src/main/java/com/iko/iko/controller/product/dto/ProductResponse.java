@@ -7,6 +7,15 @@ public class ProductResponse {
     @Getter
     @Builder
     @AllArgsConstructor
+    public static class GetAllProductDistinct{
+        private Integer productId;
+        private String series;
+        private Integer price;
+        private Integer discount;
+    }
+    @Getter
+    @Builder
+    @AllArgsConstructor
     public static class ProductForResponse{
         private Integer productId;
         private Integer imageId;

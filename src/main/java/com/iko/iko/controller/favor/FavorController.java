@@ -5,6 +5,7 @@ import com.iko.iko.common.response.Response;
 import com.iko.iko.controller.favor.dto.request.AddFavorRequestDto;
 import com.iko.iko.controller.favor.dto.request.DeleteFavorRequestDto;
 import com.iko.iko.service.favor.facade.FavorFacade;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

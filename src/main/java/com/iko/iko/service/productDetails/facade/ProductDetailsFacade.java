@@ -20,12 +20,7 @@ public class ProductDetailsFacade {
 
     private final GetProductByOptionService getProductByOptionService;
 
-    @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.MainProduct>
-    getMainProduct(Pageable pageable){
 
-        return getMainProductService.GetMainProduct(pageable);
-    }
 
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.ProductMainByOptionResponse>getProductByOption(

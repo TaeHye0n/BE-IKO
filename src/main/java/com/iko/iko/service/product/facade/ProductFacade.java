@@ -1,5 +1,6 @@
 package com.iko.iko.service.product.facade;
 
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Product;
 import com.iko.iko.service.product.GetAllProductService;
@@ -13,22 +14,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductFacade {
-    /*
-    private final GetMainProductService getMainProductService;
     private final GetAllProductService getAllProductService;
     @Transactional(readOnly = true)
-    public List<ProductResponse.ProductMainResponse> getMainProduct(Pageable pageable){
+    public List<ProductDetailsResponse.MainProductForResponse>
+    getMainProduct(Pageable pageable){
 
-        return getMainProductService.getMainProduct(pageable);
+        return getAllProductService.GetMainProduct(pageable);
     }
-    @Transactional(readOnly = true)
-    public List<ProductResponse.AllProduct>getAllProduct(Pageable pageable){
-        return getAllProductService.GetAllProduct(pageable);
-    }
-*/
-   /* @Transactional(readOnly = true)
-    public List<Product> getProductByGraphic(float graphicDiameter){
-        return getProductByGraphicService.getProductByGraphic();
-    }*/
-
 }
