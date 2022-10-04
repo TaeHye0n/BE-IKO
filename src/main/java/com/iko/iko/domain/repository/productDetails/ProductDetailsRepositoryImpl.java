@@ -142,18 +142,46 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                         product.series,
                         product.diameter,
                         productDetails.colorCode,
+                        productDetails.detailsPrice,
                         product.price,
                         product.discount,
                         image.imageUrl,
-                        image.imageType,
                         productDetails.degree,
-                        productDetails.graphicDiameter))
+                        productDetails.graphicDiameter,
+                        productDetails.period))
                 .from(productDetails)
                 .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
                 .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
                 .where(productDetails.productIdFk.eq(selectedProductId))
+                .distinct()
                 .fetch();
+    }
+
+    @Override
+    public List<ProductDetailsResponse.typeAndImage> getTypeAndImageForProductDetailsId(Integer selectedProductDetailsId){
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductDetailsResponse.typeAndImage.class,
+                        image.imageType,
+                        image.imageUrl))
+                .from(image)
+                .join(productDetails).on(productDetails.productDetailsId.eq(selectedProductDetailsId)).fetchJoin()
+                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .fetch();
+    }
+    @Override
+    public List<ProductDetailsResponse.ListInfoForProductDetails> getListInfoForDetails(Integer selectedProductDetailsId){
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductDetailsResponse.ListInfoForProductDetails.class,
+                        productDetails.period,
+                        productDetails.colorCode,
+                        productDetails.graphicDiameter,
+                        productDetails.degree))
+                .from(productDetails)
+                .where(productDetails.productDetailsId.eq(selectedProductDetailsId))
+                .fetch();
+
     }
 
 }

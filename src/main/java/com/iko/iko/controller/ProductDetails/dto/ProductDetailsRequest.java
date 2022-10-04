@@ -31,4 +31,15 @@ public class ProductDetailsRequest {
         private Integer productId;
     }
 
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ProductDetailsOptionRequest{
+        private Integer productId;
+        private Integer period;
+        private Float graphicDiameter;
+        private String colorCode;
+    }
+
 }

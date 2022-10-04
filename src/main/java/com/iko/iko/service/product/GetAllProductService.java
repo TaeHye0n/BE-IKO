@@ -56,7 +56,7 @@ public class GetAllProductService {
             }
             ProductDetailsResponse.MainProductForResponse checkData
                     =new ProductDetailsResponse.MainProductForResponse(
-                            isFavorite,
+                    (int)(long)isFavorite,
                     tmp.getProductId(),
                     tmp.getSeries(),
                     gList,

@@ -5,6 +5,12 @@ logging:
   file:
     path: logs
 
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
+
 spring:
   mvc:
     pathmatch:
@@ -36,3 +42,16 @@ spring:
       header: Authorization
       secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
       token-validity-in-seconds: 86400
+
+cloud:
+  aws:
+    s3:
+      bucket: iko-amazon-storage
+      dir: C:\Users\PC\Desktop\project\IKOImage
+    credentials:
+      access-key: AKIAXQWCTWGR6O7FAMMV
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
