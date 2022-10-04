@@ -49,9 +49,10 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                         order.phone,
                         order.email,
                         order.receiverName,
-                        order.receiverPhone,
+                        order.postCode,
                         order.destination,
                         order.detailDestination,
+                        order.receiverPhone,
                         order.message,
                         order.point,
                         order.couponId
@@ -59,6 +60,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .distinct()
                 .from(order)
                 .where(order.memberId.eq(memberId))
+                .orderBy(order.createdAt.desc())
                 .fetch();
     }
 
@@ -77,9 +79,10 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                         order.phone,
                         order.email,
                         order.receiverName,
-                        order.receiverPhone,
+                        order.postCode,
                         order.destination,
                         order.detailDestination,
+                        order.receiverPhone,
                         order.message,
                         order.point,
                         order.couponId
@@ -121,6 +124,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                         .and(image.imageType.eq(1))).fetchJoin()
                 .where(order.orderId.eq(orderId))
                 .distinct()
+                .orderBy(product.productId.asc())
                 .fetch();
     }
 

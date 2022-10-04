@@ -26,16 +26,16 @@ public class Event extends BaseEntity{
     @Column(name = "event_id_pk", unique = true, nullable = false)
     private Integer eventId;
 
-    @Column(name = "event_title")
+    @Column(name = "event_title" , nullable = false)
     private String eventTitle;
 
-    @Column(name = "event_description")
+    @Column(name = "event_description" , nullable = false)
     private String eventDescription;
 
-    @Column(name = "event_start_time")
+    @Column(name = "event_start_time" , nullable = false)
     private Date eventStartTime;
 
-    @Column(name = "event_end_time")
+    @Column(name = "event_end_time" , nullable = false)
     private Date eventEndTime;
 
 }

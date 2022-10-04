@@ -18,10 +18,11 @@ public class OrderRequestDto {
     public static class AddOrderRequest {
         private Integer memberId;
         private String orderer;
-        private String ordererPhone;
+        private String phone;
         @Email(message = "올바른 이메일 주소를 입력해주세요.")
-        private String ordererEmail;
+        private String email;
         private String receiver;
+        private Integer postCode;
         private String address;
         private String detailAddress;
         private String receiverPhone;
@@ -55,9 +56,10 @@ public class OrderRequestDto {
             return Order.builder()
                     .memberId(memberId)
                     .name(orderer)
-                    .phone(ordererPhone)
-                    .email(ordererEmail)
+                    .phone(phone)
+                    .email(email)
                     .receiverName(receiver)
+                    .postCode(postCode)
                     .destination(address)
                     .detailDestination(detailAddress)
                     .receiverPhone(receiverPhone)
@@ -87,7 +89,7 @@ public class OrderRequestDto {
 
         private Integer memberId;
         private Integer orderId;
-        private String ordererEmail;
+        private String email;
         private String orderer;
 
     }

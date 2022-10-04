@@ -45,7 +45,7 @@ public class OrderController {
         );
     }
 
-    @PostMapping("/get")
+    @PostMapping("/info")
     public ResponseEntity<Response<List<GetOrderResponse>>> getOrder(
             @RequestBody @Valid GetOrderRequest getOrderRequest
     ) {

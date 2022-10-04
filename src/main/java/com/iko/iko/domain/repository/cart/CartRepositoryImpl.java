@@ -27,6 +27,7 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
         return jpaQueryFactory
                 .select(Projections.constructor(CartListResponseDto.class,
                         product.name,
+                        productDetails.productDetailsId,
                         productDetails.color,
                         productDetails.colorCode,
                         productDetails.graphicDiameter,
@@ -34,7 +35,8 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                         productDetails.detailsPrice,
                         product.discount,
                         productDetails.period,
-                        image.imageUrl
+                        image.imageUrl,
+                        productDetails.productDetailsStock
                 ))
                 .from(cart)
                 .join(productDetails).on(cart.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
@@ -43,6 +45,8 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                 .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
                         .and(image.imageType.eq(1))).fetchJoin()
                 .where(cart.memberId.eq(memberId))
+                .distinct()
+                .orderBy(cart.createdAt.asc())
                 .fetch();
     }
 

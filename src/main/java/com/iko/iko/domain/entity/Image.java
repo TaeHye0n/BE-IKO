@@ -21,7 +21,7 @@ public class Image extends BaseEntity {
     @Column(name = "image_id_pk",unique = true,nullable = false)
     private Integer imageId;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
     @Column(name = "image_type", nullable = false)

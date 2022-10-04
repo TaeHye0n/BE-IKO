@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class CartListResponseDto {
 
     private String name;
+    private Integer productDetailsId;
     private String color;
     private String colorCode;
     private Float graphicDiameter;
@@ -20,5 +21,6 @@ public class CartListResponseDto {
     private Integer discount;
     private Integer period;
     private String imageUrl;
+    private Integer stock;
 
 }

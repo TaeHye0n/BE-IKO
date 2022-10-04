@@ -52,6 +52,9 @@ public class Order extends BaseEntity{
     @Column(name = "receiver_phone" , nullable = false)
     private String receiverPhone;
 
+    @Column(name = "post_code", nullable = false)
+    private Integer postCode;
+
     @Column(name = "destination" , nullable = false)
     private String destination;
 

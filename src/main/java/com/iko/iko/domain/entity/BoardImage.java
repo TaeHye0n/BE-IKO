@@ -27,9 +27,9 @@ public class BoardImage extends BaseEntity {
     @Column(name = "board_image_id_pk", unique = true, nullable = false)
     private Integer boardImageId;
 
-    @Column(name = "image_id_fk")
+    @Column(name = "image_id_fk", nullable = false)
     private Integer imageId;
 
-    @Column(name = "board_id_fk")
+    @Column(name = "board_id_fk", nullable = false)
     private Integer boardId;
 }

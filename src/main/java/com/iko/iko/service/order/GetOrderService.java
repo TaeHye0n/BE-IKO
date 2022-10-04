@@ -49,7 +49,7 @@ public class GetOrderService {
                     getOrderRequest.getMemberId(),
                     getOrderRequest.getOrderId(),
                     getOrderRequest.getOrderer(),
-                    getOrderRequest.getOrdererEmail()
+                    getOrderRequest.getEmail()
             );
             for (GetOrderInfoResponse getOrderInfoResponse : GetOrderInfoResponseList) {
                 List<GetProductForOrderResponse> getProductForOrderResponseList
@@ -62,11 +62,9 @@ public class GetOrderService {
 
     }
 
-
     public Member validateLoginStatus() {
         return memberRepository.findByEmail(SecurityUtil.getLoginUserEmail())
                 .orElseThrow(() -> new BaseException(ErrorCode.NEED_LOGIN));
     }
-
 
 }

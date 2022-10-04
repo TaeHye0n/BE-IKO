@@ -25,9 +25,9 @@ public class ShippingAddress extends BaseEntity{
     @Column(name = "shipping_address_id_pk", unique = true, nullable = false)
     private Integer shippingAddressId;
 
-    @Column(name = "member_id_fk")
+    @Column(name = "member_id_fk", nullable = false)
     private Integer memberId;
 
-    @Column(name = "ship_address")
+    @Column(name = "ship_address", nullable = false)
     private String shipAddress;
 }

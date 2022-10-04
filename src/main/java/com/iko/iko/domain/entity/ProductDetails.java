@@ -26,10 +26,10 @@ public class ProductDetails extends BaseEntity {
     @Column(name ="product_details_id_pk",unique = true,nullable = false)
     private Integer productDetailsId;
 
-    @Column(name="product_id_fk")
+    @Column(name="product_id_fk",nullable = false)
     private Integer productIdFk;
 
-    @Column(name="product_details_stock")
+    @Column(name="product_details_stock",nullable = false)
     private Integer productDetailsStock;
 
     @Column(name ="color", nullable = false)

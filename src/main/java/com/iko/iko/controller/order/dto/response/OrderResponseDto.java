@@ -15,8 +15,8 @@ public class OrderResponseDto {
     @AllArgsConstructor
     @Builder
     public static class GetOrderResponse{
-        private GetOrderInfoResponse getOrderInfoResponse;
-        private List<GetProductForOrderResponse> getProductForOrderResponseList;
+        private GetOrderInfoResponse OrderInfo;
+        private List<GetProductForOrderResponse> ProductInfo;
     }
 
     @Getter
@@ -30,9 +30,10 @@ public class OrderResponseDto {
         private Integer totalPrice;
         private Integer method;
         private String orderer;
-        private String ordererPhone;
-        private String ordererEmail;
+        private String phone;
+        private String email;
         private String receiver;
+        private Integer postCode;
         private String address;
         private String detailAddress;
         private String receiverPhone;

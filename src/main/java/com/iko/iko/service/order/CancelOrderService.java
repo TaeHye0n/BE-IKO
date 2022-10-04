@@ -31,7 +31,7 @@ public class CancelOrderService {
         if (order.isPresent()) {
             if (order.get().getMemberId().equals(cancelOrderRequest.getMemberId())) {
                 // 회원인 경우 포인트 마이너스, 쿠폰 반환
-                if (cancelOrderRequest.getMemberId() != 0) {
+                if (!cancelOrderRequest.getMemberId().equals(0)) {
                     Member member = validateLoginStatus();
                     if (member.getMemberId().equals(cancelOrderRequest.getMemberId())) {
                         memberRepository.minusPoint(order.get().getMemberId(), order.get().getPoint());
