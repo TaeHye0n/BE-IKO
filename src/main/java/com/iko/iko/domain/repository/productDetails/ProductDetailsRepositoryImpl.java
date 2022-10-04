@@ -26,7 +26,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
 
 
     @Override
-    public List<ProductDetailsResponse.GetColorCodeAndImageUrl> getColorAndImage(Integer selectedProductDetailsId,Integer selectedProductId){
+    public List<ProductDetailsResponse.GetColorCodeAndImageUrl> getColorAndImage(Integer selectedProductId){
         return jpaQueryFactory
                 .select(Projections.constructor(ProductDetailsResponse.GetColorCodeAndImageUrl.class,
                         productDetails.colorCode,
@@ -36,8 +36,8 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
                 .where(productDetails.productIdFk.eq(selectedProductId))
-                .where(productDetails.productDetailsId.eq(selectedProductDetailsId))
                 .where(image.imageType.eq(1))
+                .where(productDetails.period.eq(30))
                 .distinct()
                 .fetch();
     }

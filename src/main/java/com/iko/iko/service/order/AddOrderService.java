@@ -34,7 +34,7 @@ public class AddOrderService {
             throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         }
 
-        for (AddOrderDetailsRequest addOrderDetailsRequest : addOrderRequest.getAddOrderDetailsRequestList()) {
+        for (AddOrderDetailsRequest addOrderDetailsRequest : addOrderRequest.getProducts()) {
             LinkOrderDetails linkOrderDetails = addOrderDetailsRequest.toEntity();
             linkOrderDetails.setOrderId(order.getOrderId());
             LinkOrderDetails newLinkOrderDetails = linkOrderDetailsRepository.save(linkOrderDetails);

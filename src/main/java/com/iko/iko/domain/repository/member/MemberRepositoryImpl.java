@@ -39,6 +39,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .set(QMember.member.birthday, requestDto.getBirthday())
                 .set(QMember.member.phone, requestDto.getPhone())
                 .set(QMember.member.readname, requestDto.getReadname())
+                .set(QMember.member.postCode, requestDto.getPostCode())
                 .where(QMember.member.memberId.eq(member.getMemberId()))
                 .execute();
 

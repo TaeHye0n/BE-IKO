@@ -46,7 +46,6 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                         .and(image.imageType.eq(1))).fetchJoin()
                 .where(cart.memberId.eq(memberId))
                 .distinct()
-                .orderBy(cart.createdAt.asc())
                 .fetch();
     }
 

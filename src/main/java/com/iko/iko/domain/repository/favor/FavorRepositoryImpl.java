@@ -81,6 +81,7 @@ public class FavorRepositoryImpl implements FavorRepositoryCustom {
                 .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
                         .and(image.imageType.eq(1))).fetchJoin()
                 .where(productDetails.productIdFk.eq(productId))
+                .where(productDetails.period.eq(30))
                 .distinct()
                 .fetch();
     }

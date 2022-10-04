@@ -37,7 +37,7 @@ public class CancelOrderService {
                         memberRepository.minusPoint(order.get().getMemberId(), order.get().getPoint());
                         linkMemberCouponRepository.setStatusAvailable(order.get().getMemberId(), order.get().getCouponId());
                     }
-                } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
+                }
 
                 linkOrderDetailsRepository.cancelLinkOrder(cancelOrderRequest.getOrderId());
                 orderRepository.cancelOrder(order.get().getMemberId(), cancelOrderRequest.getOrderId());

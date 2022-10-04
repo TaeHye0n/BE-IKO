@@ -9,7 +9,6 @@ import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.domain.repository.product.ProductRepository;
 import com.iko.iko.domain.repository.productDetails.ProductDetailsRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
-import com.sun.jdi.LongValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,13 +43,13 @@ public class GetAllProductService {
             List<ProductDetailsResponse.GetColorCodeAndImageUrl> iList = new ArrayList<>();
             List<ProductDetailsResponse.MainProduct> mainProductList = productDetailsRepository.getMainProduct(pageable, tmp.getProductId());
 
-            for(ProductDetailsResponse.MainProduct ttp : mainProductList){
+
                 List<ProductDetailsResponse.GetColorCodeAndImageUrl> k
-                        = productDetailsRepository.getColorAndImage(ttp.getProductDetailsId(),tmp.getProductId());
+                        = productDetailsRepository.getColorAndImage(tmp.getProductId());
                 for(ProductDetailsResponse.GetColorCodeAndImageUrl ttpp: k){
                     iList.add(ttpp);
                 }
-            }
+
             //
             for(ProductDetailsResponse.GetGraphicDiameter tp : graphicList){
                 gList.add(tp.getGraphicDiameter());
