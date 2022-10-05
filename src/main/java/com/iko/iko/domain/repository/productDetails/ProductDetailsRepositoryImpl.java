@@ -59,7 +59,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
         return jpaQueryFactory
                 .select(Projections.constructor(ProductDetailsResponse.MainProduct.class,
                         productDetails.productDetailsId
-                        ))
+                ))
                 .from(productDetails)
                 .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
                 .where(productDetails.productIdFk.eq(productId))
@@ -67,20 +67,6 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
-                /*
-                .select(Projections.constructor(ProductDetailsResponse.ProductDetailsForResponse.class,
-                        productDetails.productDetailsId,
-                        product,image))
-                .from(productDetails)
-                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
-                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
-                .join(image).on(image.image_id.eq(linkProductDetailsImage.imageId)).fetchJoin()
-                .where(product.productId.eq(selectedProductId))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-                */
 
     }
 
@@ -103,11 +89,11 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .where(product.productId.eq(productDetails.productDetailsId))
                 .where(convertStringWhere(productByOption.getColorCode(),"Color")
                         .or(convertFloatWhere(productByOption.getGraphicDiameter()))
-                        .or(convertIntegerWhere(productByOption.getPeriod()))
-                        .or(convertStringWhere(productByOption.getSeries(),"Series"))
-                        .or(convertStringWhere(productByOption.getFeature(),"Feature")))
-                .distinct()
-                .fetch();
+                                .or(convertIntegerWhere(productByOption.getPeriod()))
+                                .or(convertStringWhere(productByOption.getSeries(),"Series"))
+                                .or(convertStringWhere(productByOption.getFeature(),"Feature")))
+                        .distinct()
+                        .fetch();
 
     }
     private BooleanBuilder convertIntegerWhere(List<Integer> integerList){
@@ -119,10 +105,10 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     }
     private BooleanBuilder convertStringWhere(List<String> stringList,String columnType){
         BooleanBuilder builder = new BooleanBuilder();
-    for(String tmp: stringList){
-        builder.or(columnType.equals("Color")?productDetails.colorCode.eq(tmp):(columnType.equals("Series")?product.series.eq(tmp):product.feature.eq(tmp)));
-    }
-    return builder;
+        for(String tmp: stringList){
+            builder.or(columnType.equals("Color")?productDetails.colorCode.eq(tmp):(columnType.equals("Series")?product.series.eq(tmp):product.feature.eq(tmp)));
+        }
+        return builder;
     }
     private BooleanBuilder convertFloatWhere(List<Float> floatList){
         BooleanBuilder builder = new BooleanBuilder();
@@ -184,4 +170,21 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
 
     }
 
+    @Override
+    public List<Integer> getProductByProductOption (ProductDetailsRequest.ProductOptionForRequest productByOption) {
+        return jpaQueryFactory
+                .select(productDetails.productIdFk)
+                .from(productDetails)
+                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
+                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .where(product.productId.eq(productDetails.productDetailsId))
+                .where(convertStringWhere(productByOption.getColorCode(), "Color")
+                        .or(convertFloatWhere(productByOption.getGraphicDiameter()))
+                        .or(convertIntegerWhere(productByOption.getPeriod()))
+                        .or(convertStringWhere(productByOption.getSeries(), "Series"))
+                        .or(convertStringWhere(productByOption.getFeature(), "Feature")))
+                .distinct()
+                .fetch();
+    }
 }

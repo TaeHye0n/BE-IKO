@@ -1,7 +1,9 @@
 package com.iko.iko.service.product.facade;
 
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.product.dto.request.ProductRequest.ProductSaveRequest;
+import com.iko.iko.service.product.GetAllProductByOptionService;
 import com.iko.iko.service.product.GetAllProductService;
 import com.iko.iko.service.product.SaveProductService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +18,13 @@ public class ProductFacade {
     private final GetAllProductService getAllProductService;
     private final SaveProductService saveProductService;
 
+    private final GetAllProductByOptionService getAllProductByOptionService;
+
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.MainProductForResponse>
-    getMainProduct(Pageable pageable){
+    getMainProduct(Pageable pageable,Integer memberId){
 
-        return getAllProductService.GetMainProduct(pageable);
+        return getAllProductService.GetMainProduct(pageable,memberId);
     }
 
     @Transactional
@@ -28,4 +32,10 @@ public class ProductFacade {
         return saveProductService.saveProduct(productSaveRequest);
     }
 
+    @Transactional
+    public List<ProductDetailsResponse.MainProductForResponse>
+    getMainProductByOption(ProductDetailsRequest.ProductOptionForRequest productOption,
+                           Pageable pageable, Integer memberId){
+        return getAllProductByOptionService.GetMainProductByOption(productOption,pageable,memberId);
+    }
 }

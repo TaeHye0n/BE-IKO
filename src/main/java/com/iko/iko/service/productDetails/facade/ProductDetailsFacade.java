@@ -32,8 +32,8 @@ public class ProductDetailsFacade {
 
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.ProductDetailsForResponse>
-    getProductDetails(Integer selectedProductId){
-        return getMainProductDetailsService.GetProductDetails(selectedProductId);
+    getProductDetails(Integer selectedProductId, Integer memberId){
+        return getMainProductDetailsService.GetProductDetails(selectedProductId,memberId);
     }
 
 }

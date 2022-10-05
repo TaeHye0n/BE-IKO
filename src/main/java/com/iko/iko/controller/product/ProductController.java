@@ -2,6 +2,7 @@ package com.iko.iko.controller.product;
 
 import java.util.List;
 
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Product;
@@ -16,20 +17,38 @@ import com.iko.iko.common.response.Response;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/main")
 public class ProductController {
 
     private final ProductFacade productFacade;
 
-    @GetMapping("/main")
+    @GetMapping("/product")
     public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
     getMainProduct(
-            @PageableDefault(size=9) Pageable pageable
+            @RequestParam Integer page, @RequestParam Integer size,
+            @RequestParam  Integer memberId
+
     ){
-        //PageRequest pageRequest=PageRequest.of(page,size-1);
+         Pageable pr =PageRequest.of(page-1,size);
         return ResponseEntity.ok(
                 Response.of(
-                        productFacade.getMainProduct(pageable),
+                        productFacade.getMainProduct(pr,memberId),
+                        "모든상품 불러오기 완료"
+                )
+        );
+    }
+    @PostMapping("/productByOption")
+    public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
+    getMainProductByOption(
+            @RequestParam Integer page, @RequestParam Integer size,
+            @RequestParam Integer memberId,
+            @RequestBody ProductDetailsRequest.ProductOptionForRequest productOption
+
+    ){
+        Pageable pr =PageRequest.of(page-1,size);
+        return ResponseEntity.ok(
+                Response.of(
+                        productFacade.getMainProductByOption(productOption,pr,memberId),
                         "모든상품 불러오기 완료"
                 )
         );

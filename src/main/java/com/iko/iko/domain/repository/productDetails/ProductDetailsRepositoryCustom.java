@@ -1,6 +1,7 @@
 package com.iko.iko.domain.repository.productDetails;
 
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
+import com.iko.iko.domain.entity.Product;
 import org.springframework.data.domain.Pageable;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 
@@ -19,4 +20,6 @@ public interface ProductDetailsRepositoryCustom {
     List<ProductDetailsResponse.typeAndImage> getTypeAndImageForProductDetailsId(Integer selectedProductDetailsId);
 
     List<ProductDetailsResponse.ListInfoForProductDetails> getListInfoForDetails(Integer selectedProductDetailsId);
+
+    List<Integer> getProductByProductOption (ProductDetailsRequest.ProductOptionForRequest productOptionForRequest);
 }

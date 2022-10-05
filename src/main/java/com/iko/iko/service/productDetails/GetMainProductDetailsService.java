@@ -23,8 +23,8 @@ public class GetMainProductDetailsService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
-    public List<ProductDetailsResponse.ProductDetailsForResponse> GetProductDetails(Integer selectedProductId) {
-
+    public List<ProductDetailsResponse.ProductDetailsForResponse> GetProductDetails(Integer selectedProductId,Integer memberId) {
+        Integer isFavorite=0;
         List<ProductDetailsResponse.ProductDetailsForResponse> result=new ArrayList<>();
 
         List<ProductDetailsResponse.ProductDetails> productDetailsData
@@ -34,15 +34,9 @@ public class GetMainProductDetailsService {
         List<Float> graphicDiameterList =new ArrayList<>();
         List<Float> degreeList = new ArrayList<>();
 
-        Member member = validateLoginStatus();
-
-        Integer isFavorite;
-
-        if(member.getMemberId()!=0) {
+        if(memberId!=0) {
+            Member member = validateLoginStatus();
             isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(), selectedProductId);
-        }
-        else{
-            isFavorite =0;
         }
         //set productData
         for(ProductDetailsResponse.ProductDetails detailsList : productDetailsData){
@@ -55,19 +49,19 @@ public class GetMainProductDetailsService {
                     =productDetailsRepository.getTypeAndImageForProductDetailsId(selectedProductId);
             for(ProductDetailsResponse.typeAndImage typeAndImageList : typeAndImageData){
 
-                    if (typeAndImageList.getImageType().equals(1))
-                    {
-                        imageLists.setTypeOneImage(typeAndImageList);
-                    }
-                    else if (typeAndImageList.getImageType().equals(2))
-                    {
-                        typeTwo.getImageUrl().add(typeAndImageList.getImageUrl());
-                    }
-                    else if (typeAndImageList.getImageType().equals(3))
-                    {
-                        imageLists.setTypeThreeImage(typeAndImageList);
-                    }
-                    else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
+                if (typeAndImageList.getImageType().equals(1))
+                {
+                    imageLists.setTypeOneImage(typeAndImageList);
+                }
+                else if (typeAndImageList.getImageType().equals(2))
+                {
+                    typeTwo.getImageUrl().add(typeAndImageList.getImageUrl());
+                }
+                else if (typeAndImageList.getImageType().equals(3))
+                {
+                    imageLists.setTypeThreeImage(typeAndImageList);
+                }
+                else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
 
 
             }

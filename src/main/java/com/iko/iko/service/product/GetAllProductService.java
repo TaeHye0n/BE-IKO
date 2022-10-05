@@ -10,6 +10,7 @@ import com.iko.iko.domain.repository.product.ProductRepository;
 import com.iko.iko.domain.repository.productDetails.ProductDetailsRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +23,18 @@ public class GetAllProductService {
     private final ProductDetailsRepository productDetailsRepository;
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
-    public List<ProductDetailsResponse.MainProductForResponse> GetMainProduct(Pageable pageable) {
-        Member member = validateLoginStatus();
+
+    public List<ProductDetailsResponse.MainProductForResponse> GetMainProduct(Pageable pageable,Integer memberId) {
+        Integer isFavorite=0;
 
         List<ProductDetailsResponse.MainProductForResponse> result = new ArrayList<>();
 
-        List<ProductResponse.GetAllProductDistinct> mainProduct = productRepository.getAllProduct();
+        Page<ProductResponse.GetAllProductDistinct> mainProduct = productRepository.getAllProduct(pageable);
 
         for(ProductResponse.GetAllProductDistinct tmp : mainProduct){
-            Long isFavorite;
-            if(member.getMemberId()!=0) {
-                isFavorite = productRepository.getMemberIsFavorite(member.getMemberId(), tmp.getProductId());
-            }
-            else{
-                isFavorite = Long.valueOf(0);
+            if(!memberId.equals(0)) {
+                Member member = validateLoginStatus();
+                isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(), tmp.getProductId());
             }
 
             List<ProductDetailsResponse.GetGraphicDiameter> graphicList = productDetailsRepository.getGraphic(tmp.getProductId());
@@ -44,11 +43,11 @@ public class GetAllProductService {
             List<ProductDetailsResponse.MainProduct> mainProductList = productDetailsRepository.getMainProduct(pageable, tmp.getProductId());
 
 
-                List<ProductDetailsResponse.GetColorCodeAndImageUrl> k
-                        = productDetailsRepository.getColorAndImage(tmp.getProductId());
-                for(ProductDetailsResponse.GetColorCodeAndImageUrl ttpp: k){
-                    iList.add(ttpp);
-                }
+            List<ProductDetailsResponse.GetColorCodeAndImageUrl> k
+                    = productDetailsRepository.getColorAndImage(tmp.getProductId());
+            for(ProductDetailsResponse.GetColorCodeAndImageUrl ttpp: k){
+                iList.add(ttpp);
+            }
 
             //
             for(ProductDetailsResponse.GetGraphicDiameter tp : graphicList){
@@ -56,7 +55,7 @@ public class GetAllProductService {
             }
             ProductDetailsResponse.MainProductForResponse checkData
                     =new ProductDetailsResponse.MainProductForResponse(
-                    (int)(long)isFavorite,
+                    isFavorite,
                     tmp.getProductId(),
                     tmp.getSeries(),
                     gList,
@@ -68,7 +67,6 @@ public class GetAllProductService {
         }
         return result;
     }
-
     public Member validateLoginStatus() {
         return memberRepository.findByEmail(SecurityUtil.getLoginUserEmail())
                 .orElseThrow(() -> new BaseException(ErrorCode.NEED_LOGIN));

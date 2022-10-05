@@ -13,7 +13,10 @@ import org.springframework.data.domain.PageImpl;
 import java.util.List;
 
 public interface ProductRepositoryCustom{
-    List<ProductResponse.GetAllProductDistinct> getAllProduct();
+    Page<ProductResponse.GetAllProductDistinct> getAllProduct(Pageable pageable);
 
     Long getMemberIsFavorite(Integer memberId, Integer selectedProductId);
+
+    List<ProductResponse.GetAllProductDistinct> getAllProductByProductId(Integer productId);
+
 }

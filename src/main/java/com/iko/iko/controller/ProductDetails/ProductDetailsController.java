@@ -29,7 +29,7 @@ public class ProductDetailsController {
     public ResponseEntity<Response<List<ProductDetailsResponse.ProductMainByOptionResponse>>>
     getProductByOption(
             @RequestBody ProductDetailsRequest.ProductOptionForRequest productOption
-    ){
+    ) {
         return ResponseEntity.ok(
                 Response.of(
                         productDetailsFacade.getProductByOption(productOption),
@@ -39,18 +39,18 @@ public class ProductDetailsController {
     }
 
     @PostMapping("/productDetails")
-    @ApiOperation(value="제품 상세정보",notes="id= ? , productId")
+    @ApiOperation(value = "제품 상세정보", notes = "id= ? , productId")
     public ResponseEntity<Response<List<ProductDetailsResponse.ProductDetailsForResponse>>>
     getProductDetails(
-            @RequestParam(value ="id") Integer selectedProductId
-    ){
+            @RequestParam(value = "productId") Integer selectedProductId,
+            @RequestParam(value = "memberId") Integer memberId
+    ) {
         return ResponseEntity.ok(
                 Response.of(
-                        productDetailsFacade.getProductDetails(selectedProductId),
+                        productDetailsFacade.getProductDetails(selectedProductId, memberId),
                         "상품 상세정보 불러오기 완료"
                 )
         );
     }
-
-
 }
+
