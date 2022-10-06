@@ -22,4 +22,9 @@ public interface ProductDetailsRepositoryCustom {
     List<ProductDetailsResponse.ListInfoForProductDetails> getListInfoForDetails(Integer selectedProductDetailsId);
 
     List<Integer> getProductByProductOption (ProductDetailsRequest.ProductOptionForRequest productOptionForRequest);
+
+    List<ProductDetailsResponse.typeAndImage> getTypeAndImageByProductId(Integer selectedProductId);
+
+    List<ProductDetailsResponse.ProductDetailsFilterList> getDetailsFilterInfo();
+
 }

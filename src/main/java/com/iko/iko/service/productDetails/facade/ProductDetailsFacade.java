@@ -7,6 +7,7 @@ import com.iko.iko.service.productDetails.GetProductByOptionService;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.service.productDetails.GetMainProductDetailsService;
 
+import com.iko.iko.service.productDetails.GetProductForRandomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProductDetailsFacade {
     private final GetMainProductDetailsService getMainProductDetailsService;
     private final GetMainProductService getMainProductService;
-
+    private final GetProductForRandomService getProductForRandomService;
     private final GetProductByOptionService getProductByOptionService;
 
 
@@ -31,9 +32,16 @@ public class ProductDetailsFacade {
 
 
     @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.ProductDetailsForResponse>
+    public ProductDetailsResponse.ProductDetailsForResponse
     getProductDetails(Integer selectedProductId, Integer memberId){
         return getMainProductDetailsService.GetProductDetails(selectedProductId,memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductDetailsResponse.MainProductForResponse> getProductForRandom(
+            Integer selectedProductId, Integer memberId
+    ){
+        return getProductForRandomService.getProductForRandom(selectedProductId,memberId);
     }
 
 }

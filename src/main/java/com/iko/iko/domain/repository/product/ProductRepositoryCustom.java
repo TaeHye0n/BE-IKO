@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import java.util.HashSet;
 import java.util.List;
 
 public interface ProductRepositoryCustom{
@@ -18,5 +19,13 @@ public interface ProductRepositoryCustom{
     Long getMemberIsFavorite(Integer memberId, Integer selectedProductId);
 
     List<ProductResponse.GetAllProductDistinct> getAllProductByProductId(Integer productId);
+
+    List<Integer> getAllProductDetailsIdByProductId(Integer productId);
+
+    List<Integer> getAllProductId();
+
+    Product getProductDistinctByProductId(Integer productId);
+
+    List<ProductResponse.productFilterList> getFilterInfo();
 
 }

@@ -1,56 +1,67 @@
-package com.iko.iko.service.product;
+package com.iko.iko.service.productDetails;
 
 import com.iko.iko.common.exception.BaseException;
 import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Member;
+import com.iko.iko.domain.entity.Product;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.domain.repository.product.ProductRepository;
 import com.iko.iko.domain.repository.productDetails.ProductDetailsRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
+import java.util.function.LongToIntFunction;
+import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
-public class GetAllProductService {
+public class GetProductForRandomService {
+
     private final ProductDetailsRepository productDetailsRepository;
+
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
-    public List<ProductDetailsResponse.MainProductForResponse> GetMainProduct(Pageable pageable,Integer memberId) {
+    public List<ProductDetailsResponse.MainProductForResponse> getProductForRandom(
+            Integer selectedProductId, Integer memberId
+    ){
         Integer isFavorite=0;
 
+        Integer totalCount=4;
         List<ProductDetailsResponse.MainProductForResponse> result = new ArrayList<>();
-        Page<ProductResponse.GetAllProductDistinct> mainProduct = productRepository.getAllProduct(pageable);
 
-        List<Integer> totalProductId=productRepository.getAllProductId();
-        Integer totalCount=totalProductId.size();
+        List<Integer> productIdList=productRepository.getAllProductId();
+        for(int i=0;i<productIdList.size();i++){
+            if(productIdList.get(i).equals(selectedProductId)){
+                productIdList.remove(i);
+                break;
+            }
+        }
+        for(int i=0;i<4;i++){
+            int size=productIdList.size();
 
+            Random rand=new Random();
+            int index=rand.nextInt(size);
+            Integer productId= productIdList.get(index);
+            productIdList.remove(index);
 
-        Page<ProductResponse.GetAllProductDistinct> mainProduct = productRepository.getAllProduct(pageable);
-
-
-        for(ProductResponse.GetAllProductDistinct tmp : mainProduct){
-            if(!memberId.equals(0)) {
-                Member member = validateLoginStatus();
-                isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(), tmp.getProductId());
+            if(!memberId.equals(0)){
+                Member member =validateLoginStatus();
+                isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(),productId);
             }
 
-            List<ProductDetailsResponse.GetGraphicDiameter> graphicList = productDetailsRepository.getGraphic(tmp.getProductId());
+            Product mainProduct
+                    =productRepository.getProductDistinctByProductId(productId);
+
+            List<ProductDetailsResponse.GetGraphicDiameter> graphicList = productDetailsRepository.getGraphic(productId);
             List<Float> gList = new ArrayList<>();
             List<ProductDetailsResponse.GetColorCodeAndImageUrl> iList = new ArrayList<>();
-            List<ProductDetailsResponse.MainProduct> mainProductList = productDetailsRepository.getMainProduct(pageable, tmp.getProductId());
-
 
             List<ProductDetailsResponse.GetColorCodeAndImageUrl> k
-                    = productDetailsRepository.getColorAndImage(tmp.getProductId());
+                    = productDetailsRepository.getColorAndImage(productId);
             for(ProductDetailsResponse.GetColorCodeAndImageUrl ttpp: k){
                 iList.add(ttpp);
             }
@@ -63,19 +74,23 @@ public class GetAllProductService {
                     =new ProductDetailsResponse.MainProductForResponse(
                             totalCount,
                     isFavorite,
-                    tmp.getProductId(),
-                    tmp.getSeries(),
+                    productId,
+                    mainProduct.getSeries(),
                     gList,
-                    tmp.getPrice(),
-                    tmp.getDiscount(),
+                    mainProduct.getPrice(),
+                    mainProduct.getDiscount(),
                     iList);
 
             result.add(checkData);
+
         }
         return result;
     }
+
     public Member validateLoginStatus() {
+
         return memberRepository.findByEmail(SecurityUtil.getLoginUserEmail())
                 .orElseThrow(() -> new BaseException(ErrorCode.NEED_LOGIN));
     }
+
 }

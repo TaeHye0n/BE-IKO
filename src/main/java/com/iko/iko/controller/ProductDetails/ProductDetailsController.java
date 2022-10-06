@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/productDetails")
 public class ProductDetailsController {
     private final ProductDetailsFacade productDetailsFacade;
 
 
-    @PostMapping("/productOption")
+    @PostMapping("/byOption")
     public ResponseEntity<Response<List<ProductDetailsResponse.ProductMainByOptionResponse>>>
     getProductByOption(
             @RequestBody ProductDetailsRequest.ProductOptionForRequest productOption
@@ -38,19 +38,35 @@ public class ProductDetailsController {
         );
     }
 
-    @PostMapping("/productDetails")
-    @ApiOperation(value = "제품 상세정보", notes = "id= ? , productId")
-    public ResponseEntity<Response<List<ProductDetailsResponse.ProductDetailsForResponse>>>
+
+    @PostMapping("/main")
+    public ResponseEntity<Response<ProductDetailsResponse.ProductDetailsForResponse>>
+
     getProductDetails(
             @RequestParam(value = "productId") Integer selectedProductId,
             @RequestParam(value = "memberId") Integer memberId
     ) {
         return ResponseEntity.ok(
                 Response.of(
-                        productDetailsFacade.getProductDetails(selectedProductId, memberId),
-                        "상품 상세정보 불러오기 완료"
+                productDetailsFacade.getProductDetails(selectedProductId, memberId),
+                        "상세상품 불러오기 완료"
+           )
+        );
+    }
+
+    @GetMapping("/forRandom")
+    public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
+    getProductForRandom(
+            @RequestParam(value="productId")Integer selectedProductId,
+            @RequestParam(value="memberId")Integer memberId
+    ){
+        return ResponseEntity.ok(
+                Response.of(
+                        productDetailsFacade.getProductForRandom(selectedProductId,memberId),
+                "랜덤상품 4개 불러오기 완료"
                 )
         );
     }
+
 }
 

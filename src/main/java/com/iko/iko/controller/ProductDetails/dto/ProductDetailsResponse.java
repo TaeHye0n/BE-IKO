@@ -33,6 +33,7 @@ public class ProductDetailsResponse {
     @AllArgsConstructor
     @Builder
     public static  class MainProductForResponse{
+        private Integer totalCount;
         private Integer isFavorite;
         private Integer productId;
         private String series;
@@ -75,16 +76,7 @@ public class ProductDetailsResponse {
     @AllArgsConstructor
     @Builder
     public static class ProductDetails {
-        private Integer productId;
-        private Integer productDetailsId;
-        private String name;
-        private String series;
-        private Float diameter;
         private String colorCode;
-        private Integer detailsPrice;
-        private Integer productPrice;
-        private Integer discount;
-        private String imageUrl;
         private Float degree;
         private Float graphicDiameter;
         private Integer period;
@@ -129,15 +121,15 @@ public class ProductDetailsResponse {
         private Integer productId;
         private String name;
         private String series;
-        private Integer detailsPrice;
+        private Integer Price;
         private Integer discount;
+        private String mainImageUrl;
+        private List<String> subMainImageUrlList;
         private List<Integer> periodList;
         private List<String> colorCodeList;
         private List<Float> graphicDiameterList;
-        private List<Float> degreeList;
-        private ProductDetailsForImageList imageUrl;
-
     }
+
     @Getter
     @AllArgsConstructor
     @Builder
@@ -151,7 +143,10 @@ public class ProductDetailsResponse {
     @Getter
     @AllArgsConstructor
     @Builder
-    public static class ProductDetailsOptionForResponse{
+    public static class ProductDetailsFilterList{
+        private Integer period;
+        private Float graphicDiameter;
+        private String colorCode;
 
     }
 

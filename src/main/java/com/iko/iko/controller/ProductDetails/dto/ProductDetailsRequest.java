@@ -36,7 +36,6 @@ public class ProductDetailsRequest {
     @AllArgsConstructor
     @Builder
     public static class ProductDetailsOptionRequest{
-        private Integer productId;
         private Integer period;
         private Float graphicDiameter;
         private String colorCode;

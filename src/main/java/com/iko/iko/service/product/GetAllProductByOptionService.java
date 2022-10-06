@@ -35,6 +35,9 @@ public class GetAllProductByOptionService {
         List<Integer> SelectedProductIdList=productDetailsRepository.getProductByProductOption(productOption);
         SelectedProductIdList.stream().distinct();
 
+        Integer totalCount=SelectedProductIdList.size();
+
+
 
         for(Integer productIdList : SelectedProductIdList){
             List<ProductResponse.GetAllProductDistinct> mainProduct
@@ -64,6 +67,7 @@ public class GetAllProductByOptionService {
                 }
                 ProductDetailsResponse.MainProductForResponse checkData
                         =new ProductDetailsResponse.MainProductForResponse(
+                                totalCount,
                         isFavorite,
                         tmp.getProductId(),
                         tmp.getSeries(),

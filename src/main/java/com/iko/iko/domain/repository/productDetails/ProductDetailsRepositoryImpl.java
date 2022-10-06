@@ -7,6 +7,7 @@ import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.sun.jdi.FloatValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,20 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     private final JPAQueryFactory jpaQueryFactory;
 
 
+    @Override
+    public List<ProductDetailsResponse.ProductDetailsFilterList> getDetailsFilterInfo(){
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductDetailsResponse.ProductDetailsFilterList.class,
+                        productDetails.period,
+                        productDetails.graphicDiameter,
+                        productDetails.colorCode
+                ))
+                .from(productDetails)
+                .distinct()
+                .where(productDetails.degree.eq(Float.valueOf(0)))
+                .fetch();
+    }
     @Override
     public List<ProductDetailsResponse.GetColorCodeAndImageUrl> getColorAndImage(Integer selectedProductId){
         return jpaQueryFactory
@@ -122,25 +137,13 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     public List<ProductDetailsResponse.ProductDetails> getProductDetails(Integer selectedProductId){
         return jpaQueryFactory
                 .select(Projections.constructor(ProductDetailsResponse.ProductDetails.class,
-                        product.productId,
-                        productDetails.productDetailsId,
-                        product.name,
-                        product.series,
-                        product.diameter,
                         productDetails.colorCode,
-                        productDetails.detailsPrice,
-                        product.price,
-                        product.discount,
-                        image.imageUrl,
                         productDetails.degree,
                         productDetails.graphicDiameter,
                         productDetails.period))
                 .from(productDetails)
-                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
-                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
-                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
-                .where(productDetails.productIdFk.eq(selectedProductId))
                 .distinct()
+                .where(productDetails.productIdFk.eq(selectedProductId))
                 .fetch();
     }
 
@@ -150,10 +153,17 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .select(Projections.constructor(ProductDetailsResponse.typeAndImage.class,
                         image.imageType,
                         image.imageUrl))
-                .from(image)
-                .join(productDetails).on(productDetails.productDetailsId.eq(selectedProductDetailsId)).fetchJoin()
-                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .from(productDetails)
+                .join(linkProductDetailsImage).on(linkProductDetailsImage.productDetailsId.eq(selectedProductDetailsId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .where(productDetails.productDetailsId.eq(selectedProductDetailsId))
+                /*
+                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .where(productDetails.productIdFk.eq(selectedProductId))
+                .where(image.imageType.eq(1))
+                .where(productDetails.period.eq(30))
+                */
+                .distinct()
                 .fetch();
     }
     @Override
@@ -166,6 +176,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                         productDetails.degree))
                 .from(productDetails)
                 .where(productDetails.productDetailsId.eq(selectedProductDetailsId))
+                .distinct()
                 .fetch();
 
     }
@@ -184,6 +195,22 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                         .or(convertIntegerWhere(productByOption.getPeriod()))
                         .or(convertStringWhere(productByOption.getSeries(), "Series"))
                         .or(convertStringWhere(productByOption.getFeature(), "Feature")))
+                .distinct()
+                .fetch();
+    }
+
+    @Override
+    public List<ProductDetailsResponse.typeAndImage> getTypeAndImageByProductId(Integer selectedProductId){
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductDetailsResponse.typeAndImage.class,
+                        image.imageType,
+                        image.imageUrl
+                ))
+                .from(productDetails)
+                .join(linkProductDetailsImage).on(linkProductDetailsImage.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
+                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .where(productDetails.productIdFk.eq(selectedProductId))
                 .distinct()
                 .fetch();
     }
