@@ -22,5 +22,7 @@ public class CartListResponseDto {
     private Integer period;
     private String imageUrl;
     private Integer stock;
+    private Integer cartId;
+    private Integer pcs;
 
 }

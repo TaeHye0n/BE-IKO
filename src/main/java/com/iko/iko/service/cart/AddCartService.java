@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AddCartService {
@@ -22,10 +24,16 @@ public class AddCartService {
     @Transactional
     public String addCart(AddCartRequestDto requestDto) {
         Member member = validateLoginStatus();
-        Cart cart = cartRepository.save(Cart.builder()
-                .memberId(member.getMemberId())
-                .productDetailsId(requestDto.getProductDetailsId())
-                .build());
+        List<Cart> cartList =  cartRepository.getCartList(member.getMemberId(), requestDto.getProductDetailsId());
+        if(cartList.size() != 0){
+         cartRepository.addPcs(cartList.get(0));
+        }
+        else{
+            Cart cart = requestDto.toEntity();
+            cart.setMemberId(member.getMemberId());
+            cart.setPcs(1);
+            cartRepository.save(cart);
+        }
 
         return "Ok";
     }

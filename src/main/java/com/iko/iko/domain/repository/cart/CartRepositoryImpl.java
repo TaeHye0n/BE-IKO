@@ -1,6 +1,7 @@
 package com.iko.iko.domain.repository.cart;
 
 import com.iko.iko.controller.cart.dto.response.CartListResponseDto;
+import com.iko.iko.domain.entity.Cart;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,9 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                         product.discount,
                         productDetails.period,
                         image.imageUrl,
-                        productDetails.productDetailsStock
+                        productDetails.productDetailsStock,
+                        cart.cartId,
+                        cart.pcs
                 ))
                 .from(cart)
                 .join(productDetails).on(cart.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
@@ -57,6 +60,29 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                 .delete(cart)
                 .where(cart.memberId.eq(memberId)
                         .and(cart.productDetailsId.eq(productDetailsId)))
+                .execute();
+    }
+
+    @Override
+    public List<Cart> getCartList(
+            Integer memberId, Integer productDetailsId
+    ){
+        return jpaQueryFactory
+                .selectFrom(cart)
+                .where(cart.memberId.eq(memberId)
+                        .and(cart.productDetailsId.eq(productDetailsId)))
+                .fetch();
+    }
+
+    @Override
+    public Long addPcs(
+            Cart cart1
+    ){
+        return jpaQueryFactory
+                .update(cart)
+                .set(cart.pcs, cart.pcs.add(1))
+                .where(cart.memberId.eq(cart1.getMemberId())
+                        .and(cart.productDetailsId.eq(cart1.getProductDetailsId())))
                 .execute();
     }
 }
