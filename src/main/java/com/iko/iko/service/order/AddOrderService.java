@@ -41,6 +41,7 @@ public class AddOrderService {
             if (newLinkOrderDetails.getLinkId() == null) {
                 throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
             }
+            orderRepository.minusStockForOrder(addOrderDetailsRequest.getProductDetailsId(), addOrderDetailsRequest.getPcs());
         }
         // 회원인 경우
         if (!addOrderRequest.getMemberId().equals(0)) {

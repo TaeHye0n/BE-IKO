@@ -82,10 +82,5 @@ public class MemberController {
         return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
     }
 
-    // 내 리뷰 리스트
-    @GetMapping("/myReplyList")
-    public List<MyReplyListResponseDto> myReplyList(){
-        return memberFacade.myReplyList();
-    }
 
 }

@@ -1,36 +1,33 @@
-package com.iko.iko.service.coupon;
+package com.iko.iko.service.reply;
 
 import com.iko.iko.common.exception.BaseException;
 import com.iko.iko.common.response.ErrorCode;
-import com.iko.iko.domain.entity.Coupon;
-import com.iko.iko.domain.entity.LinkMemberCoupon;
 import com.iko.iko.domain.entity.Member;
-import com.iko.iko.domain.repository.coupon.CouponRepository;
-import com.iko.iko.domain.repository.linkMemberCoupon.LinkMemberCouponRepository;
+import com.iko.iko.domain.entity.Reply;
 import com.iko.iko.domain.repository.member.MemberRepository;
-import com.iko.iko.controller.coupon.dto.request.CouponRequestDto.*;
+import com.iko.iko.domain.repository.reply.ReplyRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.iko.iko.controller.reply.dto.request.ReplyRequestDto.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class AddCouponService {
+public class DeleteReplyService {
 
-    private final LinkMemberCouponRepository linkMemberCouponRepository;
     private final MemberRepository memberRepository;
-    private final CouponRepository couponRepository;
+    private final ReplyRepository replyRepository;
 
     @Transactional
-    public String addCoupon(AddCouponRequest addCouponRequest){
+    public String deleteReply(DeleteReplyRequest deleteReplyRequest) {
         Member member = validateLoginStatus();
-        Optional<Coupon> coupon = couponRepository.findById(addCouponRequest.getCouponId());
-        if(coupon.isPresent()){
-
-        }
+        Optional<Reply> reply = replyRepository.findById(deleteReplyRequest.getReplyId());
+        if (reply.isPresent() && member.getMemberId().equals(reply.get().getMemberId())) {
+            replyRepository.deleteReply(deleteReplyRequest.getReplyId());
+        } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         return "Ok";
     }
 

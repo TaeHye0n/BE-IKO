@@ -12,8 +12,6 @@ public interface MemberRepositoryCustom {
 
    Long logout(Member member);
 
-   List<MyReplyListResponseDto> myReplyList(Member member);
-
    Long addPoint(Integer memberId, Integer point);
 
    Long minusPoint(Integer memberId, Integer point);

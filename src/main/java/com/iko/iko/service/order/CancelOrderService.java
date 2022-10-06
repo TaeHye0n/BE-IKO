@@ -3,6 +3,7 @@ package com.iko.iko.service.order;
 import com.iko.iko.common.exception.BaseException;
 import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.controller.order.dto.request.OrderRequestDto.CancelOrderRequest;
+import com.iko.iko.domain.entity.LinkOrderDetails;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.entity.Order;
 import com.iko.iko.domain.repository.linkMemberCoupon.LinkMemberCouponRepository;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,6 +39,10 @@ public class CancelOrderService {
                         memberRepository.minusPoint(order.get().getMemberId(), order.get().getPoint());
                         linkMemberCouponRepository.setStatusAvailable(order.get().getMemberId(), order.get().getCouponId());
                     }
+                }
+                List<LinkOrderDetails> linkOrderDetailsList = linkOrderDetailsRepository.findLinkOrderDetails(cancelOrderRequest.getOrderId());
+                for(LinkOrderDetails linkOrderDetails : linkOrderDetailsList){
+                    orderRepository.plusStockForOrder(linkOrderDetails.getProductDetailsId(), linkOrderDetails.getPcs());
                 }
 
                 linkOrderDetailsRepository.cancelLinkOrder(cancelOrderRequest.getOrderId());

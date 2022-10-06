@@ -1,14 +1,12 @@
-package com.iko.iko.service.coupon;
+package com.iko.iko.service.reply;
 
 import com.iko.iko.common.exception.BaseException;
 import com.iko.iko.common.response.ErrorCode;
-import com.iko.iko.domain.entity.Coupon;
-import com.iko.iko.domain.entity.LinkMemberCoupon;
 import com.iko.iko.domain.entity.Member;
-import com.iko.iko.domain.repository.coupon.CouponRepository;
-import com.iko.iko.domain.repository.linkMemberCoupon.LinkMemberCouponRepository;
+import com.iko.iko.domain.entity.Reply;
 import com.iko.iko.domain.repository.member.MemberRepository;
-import com.iko.iko.controller.coupon.dto.request.CouponRequestDto.*;
+import com.iko.iko.domain.repository.reply.ReplyRepository;
+import com.iko.iko.controller.reply.dto.request.ReplyRequestDto.UpdateReplyRequest;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,19 +16,18 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class AddCouponService {
+public class UpdateReplyService {
 
-    private final LinkMemberCouponRepository linkMemberCouponRepository;
+    private final ReplyRepository replyRepository;
     private final MemberRepository memberRepository;
-    private final CouponRepository couponRepository;
 
     @Transactional
-    public String addCoupon(AddCouponRequest addCouponRequest){
+    public String updateReply(UpdateReplyRequest updateReplyRequest) {
+        Optional<Reply> reply = replyRepository.findById(updateReplyRequest.getReplyId());
         Member member = validateLoginStatus();
-        Optional<Coupon> coupon = couponRepository.findById(addCouponRequest.getCouponId());
-        if(coupon.isPresent()){
-
-        }
+        if (reply.isPresent() && reply.get().getMemberId().equals(member.getMemberId())) {
+            replyRepository.updateReply(updateReplyRequest);
+        } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         return "Ok";
     }
 

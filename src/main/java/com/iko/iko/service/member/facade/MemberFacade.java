@@ -24,7 +24,6 @@ public class MemberFacade {
     private final UpdateInfoService updateInfoService;
     private final UpdatePasswordService updatePasswordService;
     private final LogoutService logoutService;
-    private final MyReplyListService myReplyListService;
 
 
     @Transactional
@@ -62,9 +61,5 @@ public class MemberFacade {
         return logoutService.logout();
     }
 
-    @Transactional(readOnly = true)
-    public List<MyReplyListResponseDto> myReplyList(){
-        return myReplyListService.myReplyList();
-    }
 
 }

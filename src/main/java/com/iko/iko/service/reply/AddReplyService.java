@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -34,10 +35,12 @@ public class AddReplyService {
         if (addReplyRequest.getMemberId().equals(member.getMemberId())) {
             Optional<Order> order = orderRepository.findById(addReplyRequest.getOrderId());
             if (order.isPresent() && order.get().getMemberId().equals(addReplyRequest.getMemberId())) {
-                Optional<LinkOrderDetails> linkOrderDetails = linkOrderDetailsRepository.findByOrderId(addReplyRequest.getOrderId());
-                if (linkOrderDetails.isPresent() && linkOrderDetails.get().getProductDetailsId().equals(addReplyRequest.getProductDetailsId())) {
-                    Reply reply = replyRepository.save(addReplyRequest.toEntity());
-                } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
+                List<LinkOrderDetails> linkOrderDetailsList = linkOrderDetailsRepository.findLinkOrderDetails(addReplyRequest.getOrderId());
+                for (LinkOrderDetails linkOrderDetails : linkOrderDetailsList) {
+                    if (linkOrderDetails.getProductDetailsId().equals(addReplyRequest.getProductDetailsId())) {
+                        Reply reply = replyRepository.save(addReplyRequest.toEntity());
+                    }
+                }
             } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         return "Ok";

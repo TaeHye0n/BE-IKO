@@ -78,39 +78,6 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .execute();
     }
 
-    @Override
-    public List<MyReplyListResponseDto> myReplyList(
-            Member member
-    ){
-        return jpaQueryFactory
-                .select(Projections.constructor(MyReplyListResponseDto.class,
-                        reply.createdAt,
-                        order.orderId,
-                        reply.replyId,
-                        product.name,
-                        productDetails.color,
-                        productDetails.colorCode,
-                        productDetails.graphicDiameter,
-                        productDetails.degree,
-                        linkOrderDetails.pcs,
-                        productDetails.detailsPrice,
-                        productDetails.period,
-                        reply.content,
-                        reply.rating,
-                        image.imageUrl,
-                        reply.imageUrl
-                ))
-                .from(reply)
-                .join(productDetails).on(reply.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
-                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
-                .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
-                        .and(image.imageType.eq(1))).fetchJoin()
-                .join(linkOrderDetails).on(productDetails.productDetailsId.eq(linkOrderDetails.productDetailsId)).fetchJoin()
-                .join(order).on(linkOrderDetails.orderId.eq(order.orderId)).fetchJoin()
-                .where(reply.memberId.eq(member.getMemberId()))
-                .orderBy(reply.replyId.desc())
-                .fetch();
-    }
 
 
 }

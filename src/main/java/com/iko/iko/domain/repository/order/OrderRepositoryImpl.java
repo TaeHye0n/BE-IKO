@@ -113,7 +113,8 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                         linkOrderDetails.pcs,
                         productDetails.detailsPrice,
                         productDetails.period,
-                        image.imageUrl
+                        image.imageUrl,
+                        product.discount
                 ))
                 .from(order)
                 .join(linkOrderDetails).on(order.orderId.eq(linkOrderDetails.orderId)).fetchJoin()
@@ -126,6 +127,29 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .distinct()
                 .orderBy(product.productId.asc())
                 .fetch();
+    }
+
+    @Override
+    public Long minusStockForOrder(
+            Integer productDetailsId, Integer pcs
+    ){
+        return jpaQueryFactory
+                .update(productDetails)
+                .set(productDetails.productDetailsStock, productDetails.productDetailsStock.add(-pcs))
+                .where(productDetails.productDetailsId.eq(productDetailsId))
+                .execute();
+    }
+
+    @Override
+    public Long plusStockForOrder(
+            Integer productDetailsId, Integer pcs
+    ){
+        return jpaQueryFactory
+                .update(productDetails)
+                .set(productDetails.productDetailsStock, productDetails.productDetailsStock.add(pcs))
+                .where(productDetails.productDetailsId.eq(productDetailsId))
+                .execute();
+
     }
 
 

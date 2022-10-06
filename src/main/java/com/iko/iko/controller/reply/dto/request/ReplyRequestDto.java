@@ -4,12 +4,14 @@ import com.iko.iko.domain.entity.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class ReplyRequestDto {
 
     @Getter
-    @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
     public static class AddReplyRequest {
 
         private Integer memberId;
@@ -20,7 +22,7 @@ public class ReplyRequestDto {
         private String replyImageUrl;
 
         @Builder
-        public Reply toEntity(){
+        public Reply toEntity() {
             return Reply.builder()
                     .memberId(memberId)
                     .orderId(orderId)
@@ -30,6 +32,25 @@ public class ReplyRequestDto {
                     .imageUrl(replyImageUrl)
                     .build();
         }
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class DeleteReplyRequest {
+        private Integer replyId;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class UpdateReplyRequest {
+        private Integer replyId;
+        private Float rating;
+        private String content;
+        private String imageUrl;
     }
 
 }

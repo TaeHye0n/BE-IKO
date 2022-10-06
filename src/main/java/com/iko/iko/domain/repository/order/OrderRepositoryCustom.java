@@ -14,4 +14,7 @@ public interface OrderRepositoryCustom {
 
     List<GetProductForOrderResponse> GetProductForOrder(Integer orderId);
 
+    Long minusStockForOrder(Integer productDetailsId, Integer pcs);
+    Long plusStockForOrder(Integer productDetailsId, Integer pcs);
+
 }

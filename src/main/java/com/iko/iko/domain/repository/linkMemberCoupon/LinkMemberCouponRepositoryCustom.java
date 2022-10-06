@@ -6,4 +6,5 @@ public interface LinkMemberCouponRepositoryCustom {
 
     Long setStatusAvailable(Integer memberId, Integer couponId);
 
+
 }
