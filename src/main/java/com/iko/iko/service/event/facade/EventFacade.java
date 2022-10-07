@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.iko.iko.service.event.GetEventMainService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EventFacade {
@@ -23,7 +25,7 @@ public class EventFacade {
     }
 
     @Transactional(readOnly = true)
-    public EventResponse.EventDetails
+    public List<EventResponse.EventDetails>
     getEventDetails(Integer selectedEventId){
         return getEventDetailsService.GetEventDetails(selectedEventId);
     }

@@ -6,5 +6,5 @@ import java.util.List;
 public interface EventRepositoryCustom {
     List<EventResponse.EventMain> getEventMain();
 
-    EventResponse.EventDetails getEventDetails(Integer selectedEventId);
+    List<EventResponse.EventDetails> getEventDetails(Integer selectedEventId);
 }

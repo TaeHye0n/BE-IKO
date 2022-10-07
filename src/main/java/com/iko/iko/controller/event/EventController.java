@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/event")
@@ -28,11 +30,16 @@ public class EventController {
     }
 
     @GetMapping("/details")
-    public EventResponse.EventDetails
+    public ResponseEntity<Response<List<EventResponse.EventDetails>>>
     getEventDetails(
             @RequestParam(value = "eventId") Integer selectedEventId
     ){
-        return eventFacade.getEventDetails(selectedEventId);
+        return ResponseEntity.ok(
+                Response.of(
+                eventFacade.getEventDetails(selectedEventId),
+                "이벤트 상세 페이지 불러오기 완료"
+                )
+        );
     }
 
 }

@@ -21,8 +21,8 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
         return jpaQueryFactory
                 .select(Projections.constructor(EventResponse.EventMain.class,
                         event.eventId,
-                        event.eventTitle,
-                        image.imageUrl))
+                        image.imageUrl,
+                        event.eventTitle))
                 .from(event)
                 .join(linkEventImage).on(event.eventId.eq(linkEventImage.eventId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkEventImage.imageId)).fetchJoin()
@@ -31,8 +31,8 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
     }
 
     @Override
-    public EventResponse.EventDetails getEventDetails(Integer selectedEventId) {
-        return (EventResponse.EventDetails) jpaQueryFactory
+    public List<EventResponse.EventDetails> getEventDetails(Integer selectedEventId) {
+        return  jpaQueryFactory
                 .select(Projections.constructor(EventResponse.EventDetails.class,
                         event.eventTitle,
                         event.eventDescription,
@@ -42,8 +42,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
                 .from(event)
                 .join(linkEventImage).on(event.eventId.eq(linkEventImage.eventId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkEventImage.imageId)).fetchJoin()
-                .where(event.eventId.eq(selectedEventId))
-                .where(image.imageType.eq(2))
+                .where(event.eventId.eq(selectedEventId).and(image.imageType.eq(3)))
                 .fetch();
     }
 }
