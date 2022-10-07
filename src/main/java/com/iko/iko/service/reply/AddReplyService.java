@@ -36,11 +36,14 @@ public class AddReplyService {
             Optional<Order> order = orderRepository.findById(addReplyRequest.getOrderId());
             if (order.isPresent() && order.get().getMemberId().equals(addReplyRequest.getMemberId())) {
                 List<LinkOrderDetails> linkOrderDetailsList = linkOrderDetailsRepository.findLinkOrderDetails(addReplyRequest.getOrderId());
-                for (LinkOrderDetails linkOrderDetails : linkOrderDetailsList) {
-                    if (linkOrderDetails.getProductDetailsId().equals(addReplyRequest.getProductDetailsId())) {
-                        Reply reply = replyRepository.save(addReplyRequest.toEntity());
+                List<Reply> replyList = replyRepository.getReplyList(addReplyRequest.getOrderId(), addReplyRequest.getProductDetailsId());
+                if(replyList.size() == 0) {
+                    for (LinkOrderDetails linkOrderDetails : linkOrderDetailsList) {
+                        if (linkOrderDetails.getProductDetailsId().equals(addReplyRequest.getProductDetailsId())) {
+                            replyRepository.save(addReplyRequest.toEntity());
+                        }
                     }
-                }
+                }else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
             } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         return "Ok";

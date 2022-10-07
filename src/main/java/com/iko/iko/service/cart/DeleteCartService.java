@@ -21,7 +21,7 @@ public class DeleteCartService {
     @Transactional
     public Long deleteCart(DeleteCartRequestDto requestDto){
         Member member = validateLoginStatus();
-        return cartRepository.deleteCart(requestDto.getProductDetailsId(), member.getMemberId());
+        return cartRepository.deleteCart(requestDto.getCartId(), member.getMemberId());
     }
 
     public Member validateLoginStatus() {

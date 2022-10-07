@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AddFavorService {
@@ -20,17 +22,19 @@ public class AddFavorService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long addFavor(AddFavorRequestDto requestDto) {
+    public String addFavor(AddFavorRequestDto requestDto) {
         Member member = validateLoginStatus();
-        Favor favor = favorRepository.save(Favor.builder()
-                .memberId(member.getMemberId())
-                .productId(requestDto.getProductId())
-                .build());
-
-        if (favor != null) {
-            return (long)1;
-        } else {
-            return (long) 2;
+        List<Favor> favorList = favorRepository.getFavorList(requestDto.getProductId(), member.getMemberId());
+        if (favorList.size() == 0) {
+            Favor favor = favorRepository.save(Favor.builder()
+                    .memberId(member.getMemberId())
+                    .productId(requestDto.getProductId())
+                    .build());
+            return "즐겨찾기 추가 완료";
+        }
+        else{
+            favorRepository.deleteFavor(requestDto.getProductId(), member.getMemberId());
+            return "즐겨찾기 삭제 완료";
         }
     }
 

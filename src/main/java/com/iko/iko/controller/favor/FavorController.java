@@ -24,16 +24,16 @@ public class FavorController {
 
     //  즐겨찾기 추가
     @PostMapping("/add")
-    public ResponseEntity<Response> addFavor(@RequestBody @Valid AddFavorRequestDto requestDto) {
-        favorFacade.addFavor(requestDto);
+    public ResponseEntity<Response<String>> addFavor(@RequestBody @Valid AddFavorRequestDto requestDto) {
         return ResponseEntity.ok(
-                Response.of(
-                        "즐겨찾기 추가 완료"));
+                Response.of(favorFacade.addFavor(requestDto),
+                        "즐겨찾기 상태 변경 완료")
+                );
     }
 
     // 즐겨찾기 상품 삭제
     @PostMapping("/delete")
-    public ResponseEntity<Response> deleteFavor(@RequestBody @Valid DeleteFavorRequestDto requestDto){
+    public ResponseEntity<Response> deleteFavor(@RequestBody @Valid DeleteFavorRequestDto requestDto) {
         favorFacade.deleteFavor(requestDto);
         return ResponseEntity.ok(
                 Response.of(
@@ -42,7 +42,7 @@ public class FavorController {
 
     // 즐겨찾기 조회
     @GetMapping("/list")
-    public ResponseEntity<Response<List<GetFavorResponse>>> getFavor(){
+    public ResponseEntity<Response<List<GetFavorResponse>>> getFavor() {
         return ResponseEntity.ok(
                 Response.of(favorFacade.getFavor(),
                         "즐겨찾기 조회 완료")

@@ -54,12 +54,12 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
 
     @Override
     public Long deleteCart(
-            Integer productDetailsId, Integer memberId
+            Integer cartId, Integer memberId
     ){
         return jpaQueryFactory
                 .delete(cart)
                 .where(cart.memberId.eq(memberId)
-                        .and(cart.productDetailsId.eq(productDetailsId)))
+                        .and(cart.cartId.eq(cartId)))
                 .execute();
     }
 

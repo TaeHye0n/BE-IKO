@@ -1,8 +1,11 @@
 package com.iko.iko.domain.repository.linkMemberCoupon;
 
+import com.iko.iko.domain.entity.LinkMemberCoupon;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import static com.iko.iko.domain.entity.QLinkMemberCoupon.linkMemberCoupon;
 
@@ -34,6 +37,17 @@ public class LinkMemberCouponRepositoryImpl implements LinkMemberCouponRepositor
                 .where(linkMemberCoupon.couponId.eq(couponId)
                         .and(linkMemberCoupon.memberId.eq(memberId)))
                 .execute();
+    }
+
+    @Override
+    public List<LinkMemberCoupon> getLinkMemberCouponList(
+            Integer memberId, Integer couponId
+    ){
+        return jpaQueryFactory
+                .selectFrom(linkMemberCoupon)
+                .where(linkMemberCoupon.memberId.eq(memberId)
+                        .and(linkMemberCoupon.couponId.eq(couponId)))
+                .fetch();
     }
 
 }

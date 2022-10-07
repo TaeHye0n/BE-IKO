@@ -21,7 +21,7 @@ public class FavorFacade {
     private final GetFavorService getFavorService;
 
     @Transactional
-    public Long addFavor(AddFavorRequestDto requestDto){
+    public String addFavor(AddFavorRequestDto requestDto){
         return addFavorService.addFavor(requestDto);
     }
 

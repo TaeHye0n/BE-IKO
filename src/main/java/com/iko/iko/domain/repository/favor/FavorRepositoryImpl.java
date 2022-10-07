@@ -1,5 +1,6 @@
 package com.iko.iko.domain.repository.favor;
 
+import com.iko.iko.domain.entity.Favor;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +84,17 @@ public class FavorRepositoryImpl implements FavorRepositoryCustom {
                 .where(productDetails.productIdFk.eq(productId))
                 .where(productDetails.period.eq(30))
                 .distinct()
+                .fetch();
+    }
+
+    @Override
+    public List<Favor> getFavorList(
+            Integer productId, Integer memberId
+    ) {
+        return jpaQueryFactory
+                .selectFrom(favor)
+                .where(favor.productId.eq(productId)
+                        .and(favor.memberId.eq(memberId)))
                 .fetch();
     }
 

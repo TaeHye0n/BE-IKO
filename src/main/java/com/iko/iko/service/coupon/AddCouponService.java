@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -29,7 +30,13 @@ public class AddCouponService {
         Member member = validateLoginStatus();
         Optional<Coupon> coupon = couponRepository.findById(addCouponRequest.getCouponId());
         if(coupon.isPresent()){
-
+            List<LinkMemberCoupon> linkMemberCouponList
+                    = linkMemberCouponRepository.getLinkMemberCouponList(member.getMemberId(), addCouponRequest.getCouponId());
+            if(linkMemberCouponList.size() == 0){
+                LinkMemberCoupon linkMemberCoupon = addCouponRequest.toEntity();
+                linkMemberCoupon.setCouponId(addCouponRequest.getCouponId());
+                linkMemberCoupon.setMemberId(member.getMemberId());
+            }
         }
         return "Ok";
     }

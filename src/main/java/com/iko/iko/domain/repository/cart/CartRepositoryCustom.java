@@ -9,7 +9,7 @@ public interface CartRepositoryCustom {
 
     List<CartListResponseDto> cartList(Integer memberId);
 
-    Long deleteCart(Integer productDetailsId, Integer memberId);
+    Long deleteCart(Integer cartId, Integer memberId);
 
     List<Cart> getCartList(Integer memberId, Integer productDetailsId);
 
