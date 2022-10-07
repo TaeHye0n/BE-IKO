@@ -1,11 +1,13 @@
 package com.iko.iko.domain.repository.product;
 
+import com.iko.iko.common.util.dto.DateTimeDto;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Member;
 import com.iko.iko.domain.entity.Product;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Builder;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 
@@ -98,6 +101,28 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .fetchResults();
         return new PageImpl<>(queryResults.getResults(),pageable, queryResults.getTotal());
     }
+    /*
+    @Override
+    public Page<ProductResponse.GetAllProductDistinct> getAllNewestProduct(Pageable pageable, DateTimeDto dateTimeDto){
+        QueryResults<ProductResponse.GetAllProductDistinct> queryResults
+                =jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductResponse.GetAllProductDistinct.class,
+                        product.productId,
+                        product.series,
+                        product.price,
+                        product.discount,
+                        product.name
+                ))
+                .distinct()
+                .from(product)
+                .where(product.createdAt.between(dateTimeDto.getStartTime(),dateTimeDto.getEndTime()))
+                .orderBy(product.createdAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        return new PageImpl<>(queryResults.getResults(),pageable, queryResults.getTotal());
+    }*/
 
     //유저의 찜정보를 가져옵니다
     @Override

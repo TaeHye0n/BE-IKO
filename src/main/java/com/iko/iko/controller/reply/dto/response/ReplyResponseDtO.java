@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 import java.util.List;
@@ -44,5 +45,42 @@ public class ReplyResponseDtO {
         private Integer pcs;
         private Integer period;
         private String productImageUrl;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyData{
+        private Float rating;
+        private Integer memberId;
+        private String color;
+        private Float graphicDiameter;
+        private Integer period;
+        private String content;
+        private String imageUrl;
+        private java.sql.Date createdAt;
+    }
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyDataResponse{
+        private Float rating;
+        private String email;
+        private String color;
+        private Float graphicDiameter;
+        private Integer period;
+        private String content;
+        private String imageUrl;
+        private java.sql.Date createdAt;
+    }
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyInfoForResponse{
+        private Integer totalCount;
+        private List<ReplyDataResponse> replyDataResponse;
     }
 }

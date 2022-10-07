@@ -78,6 +78,16 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 .execute();
     }
 
+    @Override
+    public String getEmailByMemberId(
+            Integer memberId
+    ){
+        return jpaQueryFactory
+                .select(member.email)
+                .from(member)
+                .where(member.memberId.eq(memberId))
+                .fetchOne();
+    }
 
 
 }

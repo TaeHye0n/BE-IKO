@@ -16,4 +16,5 @@ public interface MemberRepositoryCustom {
 
    Long minusPoint(Integer memberId, Integer point);
 
+   String getEmailByMemberId(Integer memberId);
 }

@@ -9,11 +9,13 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
+@Setter
 @DynamicUpdate
 @DynamicInsert
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name="tb_image")
 public class Image extends BaseEntity {
     @Id

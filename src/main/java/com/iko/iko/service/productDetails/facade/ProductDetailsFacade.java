@@ -2,12 +2,9 @@ package com.iko.iko.service.productDetails.facade;
 
 
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
-import com.iko.iko.service.productDetails.GetMainProductService;
-import com.iko.iko.service.productDetails.GetProductByOptionService;
+import com.iko.iko.service.productDetails.*;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
-import com.iko.iko.service.productDetails.GetMainProductDetailsService;
 
-import com.iko.iko.service.productDetails.GetProductForRandomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,8 +17,14 @@ public class ProductDetailsFacade {
     private final GetMainProductService getMainProductService;
     private final GetProductForRandomService getProductForRandomService;
     private final GetProductByOptionService getProductByOptionService;
+    private final GetProductExplainImageService getProductExplainImageService;
 
 
+
+    @Transactional(readOnly = true)
+    public List<String> getProductExplainImage(Integer productId){
+        return getProductExplainImageService.getProductExplainImage(productId);
+    }
 
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.ProductMainByOptionResponse>getProductByOption(

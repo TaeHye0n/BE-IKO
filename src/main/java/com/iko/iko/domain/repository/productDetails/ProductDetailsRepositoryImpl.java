@@ -214,4 +214,17 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .distinct()
                 .fetch();
     }
+
+    @Override
+    public List<String> getExplainImageByProductId(Integer productId){
+        return jpaQueryFactory
+                .select(image.imageUrl)
+                .from(productDetails)
+                .join(linkProductDetailsImage).on(linkProductDetailsImage.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
+                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
+                .where(image.imageType.eq(3))
+                .where(productDetails.productIdFk.eq(productId))
+                .distinct()
+                .fetch();
+    }
 }

@@ -1,8 +1,9 @@
-package com.iko.iko.controller.event.dto.response;
+package com.iko.iko.controller.event.dto;
 
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 public class EventResponse {
     @Getter
@@ -14,6 +15,13 @@ public class EventResponse {
         private String eventTitle;
     }
 
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class EventMainResponse{
+        private Integer totalCount;
+        private List<EventMain> eventMainList;
+    }
     @Getter
     @AllArgsConstructor
     @Builder

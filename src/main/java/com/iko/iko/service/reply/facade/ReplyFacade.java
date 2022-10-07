@@ -1,11 +1,9 @@
 package com.iko.iko.service.reply.facade;
 
 import com.iko.iko.controller.reply.dto.request.ReplyRequestDto.*;
+import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO;
 import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO.*;
-import com.iko.iko.service.reply.AddReplyService;
-import com.iko.iko.service.reply.DeleteReplyService;
-import com.iko.iko.service.reply.MyReplyListService;
-import com.iko.iko.service.reply.UpdateReplyService;
+import com.iko.iko.service.reply.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,7 @@ public class ReplyFacade {
     private final DeleteReplyService deleteReplyService;
     private final UpdateReplyService updateReplyService;
     private final MyReplyListService myReplyListService;
-
+    private final GetReplyDataService getReplayDataService;
     @Transactional
     public String addReply(AddReplyRequest addReplyRequest){
         return addReplyService.addReply(addReplyRequest);
@@ -41,5 +39,9 @@ public class ReplyFacade {
         return myReplyListService.myReplyList();
     }
 
+    @Transactional(readOnly = true)
+    public ReplyResponseDtO.ReplyInfoForResponse getReplyInfoByProductId(Integer productId){
+        return getReplayDataService.getReplyData(productId);
+    }
 
 }

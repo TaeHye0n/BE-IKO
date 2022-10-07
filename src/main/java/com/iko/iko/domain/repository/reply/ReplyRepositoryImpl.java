@@ -1,5 +1,6 @@
 package com.iko.iko.domain.repository.reply;
 
+import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO;
 import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO.*;
 import com.iko.iko.controller.reply.dto.request.ReplyRequestDto.UpdateReplyRequest;
 import com.querydsl.core.types.Projections;
@@ -9,12 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.iko.iko.domain.entity.QMember.member;
 import static com.iko.iko.domain.entity.QImage.image;
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
 import static com.iko.iko.domain.entity.QReply.reply;
 import static com.iko.iko.domain.entity.QLinkOrderDetails.linkOrderDetails;
 import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDetailsImage;
+import static com.iko.iko.domain.entity.QOrder.order;
 @Repository
 @RequiredArgsConstructor
 public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
@@ -87,6 +90,26 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
                         .and(image.imageType.eq(1))).fetchJoin()
                 .distinct()
                 .where(productDetails.productDetailsId.eq(productDetailsId))
+                .fetch();
+    }
+
+    @Override
+    public List<ReplyResponseDtO.ReplyData> getReplyData(Integer productId){
+        return jpaQueryFactory
+                .select(Projections.constructor(ReplyData.class,
+                        reply.rating,
+                        reply.memberId,
+                        productDetails.color,
+                        productDetails.graphicDiameter,
+                        productDetails.period,
+                        reply.content,
+                        reply.imageUrl,
+                        reply.createdAt))
+                .from(reply)
+                .join(productDetails).on(productDetails.productDetailsId.eq(reply.productDetailsId)).fetchJoin()
+                .distinct()
+                .where(productDetails.productIdFk.eq(productId))
+                .orderBy(reply.rating.desc())
                 .fetch();
     }
 
