@@ -66,4 +66,15 @@ public class ProductController {
         );
     }
 
+    @GetMapping("/recommend")
+    public ResponseEntity<Response<List<ProductResponse.recommendedProduct>>>
+    getRecommendProduct(){
+        return ResponseEntity.ok(
+                Response.of(
+                        productFacade.getRecommendProduct(),
+                        "추천상품 불러오기 완료"
+                )
+        );
+    }
+
 }

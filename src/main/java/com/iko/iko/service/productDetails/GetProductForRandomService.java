@@ -50,7 +50,7 @@ public class GetProductForRandomService {
 
             if(!memberId.equals(0)){
                 Member member =validateLoginStatus();
-                isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(),productId);
+                isFavorite = (int)(long)productRepository.getMemberIsFavorite(memberId,productId);
             }
 
             Product mainProduct

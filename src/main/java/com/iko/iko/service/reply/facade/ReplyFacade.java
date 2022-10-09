@@ -5,6 +5,7 @@ import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO;
 import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO.*;
 import com.iko.iko.service.reply.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ public class ReplyFacade {
     private final UpdateReplyService updateReplyService;
     private final MyReplyListService myReplyListService;
     private final GetReplyDataService getReplayDataService;
+    private final GetReplyForProductDetailsService getReplyForProductDetailsService;
     @Transactional
     public String addReply(AddReplyRequest addReplyRequest){
         return addReplyService.addReply(addReplyRequest);
@@ -42,6 +44,11 @@ public class ReplyFacade {
     @Transactional(readOnly = true)
     public ReplyResponseDtO.ReplyInfoForResponse getReplyInfoByProductId(Integer productId){
         return getReplayDataService.getReplyData(productId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReplyResponseDtO.ReplyInfoForProductDetails> getReplyForProductDetails(Pageable pageable,Integer productId){
+        return getReplyForProductDetailsService.getReplyForProductDetails(pageable,productId);
     }
 
 }

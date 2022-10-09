@@ -32,8 +32,8 @@ public class GetFilterListService {
         HashSet<String> featureSet=new HashSet<>();
         HashSet<Integer> periodSet=new HashSet<>();
         HashSet<Float> graphicSet=new HashSet<>();
-        HashSet<String> colorCodeSet=new HashSet<>();
 
+        HashSet<String> colorCodeSet=new HashSet<>();
         List<ProductResponse.productFilterList> productFilterLists =
                 productRepository.getFilterInfo();
         for (ProductResponse.productFilterList k : productFilterLists) {

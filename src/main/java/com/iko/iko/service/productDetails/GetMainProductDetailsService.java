@@ -34,7 +34,7 @@ public class GetMainProductDetailsService {
 
         if(memberId!=0) {
             Member member = validateLoginStatus();
-            isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(), selectedProductId);
+            isFavorite = (int)(long)productRepository.getMemberIsFavorite(memberId, selectedProductId);
         }
 
             List<ProductDetailsResponse.ProductDetails> productDetailsData

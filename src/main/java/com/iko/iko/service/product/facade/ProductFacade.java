@@ -4,10 +4,7 @@ import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.controller.product.dto.request.ProductRequest.ProductSaveRequest;
-import com.iko.iko.service.product.GetAllProductByOptionService;
-import com.iko.iko.service.product.GetAllProductService;
-import com.iko.iko.service.product.GetFilterListService;
-import com.iko.iko.service.product.SaveProductService;
+import com.iko.iko.service.product.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +19,7 @@ public class ProductFacade {
     private final GetAllProductByOptionService getAllProductByOptionService;
 
     private final GetFilterListService getFilterListService;
-
+    private final GetRecommendProductService getRecommendProductService;
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.MainProductForResponse>
     getMainProduct(Pageable pageable,Integer memberId){
@@ -46,5 +43,11 @@ public class ProductFacade {
     public ProductResponse.productFilter
     getFilterInfo(){
         return getFilterListService.GetFilterList();
+    }
+
+    @Transactional
+    public List<ProductResponse.recommendedProduct>
+    getRecommendProduct(){
+        return getRecommendProductService.getRecommendedProduct();
     }
 }

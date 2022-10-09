@@ -92,4 +92,14 @@ public class ProductResponse {
 
     }
 
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class recommendedProduct{
+        private String name;
+        private Integer price;
+        private Integer discount;
+        private String imageUrl;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.iko.iko.controller.reply.dto.response;
 
+import com.iko.iko.domain.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -83,4 +84,31 @@ public class ReplyResponseDtO {
         private Integer totalCount;
         private List<ReplyDataResponse> replyDataResponse;
     }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyInfoForMain{
+        private String imageUrl;
+        private String productName;
+        private Integer memberId;
+        private Float rating;
+        private String content;
+        private Date createdAt;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyInfoForProductDetails{
+        private String imageUrl;
+        private String productName;
+        private String email;
+        private Float rating;
+        private String content;
+        private Date createdAt;
+    }
+
 }

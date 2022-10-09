@@ -28,4 +28,6 @@ public interface ProductRepositoryCustom{
 
     List<ProductResponse.productFilterList> getFilterInfo();
 
+    List<ProductResponse.recommendedProduct> getRecommendedProduct();
+
 }

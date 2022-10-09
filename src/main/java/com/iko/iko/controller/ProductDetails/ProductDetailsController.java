@@ -79,7 +79,7 @@ public class ProductDetailsController {
                 Response.of(
                         productDetailsFacade.getProductExplainImage(productId),
                         "상품설명 이미지 리스트 불러오기 완료"
-                )
+                )//
         );
     }
     @GetMapping("replyList")
