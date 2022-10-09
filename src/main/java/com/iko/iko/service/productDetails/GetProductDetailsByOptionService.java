@@ -39,7 +39,7 @@ public class GetProductDetailsByOptionService {
 
         if(!memberId.equals(0)) {
             Member member = validateLoginStatus();
-            isFavorite = (int)(long)productRepository.getMemberIsFavorite(memberId, request.getProductId());
+            isFavorite = (int)(long)productRepository.getMemberIsFavorite(member.getMemberId(), request.getProductId());
         }
 
         ProductDetailsResponse.ProductDetailsByOptionResponse result
