@@ -28,4 +28,17 @@ public interface ProductDetailsRepositoryCustom {
     List<ProductDetailsResponse.ProductDetailsFilterList> getDetailsFilterInfo();
 
     List<String> getExplainImageByProductId(Integer productId);
+
+    List<ProductDetailsResponse.ByPeriodOption> getPeriodOption(Integer period);
+
+    List<Float> getColorCodeOption(Integer period,String colorCode);
+
+    List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer period, String colorCode, Float graphic);
+    //List<ProductDetailsResponse.DegreeAndStock> getProductDetailsByOption(ProductDetailsRequest.ProductDetailsForRequest option);
+    Integer getProductDetailsIdByOption(ProductDetailsRequest.ProductDetailsForRequest request);
+
+    ProductDetailsResponse.ProductDetailsByOption getProductDetailsByProductDetailsId(
+            Integer productDetailsId
+    );
+
 }

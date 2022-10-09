@@ -5,8 +5,10 @@ import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 
 import com.iko.iko.controller.reply.dto.response.ReplyResponseDtO;
+import com.iko.iko.domain.entity.Product;
 import com.iko.iko.service.reply.facade.ReplyFacade;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -90,6 +92,58 @@ public class ProductDetailsController {
                 Response.of(
                         replyFacade.getReplyInfoByProductId(productId),
                         "리뷰 정보 불러오기 완료"
+                )
+        );
+    }
+
+    @GetMapping("/byPeriodOption")
+    public ResponseEntity<Response<ProductDetailsResponse.ByPeriodOptionList>> getByPeriodOption(
+            @RequestParam(value="period") Integer period
+    ){
+        return ResponseEntity.ok(
+                Response.of(
+                        productDetailsFacade.getByPeriodOption(period),
+                        "기간 선택 후 옵션 불러오기 완료"
+                )
+        );
+    }
+
+    @GetMapping("/byColorCodeOption")
+    public ResponseEntity<Response<ProductDetailsResponse.ByColorCodeOption>> getByColorCodeOption(
+            @RequestParam(value="period") Integer period,
+            @RequestParam(value="colorCode") String colorCode
+    ){
+        return ResponseEntity.ok(
+                Response.of(
+                        productDetailsFacade.getByColorCodeOption(period,colorCode),
+                        "기간 및 컬러코드 선택 후 그래픽직경 불러오기 완료"
+                )
+        );
+    }
+
+    @GetMapping("/byGraphicOption")
+    public ResponseEntity<Response<List<ProductDetailsResponse.DegreeAndStock>>> getGraphicOption(
+            @RequestParam(value="period") Integer period,
+            @RequestParam(value="colorCode") String colorCode,
+            @RequestParam(value="graphicDiameter") Float graphic
+    ){
+        return ResponseEntity.ok(
+                Response.of(
+                        productDetailsFacade.getGraphicOption(period,colorCode,graphic),
+                        "기간 및 컬러코드 선택 후 그래픽직경 불러오기 완료"
+                )
+        );
+    }
+    @PostMapping("/byDetailsOption")
+    public ResponseEntity<Response<ProductDetailsResponse.ProductDetailsByOptionResponse>>
+    getProductDetailsByOption(
+            @RequestBody ProductDetailsRequest.ProductDetailsForRequest request,
+            @RequestParam (value="memberId") Integer memberId
+    ){
+        return ResponseEntity.ok(
+                Response.of(
+                        productDetailsFacade.getProductDetailsByOption(request,memberId),
+                        "상품 상세 불러오기 완료!"
                 )
         );
     }

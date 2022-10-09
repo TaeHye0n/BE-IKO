@@ -29,16 +29,12 @@ public class ProductDetailsRequest {
     @Builder
     public static class ProductDetailsForRequest{
         private Integer productId;
+        private Integer period;
+        private String colorCode;
+        private Float graphicDiameter;
+        private Float degree;
     }
 
-    @Setter
-    @Getter
-    @AllArgsConstructor
-    @Builder
-    public static class ProductDetailsOptionRequest{
-        private Integer period;
-        private Float graphicDiameter;
-        private String colorCode;
-    }
+
 
 }

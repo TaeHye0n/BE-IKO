@@ -150,4 +150,54 @@ public class ProductDetailsResponse {
 
     }
 
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ByPeriodOptionList{
+        private List<String> colorCodeList;
+        private List<Float> graphicDiameterList;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ByPeriodOption{
+        private String colorCode;
+        private Float graphicDiameter;
+    }
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ByColorCodeOption{
+        private List<Float> graphicDiameterList;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class DegreeAndStock{
+        private Float degree;
+        private Integer stock;
+    }
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ProductDetailsByOptionResponse{
+        private Integer isFavorite;
+        private Integer productDetailsId;
+        private String productName;
+        private String color;
+        private Integer discount;
+        private Integer detailsPrice;
+        private List<typeAndImage> imageUrlList;
+    }
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ProductDetailsByOption{
+        private String productName;
+        private String color;
+        private Integer discount;
+        private Integer detailsPrice;
+    }
 }

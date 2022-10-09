@@ -14,11 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductDetailsFacade {
     private final GetMainProductDetailsService getMainProductDetailsService;
-    private final GetMainProductService getMainProductService;
     private final GetProductForRandomService getProductForRandomService;
     private final GetProductByOptionService getProductByOptionService;
     private final GetProductExplainImageService getProductExplainImageService;
+    private final GetByPeriodOption getByPeriodOption;
 
+    private final GetByColorCodeService getByColorCodeService;
+    private final GetGraphicOptionService getGraphicOptionService;
+    private final GetProductDetailsByOptionService getProductDetailsByOptionService;
 
 
     @Transactional(readOnly = true)
@@ -45,6 +48,28 @@ public class ProductDetailsFacade {
             Integer selectedProductId, Integer memberId
     ){
         return getProductForRandomService.getProductForRandom(selectedProductId,memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDetailsResponse.ByPeriodOptionList getByPeriodOption(Integer period){
+        return getByPeriodOption.getByPeriodOption(period);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDetailsResponse.ByColorCodeOption getByColorCodeOption(Integer period,String colorCode){
+        return getByColorCodeService.getByColorCodeOption(period, colorCode);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer period, String colorCode, Float graphic){
+        return getGraphicOptionService.GetGraphicOption(period,colorCode,graphic);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductDetailsResponse.ProductDetailsByOptionResponse getProductDetailsByOption(
+            ProductDetailsRequest.ProductDetailsForRequest request, Integer memberId
+    ){
+        return getProductDetailsByOptionService.GetProductDetailsByOption(request,memberId);
     }
 
 }

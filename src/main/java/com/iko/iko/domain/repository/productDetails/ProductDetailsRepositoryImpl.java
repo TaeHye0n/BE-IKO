@@ -227,4 +227,76 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .distinct()
                 .fetch();
     }
+
+    @Override
+    public List<ProductDetailsResponse.ByPeriodOption> getPeriodOption(Integer period){
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductDetailsResponse.ByPeriodOption.class,
+                        productDetails.colorCode,
+                        productDetails.graphicDiameter
+                ))
+                .from(productDetails)
+                .where(productDetails.period.eq(period))
+                .distinct()
+                .fetch();
+    }
+
+    @Override
+    public List<Float> getColorCodeOption(Integer period,String colorCode){
+        return jpaQueryFactory
+                .select(productDetails.graphicDiameter)
+                .from(productDetails)
+                .where(productDetails.period.eq(period))
+                .where(productDetails.colorCode.eq(colorCode))
+                .distinct()
+                .fetch();
+    }
+
+    @Override
+    public List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer period, String colorCode, Float graphic){
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductDetailsResponse.DegreeAndStock.class,
+                        productDetails.degree,
+                        productDetails.productDetailsStock))
+                .from(productDetails)
+                .where(productDetails.period.eq(period))
+                .where(productDetails.colorCode.eq(colorCode))
+                .where(productDetails.graphicDiameter.eq(graphic))
+                .distinct().
+                fetch();
+    }
+    @Override
+    public Integer getProductDetailsIdByOption(
+            ProductDetailsRequest.ProductDetailsForRequest request
+    ){
+        return jpaQueryFactory
+                .select(productDetails.productDetailsId)
+                .from(productDetails)
+                .where(productDetails.productIdFk.eq(request.getProductId()))
+                .where(productDetails.graphicDiameter.eq(request.getGraphicDiameter()))
+                .where(productDetails.degree.eq(request.getDegree()))
+                .where(productDetails.colorCode.eq(request.getColorCode()))
+                .where(productDetails.period.eq(request.getPeriod()))
+                .fetchOne();
+    }
+
+    @Override
+    public ProductDetailsResponse.ProductDetailsByOption getProductDetailsByProductDetailsId(
+            Integer productDetailsId
+    ){
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductDetailsResponse.ProductDetailsByOption.class,
+                        product.name,
+                        productDetails.color,
+                        product.price,
+                        productDetails.detailsPrice
+                ))
+                .from(productDetails)
+                .join(product).on(product.productId.eq(productDetails.productIdFk)).fetchJoin()
+                .where(productDetails.productDetailsId.eq(productDetailsId))
+                .fetchOne();
+    }
 }
