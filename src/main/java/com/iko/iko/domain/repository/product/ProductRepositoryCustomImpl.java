@@ -146,6 +146,17 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
+    public String getProductFeature(
+            Integer productId
+    ){
+        return jpaQueryFactory
+                .select(product.feature)
+                .from(product)
+                .where(product.productId.eq(productId))
+                .fetchOne();
+    }
+
+    @Override
     public List<ProductResponse.recommendedProduct> getRecommendedProduct(){
         return jpaQueryFactory
                 .select(Projections.constructor(
@@ -164,6 +175,5 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(product.recommend.eq(1))
                 .fetch();
     }
-
 
 }

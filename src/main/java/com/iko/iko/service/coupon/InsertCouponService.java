@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class InsertCouponService {
@@ -14,9 +16,9 @@ public class InsertCouponService {
     private final CouponRepository couponRepository;
 
     @Transactional
-    public String insertCoupon(InsertCouponRequest insertCouponRequest){
+    public Integer insertCoupon(InsertCouponRequest insertCouponRequest){
         Coupon coupon = insertCouponRequest.toEntity();
-        couponRepository.save(coupon);
-        return "Ok";
+        Coupon newCoupon = couponRepository.save(coupon);
+        return newCoupon.getCouponId();
     }
 }

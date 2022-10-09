@@ -30,7 +30,7 @@ public class CouponFacade {
     }
 
     @Transactional
-    public String insertCoupon(InsertCouponRequest insertCouponRequest){
+    public Integer insertCoupon(InsertCouponRequest insertCouponRequest){
         return insertCouponService.insertCoupon(insertCouponRequest);
     }
 }

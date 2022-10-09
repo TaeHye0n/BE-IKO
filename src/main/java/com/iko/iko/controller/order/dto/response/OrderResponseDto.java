@@ -82,8 +82,8 @@ public class OrderResponseDto {
         private String series;
         private Integer discount;
         private String manufacturer;
-        private Integer diameter;
-        private List<String> feature;
+        private Float diameter;
+        private String[] feature;
         private List<GetProductDetailsInfoForAdminResponse> detailsInfo;
     }
 
@@ -97,7 +97,7 @@ public class OrderResponseDto {
         private String series;
         private Integer discount;
         private String manufacturer;
-        private Integer diameter;
+        private Float diameter;
     }
 
     @Getter
@@ -110,12 +110,12 @@ public class OrderResponseDto {
         private Integer pcs;
         private Integer period;
         private Integer productDetailsId;
-        private Integer graphicDiameter;
-        private Integer degree;
+        private Float graphicDiameter;
+        private Float degree;
         private Integer moisture;
         private Integer price;
         private String material;
-        private Integer basecurve;
+        private Float basecurve;
     }
 
 

@@ -2,10 +2,7 @@ package com.iko.iko.controller.order.dto.request;
 
 import com.iko.iko.domain.entity.LinkOrderDetails;
 import com.iko.iko.domain.entity.Order;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import java.util.List;
@@ -92,6 +89,15 @@ public class OrderRequestDto {
         private String email;
         private String orderer;
 
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class UpdateOrderStatusRequest {
+        private Integer orderId;
+        private Integer status;
     }
 
 

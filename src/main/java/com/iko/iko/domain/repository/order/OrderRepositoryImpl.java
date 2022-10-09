@@ -1,5 +1,6 @@
 package com.iko.iko.domain.repository.order;
 
+import com.iko.iko.controller.order.dto.request.OrderRequestDto.UpdateOrderStatusRequest;
 import com.iko.iko.controller.order.dto.response.OrderResponseDto.*;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -180,7 +181,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     @Override
     public List<String> getProductName(
             Integer orderId
-    ){
+    ) {
         return jpaQueryFactory
                 .select(product.name)
                 .from(order)
@@ -192,5 +193,62 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public List<GetProductInfoForAdminResponse> getProductInfoForAdmin(
+            Integer orderId
+    ) {
+        return jpaQueryFactory
+                .select(Projections.constructor(GetProductInfoForAdminResponse.class,
+                        product.productId,
+                        product.name,
+                        product.series,
+                        product.discount,
+                        product.manufacturer,
+                        product.diameter
+                ))
+                .from(order)
+                .join(linkOrderDetails).on(order.orderId.eq(linkOrderDetails.orderId)).fetchJoin()
+                .join(productDetails).on(linkOrderDetails.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
+                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
+                .where(order.orderId.eq(orderId))
+                .distinct()
+                .fetch();
+    }
+
+    @Override
+    public List<GetProductDetailsInfoForAdminResponse> getProductDetailsInfoForAdmin(
+            Integer productId, Integer orderId
+    ) {
+        return jpaQueryFactory
+                .select(Projections.constructor(GetProductDetailsInfoForAdminResponse.class,
+                        productDetails.color,
+                        productDetails.colorCode,
+                        linkOrderDetails.pcs,
+                        productDetails.period,
+                        productDetails.productDetailsId,
+                        productDetails.graphicDiameter,
+                        productDetails.degree,
+                        productDetails.moisture,
+                        productDetails.detailsPrice,
+                        productDetails.material,
+                        productDetails.basecurve
+                ))
+                .from(productDetails)
+                .join(linkOrderDetails).on(productDetails.productDetailsId.eq(linkOrderDetails.productDetailsId).
+                        and(linkOrderDetails.orderId.eq(orderId))).fetchJoin()
+                .where(productDetails.productIdFk.eq(productId))
+                .fetch();
+    }
+
+    @Override
+    public Long updateOrderStatus(
+            UpdateOrderStatusRequest updateOrderStatusRequest
+    ) {
+        return jpaQueryFactory
+                .update(order)
+                .set(order.status, updateOrderStatusRequest.getStatus())
+                .where(order.orderId.eq(updateOrderStatusRequest.getOrderId()))
+                .execute();
+    }
 
 }
