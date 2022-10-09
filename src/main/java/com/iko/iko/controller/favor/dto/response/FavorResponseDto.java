@@ -2,6 +2,8 @@ package com.iko.iko.controller.favor.dto.response;
 
 import lombok.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class FavorResponseDto {
@@ -14,6 +16,9 @@ public class FavorResponseDto {
         private GetProductInfoForFavorResponse productInfo;
         private List<Float> graphicDiameter;
         private List<GetColorAndImageUrlForFavorResponse> colorAndImageInfo;
+        private List<Integer> period;
+        private Timestamp favorCreatedAt;
+
     }
 
     @Getter
@@ -34,6 +39,7 @@ public class FavorResponseDto {
     public static class GetGraphicDiameterForFavorResponse {
         private Float graphicDiameter;
     }
+
 
     @Setter
     @Getter

@@ -1,7 +1,6 @@
 package com.iko.iko.domain.repository.order;
 
-import com.iko.iko.controller.order.dto.response.OrderResponseDto.GetOrderInfoResponse;
-import com.iko.iko.controller.order.dto.response.OrderResponseDto.GetProductForOrderResponse;
+import com.iko.iko.controller.order.dto.response.OrderResponseDto.*;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -132,7 +131,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     @Override
     public Long minusStockForOrder(
             Integer productDetailsId, Integer pcs
-    ){
+    ) {
         return jpaQueryFactory
                 .update(productDetails)
                 .set(productDetails.productDetailsStock, productDetails.productDetailsStock.add(-pcs))
@@ -143,13 +142,54 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     @Override
     public Long plusStockForOrder(
             Integer productDetailsId, Integer pcs
-    ){
+    ) {
         return jpaQueryFactory
                 .update(productDetails)
                 .set(productDetails.productDetailsStock, productDetails.productDetailsStock.add(pcs))
                 .where(productDetails.productDetailsId.eq(productDetailsId))
                 .execute();
 
+    }
+
+    @Override
+    public List<GetOrderInfoResponse> getAllOrderInfo() {
+        return jpaQueryFactory
+                .select(Projections.constructor(GetOrderInfoResponse.class,
+                        order.createdAt,
+                        order.orderId,
+                        order.status,
+                        order.totalPrice,
+                        order.method,
+                        order.name,
+                        order.phone,
+                        order.email,
+                        order.receiverName,
+                        order.postCode,
+                        order.destination,
+                        order.detailDestination,
+                        order.receiverPhone,
+                        order.message,
+                        order.point,
+                        order.couponId
+                ))
+                .distinct()
+                .from(order)
+                .fetch();
+    }
+
+    @Override
+    public List<String> getProductName(
+            Integer orderId
+    ){
+        return jpaQueryFactory
+                .select(product.name)
+                .from(order)
+                .join(linkOrderDetails).on(order.orderId.eq(linkOrderDetails.orderId)).fetchJoin()
+                .join(productDetails).on(linkOrderDetails.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
+                .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
+                .where(order.orderId.eq(orderId))
+                .distinct()
+                .fetch();
     }
 
 

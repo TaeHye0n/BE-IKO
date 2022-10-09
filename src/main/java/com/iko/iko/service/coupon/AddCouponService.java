@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,18 +28,23 @@ public class AddCouponService {
     private final CouponRepository couponRepository;
 
     @Transactional
-    public String addCoupon(AddCouponRequest addCouponRequest){
+    public String addCoupon(AddCouponRequest addCouponRequest) {
         Member member = validateLoginStatus();
         Optional<Coupon> coupon = couponRepository.findById(addCouponRequest.getCouponId());
-        if(coupon.isPresent()){
+        if (coupon.isPresent()) {
             List<LinkMemberCoupon> linkMemberCouponList
                     = linkMemberCouponRepository.getLinkMemberCouponList(member.getMemberId(), addCouponRequest.getCouponId());
-            if(linkMemberCouponList.size() == 0){
+            if (linkMemberCouponList.size() == 0) {
+                Calendar calendar = Calendar.getInstance();
                 LinkMemberCoupon linkMemberCoupon = addCouponRequest.toEntity();
                 linkMemberCoupon.setCouponId(addCouponRequest.getCouponId());
                 linkMemberCoupon.setMemberId(member.getMemberId());
-            }
-        }
+                calendar.setTime(new Date());
+                calendar.add(Calendar.DATE, coupon.get().getExpirationPeriod());
+                linkMemberCoupon.setExpiredDate(calendar.getTime());
+                linkMemberCouponRepository.save(linkMemberCoupon);
+            } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
+        }else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);
         return "Ok";
     }
 

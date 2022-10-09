@@ -40,6 +40,17 @@ public class LinkMemberCouponRepositoryImpl implements LinkMemberCouponRepositor
     }
 
     @Override
+    public Long setStatusExpired(
+            Integer memberCouponId
+    ){
+        return jpaQueryFactory
+                .update(linkMemberCoupon)
+                .set(linkMemberCoupon.status, 3)
+                .where(linkMemberCoupon.memberCouponId.eq(memberCouponId))
+                .execute();
+    }
+
+    @Override
     public List<LinkMemberCoupon> getLinkMemberCouponList(
             Integer memberId, Integer couponId
     ){
@@ -47,6 +58,16 @@ public class LinkMemberCouponRepositoryImpl implements LinkMemberCouponRepositor
                 .selectFrom(linkMemberCoupon)
                 .where(linkMemberCoupon.memberId.eq(memberId)
                         .and(linkMemberCoupon.couponId.eq(couponId)))
+                .fetch();
+    }
+
+    @Override
+   public List<LinkMemberCoupon> getLinkMemberCouponListByMemberId(
+           Integer memberId
+    ){
+        return jpaQueryFactory
+                .selectFrom(linkMemberCoupon)
+                .where(linkMemberCoupon.memberId.eq(memberId))
                 .fetch();
     }
 

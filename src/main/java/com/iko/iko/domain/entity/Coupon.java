@@ -42,4 +42,7 @@ public class Coupon extends BaseEntity{
 
     @Column(name = "coupon_type" , nullable = false)
     private Integer couponType;
+
+    @Column(name = "coupon_title" , nullable = false)
+    private String couponTitle;
 }

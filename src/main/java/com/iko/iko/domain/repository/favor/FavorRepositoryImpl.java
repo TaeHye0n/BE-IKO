@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import com.iko.iko.controller.favor.dto.response.FavorResponseDto.*;
 
+import java.sql.Date;
 import java.util.List;
 
 import static com.iko.iko.domain.entity.QFavor.favor;
@@ -31,6 +32,17 @@ public class FavorRepositoryImpl implements FavorRepositoryCustom {
                         .and(favor.memberId.eq(memberId)))
                 .execute();
     }
+
+//    @Override
+//    public List<Date> getFavorCreatedAt(
+//            Integer memberId
+//    ){
+//        return jpaQueryFactory
+//                .select(favor.createdAt)
+//                .from(favor)
+//                .where(favor.memberId.eq(memberId))
+//                .fetch();
+//    }
 
     @Override
     public List<GetProductInfoForFavorResponse> getProductInfoForFavor(
@@ -97,5 +109,18 @@ public class FavorRepositoryImpl implements FavorRepositoryCustom {
                         .and(favor.memberId.eq(memberId)))
                 .fetch();
     }
+
+    @Override
+    public List<Integer> getPeriodForFavor(
+            Integer productId
+    ){
+        return jpaQueryFactory
+                .select(productDetails.period)
+                .from(productDetails)
+                .where(productDetails.productIdFk.eq(productId))
+                .distinct()
+                .fetch();
+    }
+
 
 }

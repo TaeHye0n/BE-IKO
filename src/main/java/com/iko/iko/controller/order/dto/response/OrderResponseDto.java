@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ public class OrderResponseDto {
         private GetOrderInfoResponse OrderInfo;
         private List<GetProductForOrderResponse> ProductInfo;
     }
+
 
     @Getter
     @NoArgsConstructor
@@ -59,7 +61,61 @@ public class OrderResponseDto {
         private Integer period;
         private String imageUrl;
         private Integer discount;
+    }
 
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class GetAllOrderResponse{
+        private GetOrderInfoResponse orderInfo;
+        private List<String> productName;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class GetProductAndDetailsInfoForAdminResponse{
+        private Integer productId;
+        private String productName;
+        private String series;
+        private Integer discount;
+        private String manufacturer;
+        private Integer diameter;
+        private List<String> feature;
+        private List<GetProductDetailsInfoForAdminResponse> detailsInfo;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class GetProductInfoForAdminResponse{
+        private Integer productId;
+        private String productName;
+        private String series;
+        private Integer discount;
+        private String manufacturer;
+        private Integer diameter;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class GetProductDetailsInfoForAdminResponse{
+        private String color;
+        private String colorCode;
+        private Integer pcs;
+        private Integer period;
+        private Integer productDetailsId;
+        private Integer graphicDiameter;
+        private Integer degree;
+        private Integer moisture;
+        private Integer price;
+        private String material;
+        private Integer basecurve;
     }
 
 

@@ -11,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +28,12 @@ public class GetFavorService {
     public List<GetFavorResponse> getFavor() {
         Member member = validateLoginStatus();
         List<GetFavorResponse> result = new ArrayList<>();
-
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        List<Timestamp> createdAList = favorRepository.getFavorCreatedAt(member.getMemberId());
         List<GetProductInfoForFavorResponse> getProductInfoForFavorResponseList
                 = favorRepository.getProductInfoForFavor(member.getMemberId());
 
+        int idx = 0;
         for (GetProductInfoForFavorResponse getProductInfoForFavorResponse : getProductInfoForFavorResponseList) {
             List<GetGraphicDiameterForFavorResponse> getGraphicDiameterForFavorResponseList
                     = favorRepository.getGraphicDiameterForFavor(getProductInfoForFavorResponse.getProductId());
@@ -37,12 +42,14 @@ public class GetFavorService {
             for(GetGraphicDiameterForFavorResponse graphicDiameter : getGraphicDiameterForFavorResponseList){
                 graphicDiameterList.add(graphicDiameter.getGraphicDiameter());
             }
+            List<Integer> periodList = favorRepository.getPeriodForFavor(getProductInfoForFavorResponse.getProductId());
 
             List<GetColorAndImageUrlForFavorResponse> getColorAndImageUrlForFavorResponseList
                     = favorRepository.getColorAndImageUrlForFavor(getProductInfoForFavorResponse.getProductId());
             GetFavorResponse getFavorResponse
-                    = new GetFavorResponse(getProductInfoForFavorResponse, graphicDiameterList, getColorAndImageUrlForFavorResponseList);
+                    = new GetFavorResponse(getProductInfoForFavorResponse,graphicDiameterList, getColorAndImageUrlForFavorResponseList, periodList, createdAList.get(idx));
             result.add(getFavorResponse);
+            idx++;
         }
         return result;
     }

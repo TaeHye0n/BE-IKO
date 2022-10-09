@@ -10,7 +10,11 @@ public interface LinkMemberCouponRepositoryCustom {
 
     Long setStatusAvailable(Integer memberId, Integer couponId);
 
+    Long setStatusExpired(Integer memberCouponId);
+
     List<LinkMemberCoupon> getLinkMemberCouponList(Integer memberId, Integer couponId);
+
+    List<LinkMemberCoupon> getLinkMemberCouponListByMemberId(Integer memberId);
 
 
 }
