@@ -15,8 +15,8 @@ public class GetByColorCodeService {
 
     private final ProductDetailsRepository productDetailsRepository;
 
-    public ProductDetailsResponse.ByColorCodeOption getByColorCodeOption(Integer period, String colorCode){
-        List<Float> graphicDiameterList = productDetailsRepository.getColorCodeOption(period, colorCode);
+    public ProductDetailsResponse.ByColorCodeOption getByColorCodeOption(Integer productId,Integer period, String colorCode){
+        List<Float> graphicDiameterList = productDetailsRepository.getColorCodeOption(productId,period, colorCode);
 
         ProductDetailsResponse.ByColorCodeOption result=new ProductDetailsResponse.ByColorCodeOption(
                 graphicDiameterList

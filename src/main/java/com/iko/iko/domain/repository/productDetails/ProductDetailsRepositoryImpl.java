@@ -229,7 +229,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     }
 
     @Override
-    public List<ProductDetailsResponse.ByPeriodOption> getPeriodOption(Integer period){
+    public List<ProductDetailsResponse.ByPeriodOption> getPeriodOption(Integer productId,Integer period){
         return jpaQueryFactory
                 .select(Projections.constructor(
                         ProductDetailsResponse.ByPeriodOption.class,
@@ -238,23 +238,25 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 ))
                 .from(productDetails)
                 .where(productDetails.period.eq(period))
+                .where(productDetails.productIdFk.eq(productId))
                 .distinct()
                 .fetch();
     }
 
     @Override
-    public List<Float> getColorCodeOption(Integer period,String colorCode){
+    public List<Float> getColorCodeOption(Integer productId,Integer period,String colorCode){
         return jpaQueryFactory
                 .select(productDetails.graphicDiameter)
                 .from(productDetails)
                 .where(productDetails.period.eq(period))
                 .where(productDetails.colorCode.eq(colorCode))
+                .where(productDetails.productIdFk.eq(productId))
                 .distinct()
                 .fetch();
     }
 
     @Override
-    public List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer period, String colorCode, Float graphic){
+    public List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer productId,Integer period, String colorCode, Float graphic){
         return jpaQueryFactory
                 .select(Projections.constructor(
                         ProductDetailsResponse.DegreeAndStock.class,
@@ -264,6 +266,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .where(productDetails.period.eq(period))
                 .where(productDetails.colorCode.eq(colorCode))
                 .where(productDetails.graphicDiameter.eq(graphic))
+                .where(productDetails.productIdFk.eq(productId))
                 .distinct().
                 fetch();
     }

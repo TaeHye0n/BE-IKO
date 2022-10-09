@@ -84,7 +84,7 @@ public class ProductDetailsController {
                 )//
         );
     }
-    @GetMapping("replyList")
+    @GetMapping("/replyList")
     public ResponseEntity<Response<ReplyResponseDtO.ReplyInfoForResponse>> getReplyData(
             @RequestParam(value="productId") Integer productId
     ){
@@ -98,11 +98,12 @@ public class ProductDetailsController {
 
     @GetMapping("/byPeriodOption")
     public ResponseEntity<Response<ProductDetailsResponse.ByPeriodOptionList>> getByPeriodOption(
+            @RequestParam(value="productId") Integer productId,
             @RequestParam(value="period") Integer period
     ){
         return ResponseEntity.ok(
                 Response.of(
-                        productDetailsFacade.getByPeriodOption(period),
+                        productDetailsFacade.getByPeriodOption(productId,period),
                         "기간 선택 후 옵션 불러오기 완료"
                 )
         );
@@ -110,12 +111,13 @@ public class ProductDetailsController {
 
     @GetMapping("/byColorCodeOption")
     public ResponseEntity<Response<ProductDetailsResponse.ByColorCodeOption>> getByColorCodeOption(
+            @RequestParam(value="productId")Integer productId,
             @RequestParam(value="period") Integer period,
             @RequestParam(value="colorCode") String colorCode
     ){
         return ResponseEntity.ok(
                 Response.of(
-                        productDetailsFacade.getByColorCodeOption(period,colorCode),
+                        productDetailsFacade.getByColorCodeOption(productId,period,colorCode),
                         "기간 및 컬러코드 선택 후 그래픽직경 불러오기 완료"
                 )
         );
@@ -123,13 +125,14 @@ public class ProductDetailsController {
 
     @GetMapping("/byGraphicOption")
     public ResponseEntity<Response<List<ProductDetailsResponse.DegreeAndStock>>> getGraphicOption(
+            @RequestParam(value="productId") Integer productId,
             @RequestParam(value="period") Integer period,
             @RequestParam(value="colorCode") String colorCode,
             @RequestParam(value="graphicDiameter") Float graphic
     ){
         return ResponseEntity.ok(
                 Response.of(
-                        productDetailsFacade.getGraphicOption(period,colorCode,graphic),
+                        productDetailsFacade.getGraphicOption(productId,period,colorCode,graphic),
                         "기간 및 컬러코드 선택 후 그래픽직경 불러오기 완료"
                 )
         );

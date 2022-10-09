@@ -29,11 +29,11 @@ public interface ProductDetailsRepositoryCustom {
 
     List<String> getExplainImageByProductId(Integer productId);
 
-    List<ProductDetailsResponse.ByPeriodOption> getPeriodOption(Integer period);
+    List<ProductDetailsResponse.ByPeriodOption> getPeriodOption(Integer productId,Integer period);
 
-    List<Float> getColorCodeOption(Integer period,String colorCode);
+    List<Float> getColorCodeOption(Integer productId,Integer period,String colorCode);
 
-    List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer period, String colorCode, Float graphic);
+    List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer productId,Integer period, String colorCode, Float graphic);
     //List<ProductDetailsResponse.DegreeAndStock> getProductDetailsByOption(ProductDetailsRequest.ProductDetailsForRequest option);
     Integer getProductDetailsIdByOption(ProductDetailsRequest.ProductDetailsForRequest request);
 

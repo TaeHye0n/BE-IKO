@@ -51,18 +51,18 @@ public class ProductDetailsFacade {
     }
 
     @Transactional(readOnly = true)
-    public ProductDetailsResponse.ByPeriodOptionList getByPeriodOption(Integer period){
-        return getByPeriodOption.getByPeriodOption(period);
+    public ProductDetailsResponse.ByPeriodOptionList getByPeriodOption(Integer productId,Integer period){
+        return getByPeriodOption.getByPeriodOption(productId,period);
     }
 
     @Transactional(readOnly = true)
-    public ProductDetailsResponse.ByColorCodeOption getByColorCodeOption(Integer period,String colorCode){
-        return getByColorCodeService.getByColorCodeOption(period, colorCode);
+    public ProductDetailsResponse.ByColorCodeOption getByColorCodeOption(Integer productId,Integer period,String colorCode){
+        return getByColorCodeService.getByColorCodeOption(productId,period, colorCode);
     }
 
     @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer period, String colorCode, Float graphic){
-        return getGraphicOptionService.GetGraphicOption(period,colorCode,graphic);
+    public List<ProductDetailsResponse.DegreeAndStock> getGraphicOption(Integer productId,Integer period, String colorCode, Float graphic){
+        return getGraphicOptionService.GetGraphicOption(productId,period,colorCode,graphic);
     }
 
     @Transactional(readOnly = true)

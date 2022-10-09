@@ -15,8 +15,8 @@ public class GetByPeriodOption {
 
     private final ProductDetailsRepository productDetailsRepository;
 
-    public ProductDetailsResponse.ByPeriodOptionList getByPeriodOption(Integer period){
-        List<ProductDetailsResponse.ByPeriodOption> pl=productDetailsRepository.getPeriodOption(period);
+    public ProductDetailsResponse.ByPeriodOptionList getByPeriodOption(Integer productId,Integer period){
+        List<ProductDetailsResponse.ByPeriodOption> pl=productDetailsRepository.getPeriodOption(productId,period);
 
         HashSet<String> colorCodeSet=new HashSet<>();
         HashSet<Float> graphicDiameterSet=new HashSet<>();
