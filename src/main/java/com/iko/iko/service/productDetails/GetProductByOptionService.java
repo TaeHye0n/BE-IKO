@@ -6,9 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.Comparator;
+
 @Service
 @RequiredArgsConstructor
 public class GetProductByOptionService {
@@ -17,111 +18,28 @@ public class GetProductByOptionService {
 
     public List<ProductDetailsResponse.ProductMainByOptionResponse>
     GetProductByOption (ProductDetailsRequest.ProductOptionForRequest productByOption) {
-        List<ProductDetailsResponse.ProductMainByOption> productMainByOptionList = productDetailsRepository.getProductByOption(productByOption);
-        List<String> imageUrlList = new ArrayList<>();
-        List<String> colorCodeList = new ArrayList<>();
-        List<ProductDetailsResponse.ProductMainByOptionResponse> result = new ArrayList<>();
-        /*
-        List<String> isBlank = new ArrayList<>();
-        if(productMainByOptionList.get(0).getColorCode().isEmpty())isBlank.add("colorCode");
-        if(productMainByOptionList.get(0).getSeries().isEmpty())isBlank.add("series");
-        if(productMainByOptionList.get(0).getPrice().toString().isEmpty())isBlank.;
-        if(productMainByOptionList.get(0).getDiscount().toString().isEmpty())isBlank=isBlank+1;
-        if(productMainByOptionList.get(0).getGraphicDiameter().toString().isEmpty())isBlank=isBlank+1;
-        */
-        HashMap<String, List<String>> resultMap = new HashMap<>();
-        HashMap<String, List<String>> subResultMap = new HashMap<>();
-        resultMap.put(
-                productMainByOptionList.get(0).getProductId().toString() + "-__-" +
-                productMainByOptionList.get(0).getSeries() + "-__-" +
-                productMainByOptionList.get(0).getPrice().toString() + "-__-" +
-                productMainByOptionList.get(0).getDiscount().toString() + "-__-" +
-                productMainByOptionList.get(0).getGraphicDiameter().toString(),
-                imageUrlList
-        );
-        subResultMap.put(
-                productMainByOptionList.get(0).getProductId().toString() + "-__-" +
-                        productMainByOptionList.get(0).getSeries() + "-__-" +
-                        productMainByOptionList.get(0).getPrice().toString() + "-__-" +
-                        productMainByOptionList.get(0).getDiscount().toString() + "-__-" +
-                        productMainByOptionList.get(0).getGraphicDiameter().toString(),
-                colorCodeList
-        );
+        Integer isFavorite=0;
 
-        for(ProductDetailsResponse.ProductMainByOption productMainByOption : productMainByOptionList){
-           if(resultMap.get(
-                   productMainByOption.getProductId().toString() + "-__-" +
-                   productMainByOption.getSeries() + "-__-" +
-                   productMainByOption.getPrice().toString() + "-__-" +
-                   productMainByOption.getDiscount().toString() + "-__-" +
-                   productMainByOption.getGraphicDiameter().toString() ) != null
-           ) {
-               resultMap.get(
-                       productMainByOption.getProductId().toString() + "-__-" +
-                               productMainByOption.getSeries() + "-__-" +
-                               productMainByOption.getPrice().toString() + "-__-" +
-                               productMainByOption.getDiscount().toString() + "-__-" +
-                               productMainByOption.getGraphicDiameter().toString()
-               ).add(productMainByOption.getImageUrl());
-           } else {
-               List<String> imageUrlForMap = new ArrayList<>();
-               imageUrlForMap.add(productMainByOption.getImageUrl());
-               resultMap.put(
-                       productMainByOption.getProductId().toString() + "-__-" +
-                       productMainByOption.getSeries() + "-__-" +
-                       productMainByOption.getPrice().toString() + "-__-" +
-                       productMainByOption.getDiscount().toString() + "-__-" +
-                       productMainByOption.getGraphicDiameter().toString() ,
-                       imageUrlForMap
-               );
-           }
+        List<Integer> productIdList = productDetailsRepository.getProductIdByMainOption(productByOption);
+        Map<Integer, Integer> productIdAndCount=new HashMap<Integer, Integer>();
+
+        //Get ProductId By Option List
+        for(Integer idList : productIdList){
+
+            List<Integer> productDetailsIdList =productDetailsRepository.getProductDetailsIdByProductIdForBest(idList);
+            productIdAndCount.put(idList,(int)(long)productDetailsIdList.stream().count());
+
         }
+        //Sort 인기순 Key : productId, Value : 주문량
+        List<Map.Entry<Integer, Integer>> entryList=new ArrayList<Entry<Integer,Integer>>(productIdAndCount.entrySet());
 
-        for(ProductDetailsResponse.ProductMainByOption productMainByOption : productMainByOptionList){
-            if(subResultMap.get(
-                    productMainByOption.getProductId().toString() + "-__-" +
-                            productMainByOption.getSeries() + "-__-" +
-                            productMainByOption.getPrice().toString() + "-__-" +
-                            productMainByOption.getDiscount().toString() + "-__-" +
-                            productMainByOption.getGraphicDiameter().toString()) != null
-            ) {
-                subResultMap.get(
-                        productMainByOption.getProductId().toString() + "-__-" +
-                                productMainByOption.getSeries() + "-__-" +
-                                productMainByOption.getPrice().toString() + "-__-" +
-                                productMainByOption.getDiscount().toString() + "-__-" +
-                                productMainByOption.getGraphicDiameter().toString()
-                ).add(productMainByOption.getColorCode());
-            } else {
-                List<String> colorCodeForMap = new ArrayList<>();
-                colorCodeForMap.add(productMainByOption.getColorCode());
-                subResultMap.put(
-                        productMainByOption.getProductId().toString() + "-__-" +
-                                productMainByOption.getSeries() + "-__-" +
-                                productMainByOption.getPrice().toString() + "-__-" +
-                                productMainByOption.getDiscount().toString() + "-__-" +
-                                productMainByOption.getGraphicDiameter().toString(),
-                        colorCodeForMap
-                );
+        Collections.sort(entryList, new Comparator<Entry<Integer, Integer>>() {
+            public int compare(Entry<Integer, Integer> obj1, Entry<Integer, Integer> obj2){
+                return obj2.getValue().compareTo(obj1.getValue());
             }
-        }
+        });
 
-
-        for(String keyS : resultMap.keySet()) {
-            String[] dataList = keyS.split("-__-");
-            ProductDetailsResponse.ProductMainByOptionResponse checkData = new ProductDetailsResponse.ProductMainByOptionResponse(
-                    Integer.parseInt(dataList[0]),
-                    dataList[1],
-                    Integer.parseInt(dataList[2]),
-                    Integer.parseInt(dataList[3]),
-                    Float.parseFloat(dataList[4]),
-                    subResultMap.get(keyS),
-                    resultMap.get(keyS)
-            );
-
-            result.add(checkData);
-        }
-
-        return result;
+        return null;
     }
+
 }

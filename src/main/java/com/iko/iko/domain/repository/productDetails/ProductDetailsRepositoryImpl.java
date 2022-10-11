@@ -17,6 +17,7 @@ import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDeta
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
 import static com.iko.iko.domain.entity.QImage.image;
+import static com.iko.iko.domain.entity.QLinkOrderDetails.linkOrderDetails;
 
 
 @Repository
@@ -86,31 +87,37 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
     }
 
     @Override
-    public List<ProductDetailsResponse.ProductMainByOption> getProductByOption(
+    public List<Integer> getProductIdByMainOption(
             ProductDetailsRequest.ProductOptionForRequest productByOption) {
         return jpaQueryFactory
-                .select(Projections.constructor(ProductDetailsResponse.ProductMainByOption.class,
-                        product.productId,
-                        product.series,
-                        product.price,
-                        product.discount,
-                        productDetails.graphicDiameter,
-                        productDetails.colorCode,
-                        image.imageUrl))
+                .select(product.productId)
                 .from(productDetails)
                 .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
-                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
-                .join(image).on(image.imageId.eq(linkProductDetailsImage.imageId)).fetchJoin()
-                .where(product.productId.eq(productDetails.productDetailsId))
+                .where(product.productId.eq(productDetails.productIdFk))
                 .where(convertStringWhere(productByOption.getColorCode(),"Color")
-                        .or(convertFloatWhere(productByOption.getGraphicDiameter()))
-                                .or(convertIntegerWhere(productByOption.getPeriod()))
-                                .or(convertStringWhere(productByOption.getSeries(),"Series"))
-                                .or(convertStringWhere(productByOption.getFeature(),"Feature")))
+                        .and(convertFloatWhere(productByOption.getGraphicDiameter()))
+                                .and(convertIntegerWhere(productByOption.getPeriod()))
+                                .and(convertStringWhere(productByOption.getSeries(),"Series"))
+                                .and(convertStringWhere(productByOption.getFeature(),"Feature")))
                         .distinct()
                         .fetch();
 
     }
+    @Override
+    public List<Integer> getProductDetailsIdByProductIdForBest(
+            Integer productId
+    ){
+        return jpaQueryFactory
+                .select(linkOrderDetails.productDetailsId)
+                .from(linkOrderDetails)
+                .join(productDetails).on(productDetails.productDetailsId.eq(linkOrderDetails.productDetailsId)).fetchJoin()
+                .where(productDetails.productIdFk.eq(productId))
+                .distinct()
+                .fetch();
+
+
+    }
+
     private BooleanBuilder convertIntegerWhere(List<Integer> integerList){
         BooleanBuilder builder = new BooleanBuilder();
         for(Integer tmp: integerList){
