@@ -197,6 +197,13 @@ public class ProductDetailsResponse {
     @Getter
     @AllArgsConstructor
     @Builder
+    public static class DegreeAndStockResponse{
+        List<DegreeAndStock> degreeAndStockList;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
     public static class DegreeAndStock{
         private Float degree;
         private Integer stock;

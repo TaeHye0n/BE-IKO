@@ -110,7 +110,7 @@ public class ProductDetailsController {
     }
 
     @GetMapping("/byGraphicOption")
-    public ResponseEntity<Response<List<ProductDetailsResponse.DegreeAndStock>>> getGraphicOption(
+    public ResponseEntity<Response<ProductDetailsResponse.DegreeAndStockResponse>> getGraphicOption(
             @RequestParam(value="productId") Integer productId,
             @RequestParam(value="period") Integer period,
             @RequestParam(value="colorCode") String colorCode,

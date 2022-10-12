@@ -90,7 +90,18 @@ public class ProductController {
         );
     }
 
-    //@GetMapping("/newProduct")
-    //public ResponseEntity<Response<>>
+    @GetMapping("/newProduct")
+    public ResponseEntity<Response<ProductDetailsResponse.MainFilterProductData>>
+    getNewestProduct(
+            @RequestParam (value="memberId") Integer memberId
+    )
+    {
+        return ResponseEntity.ok(
+                Response.of(
+                        productFacade.getNewProduct(memberId),
+                        "최근 한달내에 등록된 상품 불러오기 완료"
+                )
+        );
+    }
 
 }

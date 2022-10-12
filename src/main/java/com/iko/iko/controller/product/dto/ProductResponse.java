@@ -2,6 +2,7 @@ package com.iko.iko.controller.product.dto;
 
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 public class ProductResponse {
 
@@ -133,6 +134,14 @@ public class ProductResponse {
         private Float diameter;
         private Integer recommend;
         private Integer exposure;
+    }
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ProductIdAndCreatedAt{
+        private Integer productId;
+        private Date createdAt;
     }
 
     @Getter

@@ -13,7 +13,15 @@ public class GetGraphicOptionService {
 
     private final ProductDetailsRepository productDetailsRepository;
 
-    public List<ProductDetailsResponse.DegreeAndStock> GetGraphicOption(Integer productId,Integer period, String colorCode, Float graphic){
-        return productDetailsRepository.getGraphicOption(productId,period,colorCode,graphic);
+    public ProductDetailsResponse.DegreeAndStockResponse GetGraphicOption(Integer productId,Integer period, String colorCode, Float graphic){
+        List<ProductDetailsResponse.DegreeAndStock> subResult
+                =productDetailsRepository.getGraphicOption(productId,period,colorCode,graphic);
+
+        ProductDetailsResponse.DegreeAndStockResponse result = new ProductDetailsResponse.DegreeAndStockResponse
+                (
+                        subResult
+                );
+
+        return result;
     }
 }

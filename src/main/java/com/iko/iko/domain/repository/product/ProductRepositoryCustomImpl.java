@@ -19,10 +19,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Date;
+import java.util.*;
 
 import static com.iko.iko.domain.entity.QProduct.product;
 import static com.iko.iko.domain.entity.QProductDetails.productDetails;
@@ -225,4 +223,15 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public List<ProductResponse.ProductIdAndCreatedAt> getProductIdByNewest(){
+        return jpaQueryFactory
+                .select(Projections.constructor(ProductResponse.ProductIdAndCreatedAt.class,
+                        product.productId,
+                        product.createdAt))
+                .from(product)
+                .orderBy(product.createdAt.desc())
+                .distinct()
+                .fetch();
+    }
 }

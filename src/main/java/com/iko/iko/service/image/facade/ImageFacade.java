@@ -19,7 +19,7 @@ public class ImageFacade {
     public String addBannerImage(String imageUrl){
         return addBannerImageService.addBannerImage(imageUrl);
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public List<String> getBannerImage(Integer count){
         return getBannerImageService.getBannerImage(count);
     }

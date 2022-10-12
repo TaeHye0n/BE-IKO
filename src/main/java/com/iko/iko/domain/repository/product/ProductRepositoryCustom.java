@@ -39,4 +39,6 @@ public interface ProductRepositoryCustom{
             (Pageable pageable, Integer productId);
     List<Integer> getProductIdBySearchName(String searchName);
 
+    List<ProductResponse.ProductIdAndCreatedAt> getProductIdByNewest();
+
 }
