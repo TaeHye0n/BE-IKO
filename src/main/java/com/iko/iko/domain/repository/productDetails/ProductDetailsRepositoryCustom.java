@@ -1,6 +1,7 @@
 package com.iko.iko.domain.repository.productDetails;
 
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
+import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.domain.entity.Product;
 import org.springframework.data.domain.Pageable;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
@@ -50,4 +51,8 @@ public interface ProductDetailsRepositoryCustom {
     List<Integer> getProductDetailsIdByProductIdForBest(
             Integer productId
     );
+
+    List<ProductResponse.ProductDetailsInfo> getProductDetailsForAdmin(Integer productId);
+
+    List<Float> getDegreeForAdmin(Integer productId, String color);
 }

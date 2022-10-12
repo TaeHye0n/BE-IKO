@@ -135,5 +135,50 @@ public class ProductResponse {
         private Integer exposure;
     }
 
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ProductDetailsInfoResponse{
+        private ProductInfoResponse productInfo;
+        private List<ProductDetailsInfoWithImage> detailsInfo;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ProductDetailsInfoWithImage {
+        private Float graphicDiameter;
+        private Float basecurve;
+        private String color;
+        private String colorCode;
+        private String material;
+        private Integer detailsPrice;
+        private Integer moisture;
+        private Integer isSale;
+        private Integer detailsExposure;
+        private Integer period;
+        private List<Float> degree;
+        private List<String> imageUrl;
+        private List<String> explanationImageUrl;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ProductDetailsInfo{
+        private Float graphicDiameter;
+        private Float basecurve;
+        private String color;
+        private String colorCode;
+        private String material;
+        private Integer detailsPrice;
+        private Integer moisture;
+        private Integer isSale;
+        private Integer detailsExposure;
+        private Integer period;
+    }
 
 }

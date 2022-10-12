@@ -2,6 +2,7 @@ package com.iko.iko.service.productDetails.facade;
 
 
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
+import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.service.productDetails.*;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 
@@ -22,7 +23,7 @@ public class ProductDetailsFacade {
     private final GetByColorCodeService getByColorCodeService;
     private final GetGraphicOptionService getGraphicOptionService;
     private final GetProductDetailsByOptionService getProductDetailsByOptionService;
-
+    private final ProductDetailsInfoService productDetailsInfoService;
 
     @Transactional(readOnly = true)
     public List<String> getProductExplainImage(Integer productId){
@@ -70,6 +71,11 @@ public class ProductDetailsFacade {
             ProductDetailsRequest.ProductDetailsForRequest request, Integer memberId
     ){
         return getProductDetailsByOptionService.GetProductDetailsByOption(request,memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public ProductResponse.ProductDetailsInfoResponse searchDetailsById(Integer productId){
+        return productDetailsInfoService.searchDetailsById(productId);
     }
 
 }

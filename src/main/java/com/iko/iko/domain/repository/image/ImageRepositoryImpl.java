@@ -33,6 +33,40 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom{
     }
 
     @Override
+    public List<String> getImageUrl(
+            Integer productId, String color, Integer period
+    ){
+        return jpaQueryFactory
+                .select(image.imageUrl)
+                .from(productDetails)
+                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)).fetchJoin()
+                .distinct()
+                .where(productDetails.productIdFk.eq(productId)
+                        .and(productDetails.color.eq(color))
+                        .and(productDetails.period.eq(period)))
+                .where(image.imageType.eq(1).or(image.imageType.eq(2)))
+                .fetch();
+    }
+
+    @Override
+    public List<String> getExplanationImageUrl(
+            Integer productId, String color ,Integer period
+    ){
+        return jpaQueryFactory
+                .select(image.imageUrl)
+                .from(productDetails)
+                .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)).fetchJoin()
+                .distinct()
+                .where(productDetails.productIdFk.eq(productId)
+                        .and(productDetails.color.eq(color))
+                        .and(productDetails.period.eq(period)))
+                .where(image.imageType.eq(3))
+                .fecth();
+    }
+    
+    @Override
     public List<String> getBannerImage(){
         return jpaQueryFactory
                 .select(image.imageUrl)
