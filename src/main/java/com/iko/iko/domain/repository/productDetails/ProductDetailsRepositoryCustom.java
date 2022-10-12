@@ -55,4 +55,8 @@ public interface ProductDetailsRepositoryCustom {
     List<ProductResponse.ProductDetailsInfo> getProductDetailsForAdmin(Integer productId);
 
     List<Float> getDegreeForAdmin(Integer productId, String color);
+
+    Long deleteProductDetails(Integer productId);
+
+    List<Integer> searchProductDetailsIdByProductId(Integer productId);
 }

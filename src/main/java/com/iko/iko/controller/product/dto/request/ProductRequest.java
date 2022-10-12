@@ -82,4 +82,73 @@ public class ProductRequest {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class ProductUpdateRequest {
+        private String productName;
+        private Integer price;
+        private Integer discount;
+        private Float diameter;
+        private String manufacturer;
+        private String series;
+        private List<String> feature;
+        private Integer recommend;
+        private Integer exposure;
+        private List<ProductOptionUpdateRequest> productOptionUpdateRequestList;
+
+        @Getter
+        @Setter
+        @Builder
+        @AllArgsConstructor
+        public static class ProductOptionUpdateRequest {
+            private Float graphicDiameter;
+            private Float basecurve;
+            private String color;
+            private String colorCode;
+            private String material;
+            private Integer detailsPrice;
+            private Integer moisture;
+            private Integer productDetailsStock;
+            private Integer isSale;
+            private Integer detailsExposure;
+            private Integer period;
+            private List<Float> degree;
+            private List<String> imageUrl;
+            private List<String> explanationImageUrl;
+
+            @Builder
+            public ProductDetails toEntity() {
+                return ProductDetails.builder()
+                        .graphicDiameter(graphicDiameter)
+                        .basecurve(basecurve)
+                        .color(color)
+                        .colorCode(colorCode)
+                        .material(material)
+                        .detailsPrice(detailsPrice)
+                        .moisture(moisture)
+                        .productDetailsStock(productDetailsStock)
+                        .isSale(isSale)
+                        .detailsExposure(detailsExposure)
+                        .period(period)
+                        .build();
+            }
+        }
+
+        @Builder
+        public Product toEntity() {
+            return Product.builder()
+                    .name(productName)
+                    .price(price)
+                    .discount(discount)
+                    .diameter(diameter)
+                    .manufacturer(manufacturer)
+                    .series(series)
+                    .feature(convertStringListToString(feature))
+                    .recommend(recommend)
+                    .exposure(exposure)
+                    .build();
+        }
+    }
 }

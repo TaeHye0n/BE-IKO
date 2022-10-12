@@ -355,4 +355,25 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                         .and(productDetails.color.eq(color)))
                 .fetch();
     }
+
+    @Override
+    public Long deleteProductDetails(
+            Integer productId
+    ){
+        return jpaQueryFactory
+                .delete(productDetails)
+                .where(productDetails.productIdFk.eq(productId))
+                .execute();
+    }
+
+    @Override
+    public List<Integer> searchProductDetailsIdByProductId(
+            Integer productId
+    ){
+        return jpaQueryFactory
+                .select(productDetails.productDetailsId)
+                .from(productDetails)
+                .where(productDetails.productIdFk.eq(productId))
+                .fetch();
+    }
 }
