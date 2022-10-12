@@ -30,20 +30,6 @@ public class ProductDetailsController {
     private final ReplyFacade replyFacade;
 
 
-    @PostMapping("/byOption")
-    public ResponseEntity<Response<List<ProductDetailsResponse.ProductMainByOptionResponse>>>
-    getProductByOption(
-            @RequestBody ProductDetailsRequest.ProductOptionForRequest productOption
-    ) {
-        return ResponseEntity.ok(
-                Response.of(
-                        productDetailsFacade.getProductByOption(productOption),
-                        "상품 불러오기 완료"
-                )
-        );
-    }
-
-
     @PostMapping("/main")
     public ResponseEntity<Response<ProductDetailsResponse.ProductDetailsForResponse>>
 

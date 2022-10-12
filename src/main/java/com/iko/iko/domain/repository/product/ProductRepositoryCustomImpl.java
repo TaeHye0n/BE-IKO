@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
@@ -83,7 +85,26 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(productDetails.productIdFk.eq(productId))
                 .fetch();
     }
-
+    @Override
+    public Page<ProductResponse.GetAllProductDistinct> getAllProductByFilter(Pageable pageable, Integer productId){
+        QueryResults<ProductResponse.GetAllProductDistinct> queryResults
+                =jpaQueryFactory
+                .select(Projections.constructor(
+                        ProductResponse.GetAllProductDistinct.class,
+                        product.productId,
+                        product.series,
+                        product.price,
+                        product.discount,
+                        product.name
+                ))
+                .distinct()
+                .from(product)
+                .where(product.productId.eq(productId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        return new PageImpl<>(queryResults.getResults(),pageable, queryResults.getTotal());
+    }
     @Override
     public Page<ProductResponse.GetAllProductDistinct> getAllProduct(Pageable pageable){
         QueryResults<ProductResponse.GetAllProductDistinct> queryResults
@@ -173,6 +194,14 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(product.productId.eq(productDetails.productIdFk))
                 .where(image.imageType.eq(1))
                 .where(product.recommend.eq(1))
+                .fetch();
+    }
+    @Override
+    public List<Integer> getProductIdBySearchName(String searchName){
+        return jpaQueryFactory
+                .select(product.productId)
+                .from(product)
+                .where(product.name.upper().contains(searchName))
                 .fetch();
     }
 

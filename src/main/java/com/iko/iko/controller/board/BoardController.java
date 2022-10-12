@@ -16,17 +16,14 @@ import java.util.List;
 public class BoardController {
     private final BoardFacade boardFacade;
 
-    @PostMapping("/main")
-    @ApiOperation(value="공지사항 목록 필터링", notes="type 1:필독 2:배송 3:취소/교환/반품 4.결제 5.제품 6.회원")
-    public ResponseEntity<Response<List<BoardResponse.BoardMain>>>
+    @GetMapping("/main")
+     public ResponseEntity<Response<List<BoardResponse.BoardMain>>>
     getBoardMain(
-            @RequestParam(value="type") Integer boardType,
-            @RequestParam(value="page") Integer page,
-            @PageableDefault(size=10, page=0)Pageable pageable
+            @RequestParam(value="type") Integer boardType
             ){
         return ResponseEntity.ok(
                 Response.of(
-                        boardFacade.getMainBoard(pageable,boardType),
+                        boardFacade.getMainBoard(boardType),
                         "게시판 리스트 불러오기 완료"
                 )
         );

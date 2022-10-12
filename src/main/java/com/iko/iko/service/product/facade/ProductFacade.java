@@ -20,6 +20,7 @@ public class ProductFacade {
 
     private final GetFilterListService getFilterListService;
     private final GetRecommendProductService getRecommendProductService;
+    private final GetProductBySearchNameService getProductBySearchNameService;
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.MainProductForResponse>
     getMainProduct(Pageable pageable,Integer memberId){
@@ -49,5 +50,11 @@ public class ProductFacade {
     public List<ProductResponse.recommendedProduct>
     getRecommendProduct(){
         return getRecommendProductService.getRecommendedProduct();
+    }
+
+    @Transactional
+    public ProductDetailsResponse.MainFilterProductData
+    getProductBySearchName(String searchName, Integer memberId){
+        return getProductBySearchNameService.getProductBySearchName(searchName,memberId);
     }
 }

@@ -30,9 +30,9 @@ public class ProductDetailsFacade {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.ProductMainByOptionResponse>getProductByOption(
-            ProductDetailsRequest.ProductOptionForRequest productByOption){
-        return getProductByOptionService.GetProductByOption(productByOption);
+    public ProductDetailsResponse.MainFilterProductData getProductByOption(
+            ProductDetailsRequest.ProductOptionForRequest productByOption,Integer memberId){
+        return getProductByOptionService.GetProductByOption(productByOption,memberId);
     }
 
 

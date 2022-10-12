@@ -15,7 +15,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<BoardResponse.BoardMain> getMain(Pageable pageable, Integer bType){
+    public List<BoardResponse.BoardMain> getMain(Integer bType){
         return jpaQueryFactory
                 .select(Projections.constructor(BoardResponse.BoardMain.class,
                         board.boardId,
@@ -23,8 +23,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                         board.boardType))
                 .from(board)
                 .where(board.boardType.eq(bType))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
                 .fetch();
     }
 

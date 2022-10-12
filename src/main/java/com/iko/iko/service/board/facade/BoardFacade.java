@@ -15,9 +15,9 @@ public class BoardFacade {
     private final GetBoardDetailsService getBoardDetailsService;
     @Transactional(readOnly = true)
     public List<BoardResponse.BoardMain>
-    getMainBoard(Pageable pageable, Integer bType){
+    getMainBoard(Integer bType){
 
-        return getMainBoardService.GetMain(pageable,bType);
+        return getMainBoardService.GetMain(bType);
     }
 
     @Transactional(readOnly = true)

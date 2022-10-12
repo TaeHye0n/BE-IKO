@@ -12,8 +12,8 @@ public class GetMainBoardService {
     private final BoardRepository boardRepository;
 
     public List<BoardResponse.BoardMain> GetMain(
-            Pageable pageable, Integer bType){
-        return boardRepository.getMain(pageable,bType);
+            Integer bType){
+        return boardRepository.getMain(bType);
     }
 
 }
