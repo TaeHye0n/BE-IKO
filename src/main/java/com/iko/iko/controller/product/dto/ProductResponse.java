@@ -102,4 +102,38 @@ public class ProductResponse {
         private String imageUrl;
     }
 
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ProductInfoResponse{
+        private Integer productId;
+        private String productName;
+        private Integer price;
+        private String series;
+        private Integer discount;
+        private String manufacturer;
+        private Float diameter;
+        private Integer recommend;
+        private Integer exposure;
+        private String[] feature;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ProductInfo{
+        private Integer productId;
+        private String productName;
+        private Integer price;
+        private String series;
+        private Integer discount;
+        private String manufacturer;
+        private Float diameter;
+        private Integer recommend;
+        private Integer exposure;
+    }
+
+
 }

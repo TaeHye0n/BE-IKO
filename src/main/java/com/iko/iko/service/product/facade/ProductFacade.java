@@ -20,7 +20,11 @@ public class ProductFacade {
 
     private final GetFilterListService getFilterListService;
     private final GetRecommendProductService getRecommendProductService;
+
+    private final AllProductInfoService allProductInfoService;
+
     private final GetProductBySearchNameService getProductBySearchNameService;
+
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.MainProductForResponse>
     getMainProduct(Pageable pageable,Integer memberId){
@@ -50,6 +54,12 @@ public class ProductFacade {
     public List<ProductResponse.recommendedProduct>
     getRecommendProduct(){
         return getRecommendProductService.getRecommendedProduct();
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<ProductResponse.ProductInfoResponse> allProductInfo(){
+        return allProductInfoService.allProductInfo();
     }
 
     @Transactional

@@ -5,6 +5,7 @@ import com.iko.iko.controller.coupon.dto.request.CouponRequestDto.InsertCouponRe
 import com.iko.iko.controller.event.dto.EventRequest.AddEventRequest;
 import com.iko.iko.controller.order.dto.request.OrderRequestDto.*;
 import com.iko.iko.controller.order.dto.response.OrderResponseDto.*;
+import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.service.coupon.facade.CouponFacade;
 import com.iko.iko.service.event.facade.EventFacade;
 import com.iko.iko.service.order.facade.OrderFacade;
@@ -86,6 +87,14 @@ public class AdminController {
         return ResponseEntity.ok(
                 Response.of(orderFacade.updateOrderStatus(updateOrderStatusRequest),
                         "주문 상태 변경 완료")
+        );
+    }
+
+    @GetMapping("/allProductInfo")
+    public ResponseEntity<Response<List<ProductResponse.ProductInfoResponse>>> allProductInfo(){
+        return ResponseEntity.ok(
+                Response.of(productFacade.allProductInfo(),
+                        "모든 상품 정보 조회 완료")
         );
     }
 

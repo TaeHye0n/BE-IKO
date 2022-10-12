@@ -33,7 +33,10 @@ public interface ProductRepositoryCustom{
 
     List<ProductResponse.recommendedProduct> getRecommendedProduct();
 
+    List<ProductResponse.ProductInfo> getProductInfoForAdmin();
+
     Page<ProductResponse.GetAllProductDistinct> getAllProductByFilter
             (Pageable pageable, Integer productId);
     List<Integer> getProductIdBySearchName(String searchName);
+
 }
