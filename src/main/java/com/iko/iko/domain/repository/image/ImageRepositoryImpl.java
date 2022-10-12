@@ -63,7 +63,7 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom{
                         .and(productDetails.color.eq(color))
                         .and(productDetails.period.eq(period)))
                 .where(image.imageType.eq(3))
-                .fecth();
+                .fetch();
     }
     
     @Override
