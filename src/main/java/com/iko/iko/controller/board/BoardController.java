@@ -17,7 +17,7 @@ public class BoardController {
     private final BoardFacade boardFacade;
 
     @GetMapping("/main")
-     public ResponseEntity<Response<List<BoardResponse.BoardMain>>>
+     public ResponseEntity<Response<BoardResponse.BoardMainResponse>>
     getBoardMain(
             @RequestParam(value="type") Integer boardType
             ){

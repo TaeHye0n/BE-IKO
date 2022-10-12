@@ -14,7 +14,7 @@ public class BoardFacade {
     private final GetMainBoardService getMainBoardService;
     private final GetBoardDetailsService getBoardDetailsService;
     @Transactional(readOnly = true)
-    public List<BoardResponse.BoardMain>
+    public BoardResponse.BoardMainResponse
     getMainBoard(Integer bType){
 
         return getMainBoardService.GetMain(bType);
