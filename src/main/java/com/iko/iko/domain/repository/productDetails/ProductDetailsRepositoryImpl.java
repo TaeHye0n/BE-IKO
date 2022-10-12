@@ -5,6 +5,8 @@ import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 
 import com.iko.iko.controller.product.dto.ProductResponse;
+import com.iko.iko.controller.product.dto.ProductResponse.stockListResponse;
+import com.iko.iko.controller.product.dto.request.ProductRequest;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -281,7 +283,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .from(productDetails)
                 .where(productDetails.period.eq(period))
                 .where(productDetails.colorCode.eq(colorCode))
-                .where(productDetails.graphicDiameter.eq(graphic))
+                .where(productDetails.graphicDiameter.like(graphic.toString()))
                 .where(productDetails.productIdFk.eq(productId))
                 .distinct().
                 fetch();
@@ -295,7 +297,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .select(productDetails.productDetailsId)
                 .from(productDetails)
                 .where(productDetails.productIdFk.eq(request.getProductId()))
-                .where(productDetails.graphicDiameter.eq(request.getGraphicDiameter()))
+                .where(productDetails.graphicDiameter.like(request.getGraphicDiameter().toString()))
                 .where(productDetails.degree.eq(request.getDegree()))
                 .where(productDetails.colorCode.eq(request.getColorCode()))
                 .where(productDetails.period.eq(request.getPeriod()))
@@ -375,5 +377,22 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                 .from(productDetails)
                 .where(productDetails.productIdFk.eq(productId))
                 .fetch();
+    }
+
+    @Override
+    public List<stockListResponse> getStockAndDegree(
+            Integer productId, String color, Integer period, Float graphicDiameter
+    ){
+       return jpaQueryFactory.select(Projections.constructor(stockListResponse.class,
+               productDetails.degree,
+               productDetails.productDetailsStock,
+               productDetails.productDetailsId
+               ))
+               .from(productDetails)
+               .where(productDetails.productIdFk.eq(productId)
+                       .and(productDetails.color.eq(color))
+                       .and(productDetails.period.eq(period))
+                       .and(productDetails.graphicDiameter.like(graphicDiameter.toString())))
+               .fetch();
     }
 }

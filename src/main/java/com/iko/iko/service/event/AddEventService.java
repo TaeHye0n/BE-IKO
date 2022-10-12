@@ -26,7 +26,6 @@ public class AddEventService {
     private final LinkEventImageRepository linkEventImageRepository;
     @Transactional
     public String addEvent(AddEventRequest addEventRequest){
-        Member member = validateLoginStatus();
         Event event=eventRepository.save(addEventRequest.toEntity());
         Image image = new Image();
         image.setImageType(1);
@@ -59,8 +58,4 @@ public class AddEventService {
         return "Ok";
     }
 
-    public Member validateLoginStatus() {
-        return memberRepository.findByEmail(SecurityUtil.getLoginUserEmail())
-                .orElseThrow(() -> new BaseException(ErrorCode.NEED_LOGIN));
-    }
 }

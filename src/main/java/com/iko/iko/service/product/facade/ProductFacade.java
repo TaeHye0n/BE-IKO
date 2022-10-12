@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductFacade {
@@ -29,60 +30,66 @@ public class ProductFacade {
     private final UpdateProductService updateProductService;
 
     private final GetNewProductService getNewProductService;
+    private final StockListService stockListService;
 
 
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.MainProductForResponse>
-    getMainProduct(Pageable pageable,Integer memberId){
+    getMainProduct(Pageable pageable, Integer memberId) {
 
-        return getAllProductService.GetMainProduct(pageable,memberId);
+        return getAllProductService.GetMainProduct(pageable, memberId);
     }
 
     @Transactional
-    public String saveProductService(ProductSaveRequest productSaveRequest){
+    public String saveProductService(ProductSaveRequest productSaveRequest) {
         return saveProductService.saveProduct(productSaveRequest);
     }
 
     @Transactional(readOnly = true)
     public List<ProductDetailsResponse.MainProductForResponse>
     getMainProductByOption(ProductDetailsRequest.ProductOptionForRequest productOption,
-                           Pageable pageable, Integer memberId){
-        return getAllProductByOptionService.GetMainProductByOption(productOption,pageable,memberId);
+                           Pageable pageable, Integer memberId) {
+        return getAllProductByOptionService.GetMainProductByOption(productOption, pageable, memberId);
     }
 
     @Transactional(readOnly = true)
     public ProductResponse.productFilter
-    getFilterInfo(){
+    getFilterInfo() {
         return getFilterListService.GetFilterList();
     }
 
     @Transactional(readOnly = true)
     public List<ProductResponse.recommendedProduct>
-    getRecommendProduct(){
+    getRecommendProduct() {
         return getRecommendProductService.getRecommendedProduct();
     }
 
 
     @Transactional(readOnly = true)
-    public List<ProductResponse.ProductInfoResponse> allProductInfo(){
+    public List<ProductResponse.ProductInfoResponse> allProductInfo() {
         return allProductInfoService.allProductInfo();
     }
 
     @Transactional(readOnly = true)
     public ProductDetailsResponse.MainFilterProductData
-    getProductBySearchName(String searchName, Integer memberId){
-        return getProductBySearchNameService.getProductBySearchName(searchName,memberId);
+    getProductBySearchName(String searchName, Integer memberId) {
+        return getProductBySearchNameService.getProductBySearchName(searchName, memberId);
     }
 
 
     @Transactional
-    public String updateProduct(ProductRequest.ProductUpdateRequest productUpdateRequest){
+    public String updateProduct(ProductRequest.ProductUpdateRequest productUpdateRequest) {
         return updateProductService.updateProduct(productUpdateRequest);
     }
-    
+
     @Transactional(readOnly = true)
     public ProductDetailsResponse.MainFilterProductData
-    getNewProduct(Integer memberId){
+    getNewProduct(Integer memberId) {
         return getNewProductService.getNewProduct(memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductResponse.stockListResponse> stockList(Integer productId, String color, Integer period, Float graphicDiameter) {
+        return stockListService.stockList(productId, color, period, graphicDiameter);
     }
 }

@@ -2,10 +2,7 @@ package com.iko.iko.controller.product.dto.request;
 
 import com.iko.iko.domain.entity.Product;
 import com.iko.iko.domain.entity.ProductDetails;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -151,4 +148,5 @@ public class ProductRequest {
                     .build();
         }
     }
+
 }

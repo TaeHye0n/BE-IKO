@@ -190,4 +190,15 @@ public class ProductResponse {
         private Integer period;
     }
 
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class stockListResponse{
+        private Float degree;
+        private Integer stock;
+        private Integer productDetailsId;
+    }
+
+
 }

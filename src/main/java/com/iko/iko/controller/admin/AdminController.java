@@ -138,4 +138,17 @@ public class AdminController {
         );
     }
 
+    @GetMapping("/stock")
+    public ResponseEntity<Response<List<ProductResponse.stockListResponse>>> stockList(
+            @RequestParam(value = "productId") Integer productId,
+            @RequestParam(value = "color") String color,
+            @RequestParam(value = "period") Integer period,
+            @RequestParam(value = "graphicDiameter") Float graphicDiameter
+    ) {
+        return ResponseEntity.ok(
+                Response.of(productFacade.stockList(productId, color, period, graphicDiameter),
+                        "재고 정보 조회 완료")
+        );
+    }
+
 }
