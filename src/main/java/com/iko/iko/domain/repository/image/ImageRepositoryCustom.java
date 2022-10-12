@@ -8,4 +8,6 @@ import java.util.List;
 public interface ImageRepositoryCustom {
     List<ProductDetailsResponse.typeAndImage> getTypeAndImageByProductDetailsId
             (Integer productDetailsId);
+
+    List<String> getBannerImage();
 }

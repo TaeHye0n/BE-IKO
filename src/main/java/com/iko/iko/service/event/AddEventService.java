@@ -26,7 +26,7 @@ public class AddEventService {
     private final LinkEventImageRepository linkEventImageRepository;
     @Transactional
     public String addEvent(AddEventRequest addEventRequest){
-       // Member member = validateLoginStatus();
+        Member member = validateLoginStatus();
         Event event=eventRepository.save(addEventRequest.toEntity());
         Image image = new Image();
         image.setImageType(1);

@@ -119,7 +119,7 @@ public class ProductDetailsController {
         return ResponseEntity.ok(
                 Response.of(
                         productDetailsFacade.getGraphicOption(productId,period,colorCode,graphic),
-                        "기간 및 컬러코드 선택 후 그래픽직경 불러오기 완료"
+                        "최종 상세상품 불러오기 완료"
                 )
         );
     }

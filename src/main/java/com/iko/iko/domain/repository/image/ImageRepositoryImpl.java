@@ -31,4 +31,13 @@ public class ImageRepositoryImpl implements ImageRepositoryCustom{
                 .distinct()
                 .fetch();
     }
+
+    @Override
+    public List<String> getBannerImage(){
+        return jpaQueryFactory
+                .select(image.imageUrl)
+                .from(image)
+                .where(image.imageType.eq(4))
+                .fetch();
+    }
 }
