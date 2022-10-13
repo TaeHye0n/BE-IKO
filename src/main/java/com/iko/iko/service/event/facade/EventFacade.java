@@ -18,6 +18,7 @@ public class EventFacade {
 
     private final AddEventService addEventService;
     private final GetEventDetailsService getEventDetailsService;
+
     @Transactional(readOnly = true)
     public EventResponse.EventMainResponse
     getEventMain(){
@@ -34,5 +35,6 @@ public class EventFacade {
     public String addEvent(AddEventRequest addEventRequest){
         return addEventService.addEvent(addEventRequest);
     }
+
 
 }

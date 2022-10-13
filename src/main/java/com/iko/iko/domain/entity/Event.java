@@ -38,4 +38,7 @@ public class Event extends BaseEntity{
     @Column(name = "event_end_time" , nullable = false)
     private Date eventEndTime;
 
+    @Column(name="top_fixed",nullable = false)
+    private Integer topFixed;
+
 }

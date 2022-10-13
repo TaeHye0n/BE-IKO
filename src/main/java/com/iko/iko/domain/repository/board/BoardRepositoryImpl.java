@@ -18,6 +18,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     public List<BoardResponse.BoardMain> getMain(Integer bType){
         return jpaQueryFactory
                 .select(Projections.constructor(BoardResponse.BoardMain.class,
+                        board.createdAt,
                         board.boardId,
                         board.boardTitle,
                         board.boardType))
@@ -36,6 +37,19 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
                         board.boardDescription))
                 .from(board)
                 .where(board.boardId.eq(selectedBoardId))
+                .fetch();
+    }
+
+    @Override
+    public List<BoardResponse.BoardMainForAdmin> getMainForAdmin(){
+        return jpaQueryFactory
+                .select(Projections.constructor(BoardResponse.BoardMainForAdmin.class,
+                        board.boardType,
+                        board.boardTitle,
+                        board.boardId,
+                        board.createdAt))
+                .from(board)
+                .distinct()
                 .fetch();
     }
 

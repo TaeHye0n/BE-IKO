@@ -1,12 +1,16 @@
 package com.iko.iko.controller.admin;
 
 import com.iko.iko.common.response.Response;
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
+import com.iko.iko.controller.board.dto.BoardRequest;
+import com.iko.iko.controller.board.dto.BoardResponse;
 import com.iko.iko.controller.coupon.dto.request.CouponRequestDto.InsertCouponRequest;
 import com.iko.iko.controller.event.dto.EventRequest.AddEventRequest;
 import com.iko.iko.controller.order.dto.request.OrderRequestDto.*;
 import com.iko.iko.controller.order.dto.response.OrderResponseDto.*;
 import com.iko.iko.controller.product.dto.ProductResponse;
 import com.iko.iko.controller.product.dto.request.ProductRequest;
+import com.iko.iko.service.board.facade.BoardFacade;
 import com.iko.iko.service.coupon.facade.CouponFacade;
 import com.iko.iko.service.event.facade.EventFacade;
 import com.iko.iko.service.image.facade.ImageFacade;
@@ -34,6 +38,7 @@ public class AdminController {
     private final ProductDetailsFacade productDetailsFacade;
 
     private final ImageFacade imageFacade;
+    private final BoardFacade boardFacade;
 
 
     @PostMapping("/insertProduct")
@@ -148,6 +153,24 @@ public class AdminController {
         return ResponseEntity.ok(
                 Response.of(productFacade.stockList(productId, color, period, graphicDiameter),
                         "재고 정보 조회 완료")
+        );
+    }
+    @PostMapping("/insertBoard")
+    public ResponseEntity<Response<String>> addBoard(
+            @RequestBody @Valid BoardRequest.AddBoardRequest request
+            ){
+        return ResponseEntity.ok(
+                Response.of(boardFacade.addBoard(request),
+                "공지사항 등록 완료"
+        ));
+    }
+
+    @GetMapping("/boardMain")
+    public ResponseEntity<Response<BoardResponse.BoardMainForAdminResponse>>
+            getBoardMainForAdmin(){
+        return ResponseEntity.ok(
+                Response.of(boardFacade.getBoardMainForAdmin(),
+                        "공지사항 목록 불러오기 완료")
         );
     }
 

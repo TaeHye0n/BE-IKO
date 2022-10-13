@@ -34,4 +34,5 @@ public class Board extends BaseEntity {
 
     @Column(name = "board_description", nullable = false)
     private String boardDescription;
+
 }

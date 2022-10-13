@@ -22,7 +22,8 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
                 .select(Projections.constructor(EventResponse.EventMain.class,
                         event.eventId,
                         image.imageUrl,
-                        event.eventTitle))
+                        event.eventTitle,
+                        event.topFixed))
                 .from(event)
                 .join(linkEventImage).on(event.eventId.eq(linkEventImage.eventId)).fetchJoin()
                 .join(image).on(image.imageId.eq(linkEventImage.imageId)).fetchJoin()

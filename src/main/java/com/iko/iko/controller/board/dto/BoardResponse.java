@@ -10,6 +10,7 @@ public class BoardResponse {
     @AllArgsConstructor
     @Builder
     public static class BoardMain{
+        private Date createdAt;
         private Integer boardId;
         private String boardTitle;
         private Integer boardType;
@@ -33,6 +34,25 @@ public class BoardResponse {
         private Date updatedAt;
         private String description;
 
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class BoardMainForAdmin{
+        private Integer boardType;
+        private String boardTitle;
+        private Integer boardId;
+        private Date createdAt;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    @Setter
+    public static class BoardMainForAdminResponse{
+        private Integer totalCount;
+        private List<BoardMainForAdmin> boardDataList;
     }
 
 }

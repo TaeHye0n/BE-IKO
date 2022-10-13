@@ -18,6 +18,7 @@ public class EventRequest {
         private String description;
         private Date startTime;
         private Date endTime;
+        private Integer topFixed;
         private String mainImageUrl;
         private String explainImageUrl;
         /*@Getter
@@ -44,6 +45,7 @@ public class EventRequest {
                     .eventDescription(description)
                     .eventStartTime(startTime)
                     .eventEndTime(endTime)
+                    .topFixed(topFixed)
                     .build();
         }
 

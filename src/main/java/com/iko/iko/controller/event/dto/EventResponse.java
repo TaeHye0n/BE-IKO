@@ -13,6 +13,7 @@ public class EventResponse {
         private Integer eventId;
         private String imageUrl;
         private String eventTitle;
+        private Integer topFixed;
     }
 
     @Getter
