@@ -20,6 +20,7 @@ public class ReplyFacade {
     private final UpdateReplyService updateReplyService;
     private final MyReplyListService myReplyListService;
     private final GetReplyDataService getReplayDataService;
+    private final GetProductIdForReply getProductIdForReply;
     private final GetReplyForProductDetailsService getReplyForProductDetailsService;
     @Transactional
     public String addReply(AddReplyRequest addReplyRequest){
@@ -49,6 +50,11 @@ public class ReplyFacade {
     @Transactional(readOnly = true)
     public List<ReplyResponseDtO.ReplyInfoForProductDetails> getReplyForProductDetails(Pageable pageable,Integer productId){
         return getReplyForProductDetailsService.getReplyForProductDetails(pageable,productId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply(){
+        return getProductIdForReply.getProductIdForReply();
     }
 
 }

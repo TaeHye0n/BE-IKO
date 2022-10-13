@@ -25,4 +25,6 @@ public interface ReplyRepositoryCustom {
     List<ReplyResponseDtO.ReplyData> getReplyData(Integer productId);
 
     Page<ReplyInfoForMain> getReplyForProductDetails(Pageable pageable,Integer productId);
+
+    List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply();
 }

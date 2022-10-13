@@ -153,4 +153,14 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
 
     }
 
+    @Override
+    public List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply(){
+        return jpaQueryFactory
+                .select(Projections.constructor(ReplyResponseDtO.ReplyForProduct.class,
+                        product.productId,
+                        product.name))
+                .from(product)
+                .distinct()
+                .fetch();
+    }
 }

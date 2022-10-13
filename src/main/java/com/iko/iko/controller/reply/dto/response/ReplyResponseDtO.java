@@ -111,4 +111,13 @@ public class ReplyResponseDtO {
         private Date createdAt;
     }
 
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyForProduct{
+        private String name;
+        private Integer productId;
+    }
+
 }

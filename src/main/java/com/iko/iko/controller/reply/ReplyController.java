@@ -73,4 +73,15 @@ public class ReplyController {
         ));
     }
 
+    @GetMapping("/forProductId")
+    public ResponseEntity<Response<List<ReplyResponseDtO.ReplyForProduct>>>
+    getProductIdForReply(){
+        return ResponseEntity.ok(
+                Response.of(
+                        replyFacade.getProductIdForReply(),
+                        "product Id와 name 불러오기 완료! "
+                )
+        );
+    }
+
 }
