@@ -157,8 +157,8 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
     public List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply(){
         return jpaQueryFactory
                 .select(Projections.constructor(ReplyResponseDtO.ReplyForProduct.class,
-                        product.productId,
-                        product.name))
+                        product.name,
+                        product.productId))
                 .from(product)
                 .distinct()
                 .fetch();
