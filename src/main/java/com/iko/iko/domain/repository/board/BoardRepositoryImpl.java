@@ -32,8 +32,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         return jpaQueryFactory
                 .select(Projections.constructor(BoardResponse.BoardDetails.class,
                         board.boardTitle,
-                        board.updatedAt,
-                        board.updatedBy,
+                        board.createdBy,
+                        board.createdAt,
                         board.boardDescription))
                 .from(board)
                 .where(board.boardId.eq(selectedBoardId))

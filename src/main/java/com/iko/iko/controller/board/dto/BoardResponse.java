@@ -31,7 +31,7 @@ public class BoardResponse {
     public static class BoardDetails{
         private String boardTitle;
         private String createdBy;
-        private Date updatedAt;
+        private Date createdAt;
         private String description;
 
     }
