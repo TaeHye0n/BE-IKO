@@ -6,7 +6,10 @@ import com.iko.iko.controller.product.dto.request.ProductRequest.*;
 import com.iko.iko.domain.entity.Image;
 import com.iko.iko.domain.entity.LinkProductDetailsImage;
 import com.iko.iko.domain.entity.ProductDetails;
+import com.iko.iko.domain.repository.cart.CartRepository;
+import com.iko.iko.domain.repository.favor.FavorRepository;
 import com.iko.iko.domain.repository.image.ImageRepository;
+import com.iko.iko.domain.repository.linkOrderDetails.LinkOrderDetailsRepository;
 import com.iko.iko.domain.repository.linkProductDetailsImage.LinkProductDetailsImageRepository;
 import com.iko.iko.domain.repository.product.ProductRepository;
 import com.iko.iko.domain.repository.productDetails.ProductDetailsRepository;
@@ -24,6 +27,9 @@ public class UpdateProductService {
     private final ProductDetailsRepository productDetailsRepository;
     private final ImageRepository imageRepository;
     private final LinkProductDetailsImageRepository linkProductDetailsImageRepository;
+    private final LinkOrderDetailsRepository linkOrderDetailsRepository;
+    private final FavorRepository favorRepository;
+    private final CartRepository cartRepository;
 
     @Transactional
     public String updateProduct(ProductUpdateRequest productUpdateRequest) {
@@ -39,7 +45,11 @@ public class UpdateProductService {
         for (Integer imageId : imageIdList) {
             imageRepository.deleteImage(imageId);
         }
-
+        for(Integer productDetailsId : productDetailsIdList){
+            linkOrderDetailsRepository.deleteLinkOrder(productDetailsId);
+            cartRepository.deleteCartForAdmin(productDetailsId);
+        }
+        favorRepository.deleteFavorForAdmin(productId);
         productDetailsRepository.deleteProductDetails(productId);
 
         for (ProductUpdateRequest.ProductOptionUpdateRequest productOptionUpdateRequest : productUpdateRequest.getProductOptionUpdateRequestList()) {

@@ -3,7 +3,10 @@ package com.iko.iko.service.product;
 import com.iko.iko.common.exception.BaseException;
 import com.iko.iko.common.response.ErrorCode;
 import com.iko.iko.domain.entity.Product;
+import com.iko.iko.domain.repository.cart.CartRepository;
+import com.iko.iko.domain.repository.favor.FavorRepository;
 import com.iko.iko.domain.repository.image.ImageRepository;
+import com.iko.iko.domain.repository.linkOrderDetails.LinkOrderDetailsRepository;
 import com.iko.iko.domain.repository.linkProductDetailsImage.LinkProductDetailsImageRepository;
 import com.iko.iko.domain.repository.product.ProductRepository;
 import com.iko.iko.domain.repository.productDetails.ProductDetailsRepository;
@@ -22,6 +25,9 @@ public class DeleteProductService {
     private final ProductDetailsRepository productDetailsRepository;
     private final ImageRepository imageRepository;
     private final LinkProductDetailsImageRepository linkProductDetailsImageRepository;
+    private final LinkOrderDetailsRepository linkOrderDetailsRepository;
+    private final FavorRepository favorRepository;
+    private final CartRepository cartRepository;
 
     @Transactional
     public String deleteProduct(Integer productId) {
@@ -37,7 +43,11 @@ public class DeleteProductService {
             for (Integer imageId : imageIdList) {
                 imageRepository.deleteImage(imageId);
             }
-
+            for(Integer productDetailsId : productDetailsIdList){
+                linkOrderDetailsRepository.deleteLinkOrder(productDetailsId);
+                cartRepository.deleteCartForAdmin(productDetailsId);
+            }
+            favorRepository.deleteFavorForAdmin(productId);
             productDetailsRepository.deleteProductDetails(productId);
             productRepository.deleteProduct(productId);
             return "Ok";

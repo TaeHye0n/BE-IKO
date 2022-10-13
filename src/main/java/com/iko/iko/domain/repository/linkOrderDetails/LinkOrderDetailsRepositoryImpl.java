@@ -34,4 +34,12 @@ public class LinkOrderDetailsRepositoryImpl implements LinkOrderDetailsRepositor
                 .where(linkOrderDetails.orderId.eq(orderId))
                 .fetch();
     }
+
+    @Override
+    public Long deleteLinkOrder(Integer productDetailsId){
+        return jpaQueryFactory
+                .delete(linkOrderDetails)
+                .where(linkOrderDetails.productDetailsId.eq(productDetailsId))
+                .execute();
+    }
 }

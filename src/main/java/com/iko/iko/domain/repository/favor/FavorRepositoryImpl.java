@@ -122,5 +122,12 @@ public class FavorRepositoryImpl implements FavorRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public Long deleteFavorForAdmin(Integer productId){
+        return jpaQueryFactory
+                .delete(favor)
+                .where(favor.productId.eq(productId))
+                .execute();
+    }
 
 }

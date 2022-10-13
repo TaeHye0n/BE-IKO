@@ -85,4 +85,12 @@ public class CartRepositoryImpl implements CartRepositoryCustom{
                         .and(cart.productDetailsId.eq(cart1.getProductDetailsId())))
                 .execute();
     }
+
+    @Override
+    public Long deleteCartForAdmin(Integer productDetailsId){
+        return jpaQueryFactory
+                .delete(cart)
+                .where(cart.productDetailsId.eq(productDetailsId))
+                .execute();
+    }
 }

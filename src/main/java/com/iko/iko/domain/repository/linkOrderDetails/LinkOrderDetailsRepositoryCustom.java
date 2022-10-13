@@ -9,4 +9,6 @@ public interface LinkOrderDetailsRepositoryCustom {
     Long cancelLinkOrder(Integer orderId);
 
     List<LinkOrderDetails> findLinkOrderDetails(Integer orderId);
+
+    Long deleteLinkOrder(Integer productDetailsId);
 }

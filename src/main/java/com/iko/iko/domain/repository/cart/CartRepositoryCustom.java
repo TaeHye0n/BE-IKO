@@ -14,4 +14,6 @@ public interface CartRepositoryCustom {
     List<Cart> getCartList(Integer memberId, Integer productDetailsId);
 
     Long addPcs(Cart cart);
+
+    Long deleteCartForAdmin(Integer productDetailsId);
 }

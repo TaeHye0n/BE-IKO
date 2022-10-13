@@ -19,6 +19,7 @@ public interface FavorRepositoryCustom {
     List<Favor> getFavorList(Integer productId, Integer memberId);
 
     List<Integer> getPeriodForFavor(Integer productId);
+    Long deleteFavorForAdmin(Integer productId);
 
 //    List<Date> getFavorCreatedAt(Integer memberId);
 }
