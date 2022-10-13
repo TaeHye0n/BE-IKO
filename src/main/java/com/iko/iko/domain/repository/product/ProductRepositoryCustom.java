@@ -37,4 +37,6 @@ public interface ProductRepositoryCustom{
     Integer searchProductIdByNameForAdmin(String productName);
     List<ProductResponse.ProductIdAndCreatedAt> getProductIdByNewest();
 
+    Long deleteProduct(Integer productId);
+
 }

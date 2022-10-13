@@ -395,4 +395,15 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                        .and(productDetails.graphicDiameter.like(graphicDiameter.toString())))
                .fetch();
     }
+
+    @Override
+    public Long updateStock(
+            Integer productDetailsId, Integer stock
+    ){
+        return jpaQueryFactory
+                .update(productDetails)
+                .set(productDetails.productDetailsStock, stock)
+                .where(productDetails.productDetailsId.eq(productDetailsId))
+                .execute();
+    }
 }

@@ -24,6 +24,7 @@ public class ProductDetailsFacade {
     private final GetGraphicOptionService getGraphicOptionService;
     private final GetProductDetailsByOptionService getProductDetailsByOptionService;
     private final ProductDetailsInfoService productDetailsInfoService;
+    private final UpdateStockService updateStockService;
 
     @Transactional(readOnly = true)
     public List<String> getProductExplainImage(Integer productId){
@@ -76,6 +77,11 @@ public class ProductDetailsFacade {
     @Transactional(readOnly = true)
     public ProductResponse.ProductDetailsInfoResponse searchDetailsById(Integer productId){
         return productDetailsInfoService.searchDetailsById(productId);
+    }
+
+    @Transactional
+    public String updateStock(ProductDetailsRequest.UpdateStockRequest updateStockRequest){
+        return updateStockService.updateStock(updateStockRequest);
     }
 
 }

@@ -31,6 +31,7 @@ public class ProductFacade {
 
     private final GetNewProductService getNewProductService;
     private final StockListService stockListService;
+    private final DeleteProductService deleteProductService;
 
 
     @Transactional(readOnly = true)
@@ -91,5 +92,10 @@ public class ProductFacade {
     @Transactional(readOnly = true)
     public List<ProductResponse.stockListResponse> stockList(Integer productId, String color, Integer period, Float graphicDiameter) {
         return stockListService.stockList(productId, color, period, graphicDiameter);
+    }
+
+    @Transactional
+    public String deleteProduct(Integer productId){
+        return deleteProductService.deleteProduct(productId);
     }
 }

@@ -1,6 +1,7 @@
 package com.iko.iko.controller.admin;
 
 import com.iko.iko.common.response.Response;
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsRequest;
 import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import com.iko.iko.controller.board.dto.BoardRequest;
 import com.iko.iko.controller.board.dto.BoardResponse;
@@ -155,22 +156,43 @@ public class AdminController {
                         "재고 정보 조회 완료")
         );
     }
+
     @PostMapping("/insertBoard")
     public ResponseEntity<Response<String>> addBoard(
             @RequestBody @Valid BoardRequest.AddBoardRequest request
-            ){
+    ) {
         return ResponseEntity.ok(
                 Response.of(boardFacade.addBoard(request),
-                "공지사항 등록 완료"
-        ));
+                        "공지사항 등록 완료"
+                ));
     }
 
     @GetMapping("/boardMain")
     public ResponseEntity<Response<BoardResponse.BoardMainForAdminResponse>>
-            getBoardMainForAdmin(){
+    getBoardMainForAdmin() {
         return ResponseEntity.ok(
                 Response.of(boardFacade.getBoardMainForAdmin(),
                         "공지사항 목록 불러오기 완료")
+        );
+    }
+
+    @DeleteMapping("/deleteProduct")
+    public ResponseEntity<Response<String>> deleteProduct(
+            @RequestParam(value = "productId") Integer productId
+    ) {
+        return ResponseEntity.ok(
+                Response.of(productFacade.deleteProduct(productId),
+                        "상품 삭제 완료")
+        );
+    }
+
+    @PutMapping("/updateStock")
+    public ResponseEntity<Response<String>> updateStock(
+            @RequestBody @Valid ProductDetailsRequest.UpdateStockRequest updateStockRequest
+    ) {
+        return ResponseEntity.ok(
+                Response.of(productDetailsFacade.updateStock(updateStockRequest),
+                        "재고 수정 완료")
         );
     }
 

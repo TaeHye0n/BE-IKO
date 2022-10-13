@@ -62,4 +62,6 @@ public interface ProductDetailsRepositoryCustom {
     List<Integer> searchProductDetailsIdByProductId(Integer productId);
 
     List<ProductResponse.stockListResponse> getStockAndDegree(Integer productId, String color, Integer period, Float graphicDiameter);
+
+    Long updateStock(Integer productDetailsId, Integer stock);
 }

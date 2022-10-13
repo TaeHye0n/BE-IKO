@@ -20,6 +20,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
+
 import java.util.Date;
 import java.util.*;
 
@@ -87,10 +88,11 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(productDetails.productIdFk.eq(productId))
                 .fetch();
     }
+
     @Override
-    public Page<ProductResponse.GetAllProductDistinct> getAllProductByFilter(Pageable pageable, Integer productId){
+    public Page<ProductResponse.GetAllProductDistinct> getAllProductByFilter(Pageable pageable, Integer productId) {
         QueryResults<ProductResponse.GetAllProductDistinct> queryResults
-                =jpaQueryFactory
+                = jpaQueryFactory
                 .select(Projections.constructor(
                         ProductResponse.GetAllProductDistinct.class,
                         product.productId,
@@ -105,8 +107,9 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
-        return new PageImpl<>(queryResults.getResults(),pageable, queryResults.getTotal());
+        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
     }
+
     @Override
     public Page<ProductResponse.GetAllProductDistinct> getAllProduct(Pageable pageable) {
         QueryResults<ProductResponse.GetAllProductDistinct> queryResults
@@ -198,8 +201,9 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .where(product.recommend.eq(1))
                 .fetch();
     }
+
     @Override
-    public List<Integer> getProductIdBySearchName(String searchName){
+    public List<Integer> getProductIdBySearchName(String searchName) {
         return jpaQueryFactory
                 .select(product.productId)
                 .from(product)
@@ -229,7 +233,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     @Override
     public Long updateProduct(
             ProductRequest.ProductUpdateRequest productUpdateRequest
-    ){
+    ) {
         return jpaQueryFactory
                 .update(product)
                 .set(product.name, productUpdateRequest.getProductName())
@@ -237,7 +241,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .set(product.discount, productUpdateRequest.getDiscount())
                 .set(product.diameter, productUpdateRequest.getDiameter())
                 .set(product.manufacturer, productUpdateRequest.getManufacturer())
-                .set(product.series , productUpdateRequest.getSeries())
+                .set(product.series, productUpdateRequest.getSeries())
                 .set(product.feature, convertStringListToString(productUpdateRequest.getFeature()))
                 .set(product.recommend, productUpdateRequest.getRecommend())
                 .set(product.exposure, productUpdateRequest.getExposure())
@@ -248,7 +252,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     @Override
     public Integer searchProductIdByNameForAdmin(
             String productName
-    ){
+    ) {
         return jpaQueryFactory
                 .select(product.productId)
                 .from(product)
@@ -257,7 +261,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public List<ProductResponse.ProductIdAndCreatedAt> getProductIdByNewest(){
+    public List<ProductResponse.ProductIdAndCreatedAt> getProductIdByNewest() {
         return jpaQueryFactory
                 .select(Projections.constructor(ProductResponse.ProductIdAndCreatedAt.class,
                         product.productId,
@@ -266,6 +270,14 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 .orderBy(product.createdAt.desc())
                 .distinct()
                 .fetch();
+    }
+
+    @Override
+    public Long deleteProduct(Integer productId){
+        return jpaQueryFactory
+                .delete(product)
+                .where(product.productId.eq(productId))
+                .execute();
     }
 
 }
