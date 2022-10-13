@@ -80,6 +80,7 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
         return jpaQueryFactory
                 .select(Projections.constructor(ProductInfoForReplyResponse.class,
                         product.name,
+                        product.productId,
                         productDetails.color,
                         productDetails.graphicDiameter,
                         productDetails.degree,

@@ -40,6 +40,7 @@ public class ReplyResponseDtO {
     @Builder
     public static class ProductInfoForReplyResponse {
         private String productName;
+        private Integer productId;
         private String color;
         private Float graphicDiameter;
         private Float degree;
