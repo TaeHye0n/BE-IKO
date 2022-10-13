@@ -10,6 +10,7 @@ import com.iko.iko.domain.repository.linkMemberCoupon.LinkMemberCouponRepository
 import com.iko.iko.domain.repository.linkOrderDetails.LinkOrderDetailsRepository;
 import com.iko.iko.domain.repository.member.MemberRepository;
 import com.iko.iko.domain.repository.order.OrderRepository;
+import com.iko.iko.domain.repository.reply.ReplyRepository;
 import com.iko.iko.security.jwt.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class CancelOrderService {
     private final LinkOrderDetailsRepository linkOrderDetailsRepository;
     private final MemberRepository memberRepository;
     private final LinkMemberCouponRepository linkMemberCouponRepository;
+    private final ReplyRepository replyRepository;
 
     @Transactional
     public String cancelOrder(CancelOrderRequest cancelOrderRequest) {
@@ -45,6 +47,7 @@ public class CancelOrderService {
                     orderRepository.plusStockForOrder(linkOrderDetails.getProductDetailsId(), linkOrderDetails.getPcs());
                 }
 
+                replyRepository.deleteReplyForOrder(cancelOrderRequest.getOrderId());
                 linkOrderDetailsRepository.cancelLinkOrder(cancelOrderRequest.getOrderId());
                 orderRepository.cancelOrder(order.get().getMemberId(), cancelOrderRequest.getOrderId());
             } else throw new BaseException(ErrorCode.COMMON_BAD_REQUEST);

@@ -14,6 +14,8 @@ public interface ReplyRepositoryCustom {
 
     Long deleteReply(Integer replyId);
 
+    Long deleteReplyForOrder(Integer orderId);
+
     Long updateReply(UpdateReplyRequest updateReplyRequest);
 
     List<MyReplyAndIdsResponse> getMyReplyAndIdsInfo(Integer memberId);

@@ -194,4 +194,12 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
                         .fetchResults();
         return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
     }
+
+    @Override
+    public Long deleteReplyForOrder(Integer orderId){
+        return jpaQueryFactory
+                .delete(reply)
+                .where(reply.orderId.eq(orderId))
+                .execute();
+    }
 }
