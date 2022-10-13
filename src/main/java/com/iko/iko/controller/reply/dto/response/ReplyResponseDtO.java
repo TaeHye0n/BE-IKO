@@ -121,4 +121,36 @@ public class ReplyResponseDtO {
         private Integer productId;
     }
 
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyInfoByNameResponse{
+        private String reviewImageUrl;
+        private Float graphicDiameter;
+        private Integer period;
+        private String productImageUrl;
+        private String productName;
+        private String color;
+        private String email;
+        private Float rating;
+        private String content;
+        private Date createdAt;
+    }
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ReplyInfoByName {
+        private String reviewImageUrl;
+        private Float graphicDiameter;
+        private Integer period;
+        private String productImageUrl;
+        private String productName;
+        private String color;
+        private Integer memberId;
+        private Float rating;
+        private String content;
+        private Date createdAt;
+    }
 }

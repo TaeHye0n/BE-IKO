@@ -24,6 +24,7 @@ import static com.iko.iko.domain.entity.QReply.reply;
 import static com.iko.iko.domain.entity.QLinkOrderDetails.linkOrderDetails;
 import static com.iko.iko.domain.entity.QLinkProductDetailsImage.linkProductDetailsImage;
 import static com.iko.iko.domain.entity.QOrder.order;
+
 @Repository
 @RequiredArgsConstructor
 public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
@@ -103,16 +104,16 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
     @Override
     public List<Reply> getReplyList(
             Integer orderId, Integer productDetailsId
-    ){
+    ) {
         return jpaQueryFactory
                 .selectFrom(reply)
                 .where(reply.orderId.eq(orderId)
                         .and(reply.productDetailsId.eq(productDetailsId)))
                 .fetch();
-       }
+    }
 
     @Override
-    public List<ReplyResponseDtO.ReplyData> getReplyData(Integer productId){
+    public List<ReplyResponseDtO.ReplyData> getReplyData(Integer productId) {
         return jpaQueryFactory
                 .select(Projections.constructor(ReplyData.class,
                         reply.rating,
@@ -132,30 +133,30 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
     }
 
     @Override
-    public Page<ReplyResponseDtO.ReplyInfoForMain> getReplyForProductDetails(Pageable pageable,Integer productId){
-        QueryResults<ReplyInfoForMain> queryResults=
+    public Page<ReplyResponseDtO.ReplyInfoForMain> getReplyForProductDetails(Pageable pageable, Integer productId) {
+        QueryResults<ReplyInfoForMain> queryResults =
                 jpaQueryFactory
-                .select(Projections.constructor(ReplyResponseDtO.ReplyInfoForMain.class,
-                        reply.imageUrl,
-                        product.name,
-                        reply.memberId,
-                        reply.rating,
-                        reply.content,
-                        reply.createdAt
+                        .select(Projections.constructor(ReplyResponseDtO.ReplyInfoForMain.class,
+                                reply.imageUrl,
+                                product.name,
+                                reply.memberId,
+                                reply.rating,
+                                reply.content,
+                                reply.createdAt
                         ))
-                .from(reply)
-                .join(productDetails).on(productDetails.productDetailsId.eq(reply.productDetailsId)).fetchJoin()
-                .join(product).on(product.productId.eq(productDetails.productIdFk)).fetchJoin()
-                .where(productDetails.productIdFk.eq(productId))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetchResults();
-        return new PageImpl<>(queryResults.getResults(),pageable, queryResults.getTotal());
+                        .from(reply)
+                        .join(productDetails).on(productDetails.productDetailsId.eq(reply.productDetailsId)).fetchJoin()
+                        .join(product).on(product.productId.eq(productDetails.productIdFk)).fetchJoin()
+                        .where(productDetails.productIdFk.eq(productId))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .fetchResults();
+        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
 
     }
 
     @Override
-    public List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply(){
+    public List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply() {
         return jpaQueryFactory
                 .select(Projections.constructor(ReplyResponseDtO.ReplyForProduct.class,
                         product.name,
@@ -163,5 +164,34 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
                 .from(product)
                 .distinct()
                 .fetch();
+    }
+
+    @Override
+    public Page<ReplyInfoByName> ReplyInfoByName(Pageable pageable, Integer productId) {
+        QueryResults<ReplyInfoByName> queryResults =
+                jpaQueryFactory
+                        .select(Projections.constructor(ReplyInfoByName.class,
+                                reply.imageUrl,
+                                productDetails.graphicDiameter,
+                                productDetails.period,
+                                image.imageUrl,
+                                product.name,
+                                productDetails.color,
+                                reply.memberId,
+                                reply.rating,
+                                reply.content,
+                                reply.createdAt
+                        ))
+                        .from(product)
+                        .join(productDetails).on(productDetails.productIdFk.eq(productId)).fetchJoin()
+                        .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                        .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
+                                .and(image.imageType.eq(1))).fetchJoin()
+                        .join(reply).on(reply.productDetailsId.eq(productDetails.productDetailsId)).fetchJoin()
+                        .where(product.productId.eq(productId))
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .fetchResults();
+        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
     }
 }
