@@ -65,7 +65,7 @@ public class Order extends BaseEntity{
     private Integer method;
 
     @Column(name = "point")
-    private Integer point;
+    private Float point;
 
     @Column(name = "message")
     private String message;

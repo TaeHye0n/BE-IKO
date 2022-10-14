@@ -58,7 +58,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
     @Override
     public Long addPoint(
-            Integer memberId, Integer point
+            Integer memberId, Float point
     ){
         return jpaQueryFactory
                 .update(member)
@@ -69,7 +69,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 
     @Override
     public Long minusPoint(
-            Integer memberId, Integer point
+            Integer memberId, Float point
     ){
         return jpaQueryFactory
                 .update(member)

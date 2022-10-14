@@ -29,7 +29,7 @@ public class MemberResponseDto {
 
     private String birthday;
 
-    private Integer point;
+    private Float point;
 
     private Date createdAt;
 

@@ -40,7 +40,7 @@ public class OrderResponseDto {
         private String detailAddress;
         private String receiverPhone;
         private String shippingMessage;
-        private Integer point;
+        private Float point;
         private Integer couponId;
     }
 

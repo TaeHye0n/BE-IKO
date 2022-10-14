@@ -28,7 +28,7 @@ public class OrderRequestDto {
         private Integer couponId;
         private Integer method;
         private Integer totalPrice;
-        private Integer point;
+        private Float point;
 
         @Getter
         @Setter

@@ -62,7 +62,7 @@ public class Member extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private Integer point;
+    private Float point;
 
     private String refreshToken;
 

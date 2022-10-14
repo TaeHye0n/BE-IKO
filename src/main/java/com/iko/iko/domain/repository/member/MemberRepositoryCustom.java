@@ -12,9 +12,9 @@ public interface MemberRepositoryCustom {
 
    Long logout(Member member);
 
-   Long addPoint(Integer memberId, Integer point);
+   Long addPoint(Integer memberId, Float point);
 
-   Long minusPoint(Integer memberId, Integer point);
+   Long minusPoint(Integer memberId, Float point);
 
    String getEmailByMemberId(Integer memberId);
 }
