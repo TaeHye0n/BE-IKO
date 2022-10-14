@@ -337,7 +337,8 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                         productDetails.moisture,
                         productDetails.isSale,
                         productDetails.detailsExposure,
-                        productDetails.period
+                        productDetails.period,
+                        productDetails.productDetailsStock
                 ))
                 .from(productDetails)
                 .distinct()

@@ -59,6 +59,7 @@ public class ProductDetailsInfoService {
                         productDetailsInfo.getIsSale(),
                         productDetailsInfo.getDetailsExposure(),
                         productDetailsInfo.getPeriod(),
+                        productDetailsInfo.getProductDetailsStock(),
                         degree,
                         imageUrl,
                         explanationImageUrl

@@ -168,6 +168,7 @@ public class ProductResponse {
         private Integer isSale;
         private Integer detailsExposure;
         private Integer period;
+        private Integer productDetailsStock;
         private List<Float> degree;
         private List<String> imageUrl;
         private List<String> explanationImageUrl;
@@ -188,6 +189,7 @@ public class ProductResponse {
         private Integer isSale;
         private Integer detailsExposure;
         private Integer period;
+        private Integer productDetailsStock;
     }
 
     @Getter
