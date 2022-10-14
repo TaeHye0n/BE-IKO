@@ -202,4 +202,13 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
                 .where(reply.orderId.eq(orderId))
                 .execute();
     }
+
+    @Override
+    public Long deleteReplyForAdmin(Integer productDetailsId){
+        return jpaQueryFactory
+                .delete(reply)
+                .where(reply.productDetailsId.eq(productDetailsId))
+                .execute();
+    }
+
 }

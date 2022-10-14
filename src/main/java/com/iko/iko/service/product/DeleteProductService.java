@@ -10,6 +10,7 @@ import com.iko.iko.domain.repository.linkOrderDetails.LinkOrderDetailsRepository
 import com.iko.iko.domain.repository.linkProductDetailsImage.LinkProductDetailsImageRepository;
 import com.iko.iko.domain.repository.product.ProductRepository;
 import com.iko.iko.domain.repository.productDetails.ProductDetailsRepository;
+import com.iko.iko.domain.repository.reply.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class DeleteProductService {
     private final LinkOrderDetailsRepository linkOrderDetailsRepository;
     private final FavorRepository favorRepository;
     private final CartRepository cartRepository;
+    private final ReplyRepository replyRepository;
 
     @Transactional
     public String deleteProduct(Integer productId) {
@@ -46,6 +48,7 @@ public class DeleteProductService {
             for(Integer productDetailsId : productDetailsIdList){
                 linkOrderDetailsRepository.deleteLinkOrder(productDetailsId);
                 cartRepository.deleteCartForAdmin(productDetailsId);
+                replyRepository.deleteReplyForAdmin(productDetailsId);
             }
             favorRepository.deleteFavorForAdmin(productId);
             productDetailsRepository.deleteProductDetails(productId);
