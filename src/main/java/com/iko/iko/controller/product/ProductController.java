@@ -26,7 +26,7 @@ public class ProductController {
     private final ProductDetailsFacade productDetailsFacade;
 
     @GetMapping("/main")
-    public ResponseEntity<Response<List<ProductDetailsResponse.MainProductForResponse>>>
+    public ResponseEntity<Response<List<ProductResponse.MainProductForResponse>>>
     getMainProduct(
             @RequestParam Integer page, @RequestParam Integer size,
             @RequestParam  Integer memberId

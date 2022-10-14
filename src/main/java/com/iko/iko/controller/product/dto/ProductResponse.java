@@ -1,5 +1,6 @@
 package com.iko.iko.controller.product.dto;
 
+import com.iko.iko.controller.ProductDetails.dto.ProductDetailsResponse;
 import lombok.*;
 
 import java.util.Date;
@@ -202,5 +203,20 @@ public class ProductResponse {
         private Integer productDetailsId;
     }
 
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static  class MainProductForResponse{
+        private Integer totalCount;
+        private Integer isFavorite;
+        private Integer productId;
+        private String series;
+        private List<Float> graphicDiameter;
+        private Integer price;
+        private Integer discount;
+        private String name;
+        private List<ProductDetailsResponse.GetColorCodeAndImageUrl> colorAndImage;
+    }
 
 }

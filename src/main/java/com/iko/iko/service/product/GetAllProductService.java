@@ -24,10 +24,10 @@ public class GetAllProductService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
-    public List<ProductDetailsResponse.MainProductForResponse> GetMainProduct(Pageable pageable,Integer memberId) {
+    public List<ProductResponse.MainProductForResponse> GetMainProduct(Pageable pageable,Integer memberId) {
         Integer isFavorite=0;
 
-        List<ProductDetailsResponse.MainProductForResponse> result = new ArrayList<>();
+        List<ProductResponse.MainProductForResponse> result = new ArrayList<>();
         Page<ProductResponse.GetAllProductDistinct> mainProduct = productRepository.getAllProduct(pageable);
 
         List<Integer> totalProductId=productRepository.getAllProductId();
@@ -55,8 +55,8 @@ public class GetAllProductService {
             for(ProductDetailsResponse.GetGraphicDiameter tp : graphicList){
                 gList.add(tp.getGraphicDiameter());
             }
-            ProductDetailsResponse.MainProductForResponse checkData
-                    =new ProductDetailsResponse.MainProductForResponse(
+            ProductResponse.MainProductForResponse checkData
+                    =new ProductResponse.MainProductForResponse(
                             totalCount,
                     isFavorite,
                     tmp.getProductId(),
@@ -64,6 +64,7 @@ public class GetAllProductService {
                     gList,
                     tmp.getPrice(),
                     tmp.getDiscount(),
+                    tmp.getName(),
                     iList);
 
             result.add(checkData);

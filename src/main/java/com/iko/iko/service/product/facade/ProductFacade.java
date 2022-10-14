@@ -35,7 +35,7 @@ public class ProductFacade {
 
 
     @Transactional(readOnly = true)
-    public List<ProductDetailsResponse.MainProductForResponse>
+    public List<ProductResponse.MainProductForResponse>
     getMainProduct(Pageable pageable, Integer memberId) {
 
         return getAllProductService.GetMainProduct(pageable, memberId);
