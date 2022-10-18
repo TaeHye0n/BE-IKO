@@ -32,4 +32,6 @@ public interface ReplyRepositoryCustom {
     List<ReplyResponseDtO.ReplyForProduct> getProductIdForReply();
 
     Page<ReplyInfoByName> ReplyInfoByName(Pageable pageable, Integer productId);
+
+    Page<ReplyInfoByName> AllReplyInfo(Pageable pageable);
 }

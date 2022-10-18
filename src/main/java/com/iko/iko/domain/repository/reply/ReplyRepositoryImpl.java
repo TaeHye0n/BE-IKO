@@ -211,4 +211,34 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom {
                 .execute();
     }
 
+    @Override
+    public Page<ReplyInfoByName> AllReplyInfo(Pageable pageable){
+        QueryResults<ReplyInfoByName> queryResults =
+                jpaQueryFactory
+                        .select(Projections.constructor(ReplyInfoByName.class,
+                                reply.imageUrl,
+                                productDetails.graphicDiameter,
+                                productDetails.period,
+                                image.imageUrl,
+                                product.name,
+                                productDetails.color,
+                                reply.memberId,
+                                reply.rating,
+                                reply.content,
+                                reply.createdAt
+                        ))
+                        .from(reply)
+                        .join(productDetails).on(productDetails.productIdFk.eq(reply.productDetailsId)).fetchJoin()
+                        .join(product).on(productDetails.productIdFk.eq(product.productId)).fetchJoin()
+                        .join(linkProductDetailsImage).on(productDetails.productDetailsId.eq(linkProductDetailsImage.productDetailsId)).fetchJoin()
+                        .join(image).on(linkProductDetailsImage.imageId.eq(image.imageId)
+                                .and(image.imageType.eq(1))).fetchJoin()
+                        .distinct()
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .fetchResults();
+        return new PageImpl<>(queryResults.getResults(), pageable, queryResults.getTotal());
+    }
+
+
 }

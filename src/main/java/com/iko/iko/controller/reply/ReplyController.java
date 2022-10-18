@@ -97,5 +97,15 @@ public class ReplyController {
         );
     }
 
+    @GetMapping("/allReply")
+    public ResponseEntity<Response<List<ReplyInfoByNameResponse>>> AllReply(
+            @RequestParam Integer page, @RequestParam Integer size
+    ){
+        Pageable pageable = PageRequest.of(page-1,size);
+        return ResponseEntity.ok(
+                Response.of(replyFacade.AllReply(pageable),
+                        "모든 리뷰 조회 완료")
+        );
+    }
 
 }

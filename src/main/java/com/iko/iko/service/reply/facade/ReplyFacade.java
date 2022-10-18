@@ -23,6 +23,7 @@ public class ReplyFacade {
     private final GetProductIdForReply getProductIdForReply;
     private final GetReplyForProductDetailsService getReplyForProductDetailsService;
     private final ReplyListByNameService replyListByNameService;
+    private final AllReplyService allReplyService;
     @Transactional
     public String addReply(AddReplyRequest addReplyRequest){
         return addReplyService.addReply(addReplyRequest);
@@ -61,6 +62,11 @@ public class ReplyFacade {
     @Transactional(readOnly = true)
     public List<ReplyInfoByNameResponse> ReplyInfoByName(Pageable pageable, String productName){
         return replyListByNameService.ReplyInfoByName(pageable, productName);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReplyInfoByNameResponse> AllReply(Pageable pageable){
+        return allReplyService.AllReply(pageable);
     }
 
 }
