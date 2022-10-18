@@ -196,4 +196,14 @@ public class AdminController {
         );
     }
 
+    @DeleteMapping("/deleteEvent")
+    public ResponseEntity<Response<String>> deleteEvent(
+            @RequestParam(value = "eventId") Integer eventId
+    ) {
+        return ResponseEntity.ok(
+                Response.of(eventFacade.deleteEvent(eventId),
+                        "이벤트 삭제 완료")
+        );
+    }
+
 }

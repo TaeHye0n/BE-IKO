@@ -7,4 +7,6 @@ public interface EventRepositoryCustom {
     List<EventResponse.EventMain> getEventMain();
 
     List<EventResponse.EventDetails> getEventDetails(Integer selectedEventId);
+
+    Long deleteEvent(Integer eventId);
 }

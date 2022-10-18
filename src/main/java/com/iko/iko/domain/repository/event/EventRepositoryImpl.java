@@ -46,4 +46,13 @@ public class EventRepositoryImpl implements EventRepositoryCustom{
                 .where(event.eventId.eq(selectedEventId).and(image.imageType.eq(3)))
                 .fetch();
     }
+
+    @Override
+    public Long deleteEvent(Integer eventId){
+        return jpaQueryFactory
+                .delete(event)
+                .where(event.eventId.eq(eventId))
+                .execute();
+    }
+
 }
