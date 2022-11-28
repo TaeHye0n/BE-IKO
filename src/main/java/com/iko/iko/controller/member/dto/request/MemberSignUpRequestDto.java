@@ -26,7 +26,6 @@ public class MemberSignUpRequestDto {
     private String address;
 
     private String detailAddress;
-
   //  @Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "올바른 휴대폰 번호를 입력해주세요.")
     private String phone;
 
