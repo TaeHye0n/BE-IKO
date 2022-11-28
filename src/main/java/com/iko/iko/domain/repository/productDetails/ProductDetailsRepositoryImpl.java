@@ -105,7 +105,7 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
                         .and(convertFloatWhere(productByOption.getGraphicDiameter()))
                         .and(convertIntegerWhere(productByOption.getPeriod()))
                         .and(convertStringWhere(productByOption.getSeries(), "Series"))
-                        .and(convertStringWhere(productByOption.getFeature(), "Feature")))
+                        .and(convertFeatureWhere(productByOption.getFeature())))
                 .distinct()
                 .fetch();
 
@@ -130,6 +130,14 @@ public class ProductDetailsRepositoryImpl implements ProductDetailsRepositoryCus
         BooleanBuilder builder = new BooleanBuilder();
         for (Integer tmp : integerList) {
             builder.or(productDetails.period.eq(tmp));
+        }
+        return builder;
+    }
+
+    private BooleanBuilder convertFeatureWhere(List<String> stringList) {
+        BooleanBuilder builder = new BooleanBuilder();
+        for (String tmp : stringList) {
+            builder.or(product.feature.contains(tmp));
         }
         return builder;
     }
