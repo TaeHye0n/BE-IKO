@@ -27,9 +27,9 @@ public class JwtTokenProvider {
     private String secretKey;
 
     // 토큰 유효시간 168 시간(7일)
-    private long ACCESS_TOKEN_VALID_TIME = 1000L* 60 * 30  ; //5분
+    private final long ACCESS_TOKEN_VALID_TIME = 1000L* 60 * 30  ; //5분
 
-    private long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 7; //일주일
+    private final long REFRESH_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 7; //일주일
 
     private final CustomUserDetailsService customUserDetailsService;
 
@@ -101,8 +101,8 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
-//        } catch (ExpiredJwtException e) {
-//            return true;
+        } catch (ExpiredJwtException e) {
+            return true;
         } catch (Exception e) {
             return false;
         }
